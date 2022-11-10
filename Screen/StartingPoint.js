@@ -15,6 +15,7 @@ import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 
 function StartingPoint({ navigation }) {
+  //지도 state
   const [ok, setOk] = useState(true);
   const [address, SetAddress] = useState("loading...");
   const [region, setRegion] = useState({
@@ -293,7 +294,6 @@ function StartingPoint({ navigation }) {
 
   useEffect(() => {
     getAddress();
-    // console.log(koDepartures["originItems"]);
   }, []);
   return (
     <View style={styles.block}>
@@ -307,6 +307,23 @@ function StartingPoint({ navigation }) {
         />
       </MapView>
       <Text>현재위치: {address}</Text>
+      <SelectList
+        setSelected={(val) => setSido(val)}
+        data={data}
+        save="value"
+      />
+      {data.map((name, index) => {
+        if (name["key"] == sido) {
+          return (
+            <SelectList
+              key={index}
+              setSelected={(val) => setSido_sgg(val)}
+              data={name["options"]}
+              save="value"
+            />
+          );
+        }
+      })}
 
       <Modal
         animationType="slide"
@@ -397,10 +414,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#44AD5E",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#44AD5E",
   },
   textStyle: {
     color: "white",
