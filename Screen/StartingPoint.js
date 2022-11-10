@@ -8,11 +8,15 @@ import {
   Pressable,
   Alert,
   Modal,
+  StatusBar,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 function StartingPoint({ navigation }) {
   //지도 state
@@ -296,35 +300,47 @@ function StartingPoint({ navigation }) {
     getAddress();
   }, []);
   return (
-    <View style={styles.block}>
-      <Text style={styles.text}>start</Text>
-      <MapView style={styles.map} region={region}>
-        <Marker
-          coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
-          }}
-        />
-      </MapView>
-      <Text>현재위치: {address}</Text>
-      {/* <SelectList
-        setSelected={(val) => setSido(val)}
-        data={data}
-        save="value"
-      />
-      {data.map((name, index) => {
-        if (name["key"] == sido) {
-          return (
-            <SelectList
-              key={index}
-              setSelected={(val) => setSido_sgg(val)}
-              data={name["options"]}
-              save="value"
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.box}>
+          <Text style={styles.text}>출발지 설정</Text>
+          <MapView style={styles.map} region={region}>
+            <Marker
+              coordinate={{
+                latitude: region.latitude,
+                longitude: region.longitude,
+              }}
             />
-          );
-        }
-      })} */}
-      <Modal
+          </MapView>
+          <Text>
+            <Ionicons name="md-pin" size={30} color={"green"} />
+            현재위치: {address}
+          </Text>
+          <Pressable style={[styles.button, styles.buttonClose]}>
+            <Text style={styles.textStyle}>현위치를 출발지로</Text>
+          </Pressable>
+          <SelectList
+            setSelected={(val) => setSido(val)}
+            data={data}
+            save="value"
+            // boxStyles={{ marginHorizontal: 80 }}
+            placeholder="시도"
+          />
+          {data.map((name, index) => {
+            if (name["key"] == sido) {
+              return (
+                <SelectList
+                  key={index}
+                  setSelected={(val) => setSido_sgg(val)}
+                  data={name["options"]}
+                  save="value"
+                  //   boxStyles={{ marginHorizontal: 80 }}
+                  placeholder="시군구"
+                />
+              );
+            }
+          })}
+          {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -368,23 +384,39 @@ function StartingPoint({ navigation }) {
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.textStyle}>출발지 선택하기</Text>
-      </Pressable>
-      <Text>{sido}</Text>
-      <Text>{sido_sgg}</Text>
-      <Button title="submit" onPress={() => navigation.navigate("Filter")} />
-    </View>
+      </Pressable> */}
+          <Text>{sido}</Text>
+          <Text>{sido_sgg}</Text>
+          <Button
+            title="submit"
+            onPress={() => navigation.navigate("Filter")}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
-  block: {},
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
+  scrollView: {
+    // backgroundColor: "pink",
+  },
+  box: {
+    paddingHorizontal: 20,
+    // paddingVertical: 20,
+  },
   text: {
     padding: 16,
     fontSize: 24,
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: 250,
+    width: screenWidth - 40,
+    height: 300,
   },
   centeredView: {
     flex: 1,
@@ -408,9 +440,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
     elevation: 2,
+    width: 200,
   },
   buttonOpen: {
     backgroundColor: "#44AD5E",

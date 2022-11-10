@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Dimensions } from "react-native";
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
@@ -22,7 +22,7 @@ function Filter({ navigation }) {
   ];
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>테마</Text>
       <MultipleSelectList
         setSelected={(val) => setTheme(val)}
@@ -34,7 +34,7 @@ function Filter({ navigation }) {
       <Text>{theme}</Text>
       <Text>인구수</Text>
       <Slider
-        style={{ width: 300, height: 40 }}
+        style={styles.slider}
         value={population}
         onValueChange={(val) => setPopulation(val)}
         minimumValue={0}
@@ -46,7 +46,7 @@ function Filter({ navigation }) {
       <Text>{population} ~ 1000</Text>
       <Text>거리</Text>
       <Slider
-        style={{ width: 300, height: 40 }}
+        style={styles.slider}
         value={distance}
         onValueChange={(val) => setDistance(val)}
         minimumValue={0}
@@ -69,7 +69,17 @@ function Filter({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  slider: {
+    width: screenWidth - 40,
+  },
+});
 
 export default Filter;
