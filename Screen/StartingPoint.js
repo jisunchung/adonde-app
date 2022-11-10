@@ -5,6 +5,7 @@ import * as Location from "expo-location";
 import { useState } from "react";
 // import PickerCascader from "react-native-picker-cascader";
 import { Picker } from "@react-native-picker/picker";
+import koDepartures from "../locales/ko.json";
 
 function StartingPoint({ navigation }) {
   const [ok, setOk] = useState(true);
@@ -44,6 +45,7 @@ function StartingPoint({ navigation }) {
 
   useEffect(() => {
     getAddress();
+    console.log(koDepartures["originItems"]);
   }, []);
   return (
     <View style={styles.block}>
