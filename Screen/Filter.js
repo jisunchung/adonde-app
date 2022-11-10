@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
-import koDepartures from "../locales/ko.json";
 
 function Filter({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selected1, setSelected1] = useState("");
-  const [selected2, setSelected2] = useState("");
-  const [data2, setData2] = useState([]);
+  const [sido, setSido] = useState("");
+  const [sido_sgg, setSido_sgg] = useState("");
   const data = [
     {
       key: "특별/광역시",
@@ -245,19 +243,7 @@ function Filter({ navigation }) {
       ],
     },
   ];
-  //   useEffect(() => {
-  //     // console.log(data.map);
-  //     const newArr = data.map((elem, index) => {
-  //       //   console.log(elem["key"]);
-  //       if (elem["key"] == selected1) {
-  //         console.log(elem["options"]);
-  //         // setData2(elem["options"]);
-  //       }
-  //       //   console.log(elem["options"]);
-  //       //   return elem["options"];
-  //     });
-  //     // console.log(newArr);
-  //   });
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -273,16 +259,16 @@ function Filter({ navigation }) {
           <View style={styles.modalView}>
             <Text style={styles.modalText}>출발지를 선택하세요!</Text>
             <SelectList
-              setSelected={(val) => setSelected1(val)}
+              setSelected={(val) => setSido(val)}
               data={data}
               save="value"
             />
             {data.map((name, index) => {
-              if (name["key"] == selected1) {
+              if (name["key"] == sido) {
                 return (
                   <SelectList
                     key={index}
-                    setSelected={(val) => setSelected2(val)}
+                    setSelected={(val) => setSido_sgg(val)}
                     data={name["options"]}
                     save="value"
                   />
@@ -305,8 +291,8 @@ function Filter({ navigation }) {
       >
         <Text style={styles.textStyle}>Show Modal</Text>
       </Pressable>
-      <Text>{selected1}</Text>
-      <Text>{selected2}</Text>
+      <Text>{sido}</Text>
+      <Text>{sido_sgg}</Text>
     </View>
   );
 }
