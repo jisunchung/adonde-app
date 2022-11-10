@@ -41,15 +41,7 @@ function StartingPoint({ navigation }) {
     newRegion.longitude = long;
     setRegion(newRegion);
   };
-  const pickerRef = useRef();
 
-  function open() {
-    pickerRef.current.focus();
-  }
-
-  function close() {
-    pickerRef.current.blur();
-  }
   useEffect(() => {
     getAddress();
   }, []);
@@ -66,30 +58,14 @@ function StartingPoint({ navigation }) {
       </MapView>
       <Text>현재위치: {address}</Text>
       <Text>dropdown</Text>
-      {/* <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
-      >
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker> */}
-
       <Picker
-        ref={pickerRef}
         selectedValue={selectedLanguage}
         onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
       >
         <Picker.Item label="Java" value="java" />
         <Picker.Item label="JavaScript" value="js" />
       </Picker>
+
       <Text>{selectedLanguage}</Text>
       <Button title="submit" onPress={() => navigation.navigate("Filter")} />
     </View>

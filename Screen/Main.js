@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Home";
 import StartingPoint from "./StartingPoint";
 import Filter from "./Filter";
+import Result from "./Result";
 const Stack = createNativeStackNavigator();
 
 function Main() {
@@ -12,6 +13,7 @@ function Main() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Start" component={StartingPoint} />
       <Stack.Screen name="Filter" component={Filter} />
+      <Stack.Screen name="Result" component={Result} />
     </Stack.Navigator>
   );
 }
