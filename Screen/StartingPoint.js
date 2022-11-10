@@ -45,7 +45,7 @@ function StartingPoint({ navigation }) {
 
   useEffect(() => {
     getAddress();
-    console.log(koDepartures["originItems"]);
+    // console.log(koDepartures["originItems"]);
   }, []);
   return (
     <View style={styles.block}>
