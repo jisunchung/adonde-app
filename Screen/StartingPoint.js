@@ -307,7 +307,7 @@ function StartingPoint({ navigation }) {
         />
       </MapView>
       <Text>현재위치: {address}</Text>
-      <SelectList
+      {/* <SelectList
         setSelected={(val) => setSido(val)}
         data={data}
         save="value"
@@ -323,7 +323,7 @@ function StartingPoint({ navigation }) {
             />
           );
         }
-      })}
+      })} */}
       <Modal
         animationType="slide"
         transparent={true}
