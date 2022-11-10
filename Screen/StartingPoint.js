@@ -324,7 +324,6 @@ function StartingPoint({ navigation }) {
           );
         }
       })}
-
       <Modal
         animationType="slide"
         transparent={true}
