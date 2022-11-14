@@ -271,7 +271,7 @@ function StartingPoint({ navigation }) {
       ],
     },
   ];
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   //지도, 현재위치, 주소
   const getAddress = async () => {
@@ -301,9 +301,9 @@ function StartingPoint({ navigation }) {
   };
   // 출발지에 따른 접근성 필터 상태 확인
   const changeAccItemStatus = async () => {
+    setLoading(true);
+    console.log("loading", loading);
     try {
-      setLoading(true);
-      console.log("loading", loading);
       const express_res = await axios.post(`${BASE_URL}/express/findAny`, {
         sido_sgg,
       });
@@ -317,9 +317,8 @@ function StartingPoint({ navigation }) {
       //   console.log("express.data: ", express_res.data);
       //   console.log("sub.data: ", suburbs_res.data);
       //   console.log("train.data: ", train_res.data);
-      setLoading(false);
-      console.log("loading", loading);
-      //네비게이션 파라미터에 실어서 보내기...
+
+      //네비게이션 파라미터에 실어서 filter페이지로 보내기...
       await navigation.push("Filter", {
         express: express_res.data,
         suburbs: suburbs_res.data,
@@ -327,6 +326,8 @@ function StartingPoint({ navigation }) {
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -430,11 +431,7 @@ function StartingPoint({ navigation }) {
             }
             // onPress={() => navigation.push("Filter", { sido_sgg })}
           ></Button>
-          {(loading) => {
-            if (loading) {
-              return <ActivityIndicator size={"large"} color={"black"} />;
-            }
-          }}
+          {loading && <ActivityIndicator size={"large"} color={"black"} />}
         </View>
       </ScrollView>
     </SafeAreaView>
