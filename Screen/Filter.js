@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
-
+import { useRoute } from "@react-navigation/native";
 function Filter({ navigation }) {
   const [theme, setTheme] = useState([]);
   const [population, setPopulation] = useState(0);
@@ -29,11 +29,13 @@ function Filter({ navigation }) {
     { key: "2", value: "직통 시외버스" },
     { key: "3", value: "직통 기차" },
   ];
+  const route = useRoute();
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.box}>
+          <Text>{route.params.sido_sgg}</Text>
           <Text>테마</Text>
           <MultipleSelectList
             setSelected={(val) => setTheme(val)}

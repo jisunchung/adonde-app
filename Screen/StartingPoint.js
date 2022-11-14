@@ -296,6 +296,8 @@ function StartingPoint({ navigation }) {
     setRegion(newRegion);
   };
 
+  const changeAccItemStatus = async () => {};
+
   useEffect(() => {
     getAddress();
   }, []);
@@ -389,7 +391,7 @@ function StartingPoint({ navigation }) {
           <Text>{sido_sgg}</Text>
           <Button
             title="submit"
-            onPress={() => navigation.navigate("Filter")}
+            onPress={() => navigation.push("Filter", { sido_sgg })}
           />
         </View>
       </ScrollView>

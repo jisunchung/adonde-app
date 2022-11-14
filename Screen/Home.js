@@ -13,7 +13,7 @@ function Home({ navigation }) {
     console.log(imageUrl);
   };
   useEffect(() => {
-    // console.log(storage);
+    console.log(storage);
     // console.log(storageRef);
     url();
   });
@@ -24,7 +24,7 @@ function Home({ navigation }) {
       <Image
         style={styles.logo}
         source={{
-          uri: "https://firebasestorage.googleapis.com/v0/b/adonde-app.appspot.com/o/logo.png?alt=media&token=c715bc89-9a79-43f9-9b04-c04e0896f815",
+          uri: imageUrl,
         }}
       />
       <Button title="go start " onPress={() => navigation.navigate("Start")} />
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   logo: {
-    width: 66,
-    height: 70,
+    width: 210,
+    height: 180,
   },
 });
 
