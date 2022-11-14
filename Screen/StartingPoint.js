@@ -435,7 +435,6 @@ function StartingPoint({ navigation }) {
                 ? Alert.alert("출발지를  선택하세요")
                 : changeAccItemStatus()
             }
-            // onPress={() => navigation.push("Filter", { sido_sgg })}
           ></Button>
           {loading && <ActivityIndicator size={"large"} color={"black"} />}
         </View>

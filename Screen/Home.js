@@ -33,14 +33,17 @@ function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
   text: {
-    padding: 16,
+    // padding: 16,
     fontSize: 24,
   },
   logo: {
-    width: 210,
-    height: 180,
+    width: 230,
+    height: 225,
   },
 });
 

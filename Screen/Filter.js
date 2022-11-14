@@ -57,15 +57,15 @@ function Filter({ navigation }) {
       route.params.suburbs,
       route.params.train
     );
-  });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.box}>
-          {/* <Text>{route.params.train}</Text> */}
           <Text>테마</Text>
           <MultipleSelectList
+            placeholder="테마를 골라주세요"
             setSelected={(val) => setTheme(val)}
             data={themeItems}
             save="value"
@@ -99,6 +99,7 @@ function Filter({ navigation }) {
           <Text>{distance}km</Text>
           <Text>접근성</Text>
           <MultipleSelectList
+            placeholder="접근성을 골라주세요"
             setSelected={(val) => setAccess(val)}
             data={accessItems}
             save="value"
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
   },
   box: {
     paddingHorizontal: 20,
-    // paddingVertical: 20,
+    paddingVertical: 20,
   },
   slider: {
     width: screenWidth - 40,
