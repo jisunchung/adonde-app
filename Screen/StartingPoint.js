@@ -11,6 +11,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
@@ -18,6 +19,8 @@ import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import axios from "axios";
+import { BASE_URL } from "../api";
 function StartingPoint({ navigation }) {
   //지도 state
   const [ok, setOk] = useState(true);
@@ -268,6 +271,7 @@ function StartingPoint({ navigation }) {
       ],
     },
   ];
+  const [loading, setLoading] = useState(true);
 
   //지도, 현재위치, 주소
   const getAddress = async () => {
@@ -295,8 +299,36 @@ function StartingPoint({ navigation }) {
     newRegion.longitude = long;
     setRegion(newRegion);
   };
+  // 출발지에 따른 접근성 필터 상태 확인
+  const changeAccItemStatus = async () => {
+    try {
+      setLoading(true);
+      console.log("loading", loading);
+      const express_res = await axios.post(`${BASE_URL}/express/findAny`, {
+        sido_sgg,
+      });
+      const suburbs_res = await axios.post(`${BASE_URL}/suburbs/findAny`, {
+        sido_sgg,
+      });
+      const train_res = await axios.post(`${BASE_URL}/train/findOne`, {
+        sido_sgg,
+      });
 
-  const changeAccItemStatus = async () => {};
+      //   console.log("express.data: ", express_res.data);
+      //   console.log("sub.data: ", suburbs_res.data);
+      //   console.log("train.data: ", train_res.data);
+      setLoading(false);
+      console.log("loading", loading);
+      //네비게이션 파라미터에 실어서 보내기...
+      await navigation.push("Filter", {
+        express: express_res.data,
+        suburbs: suburbs_res.data,
+        train: train_res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     getAddress();
@@ -342,7 +374,7 @@ function StartingPoint({ navigation }) {
               );
             }
           })}
-          <Modal
+          {/* <Modal
             animationType="slide"
             transparent={true}
             visible={modalVisible}
@@ -386,13 +418,23 @@ function StartingPoint({ navigation }) {
             onPress={() => setModalVisible(true)}
           >
             <Text style={styles.textStyle}>출발지 선택하기</Text>
-          </Pressable>
+          </Pressable> */}
           <Text>{sido}</Text>
           <Text>{sido_sgg}</Text>
           <Button
             title="submit"
-            onPress={() => navigation.push("Filter", { sido_sgg })}
-          />
+            onPress={() =>
+              sido_sgg == ""
+                ? Alert.alert("출발지를  선택하세요")
+                : changeAccItemStatus()
+            }
+            // onPress={() => navigation.push("Filter", { sido_sgg })}
+          ></Button>
+          {(loading) => {
+            if (loading) {
+              return <ActivityIndicator size={"large"} color={"black"} />;
+            }
+          }}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -9,7 +9,7 @@ function Result({ navigation }) {
         "https://adonde-kr.herokuapp.com/city/findAll",
         {}
       );
-      console.log(response);
+      //   console.log(response);
     } catch (error) {
       console.log(error);
     } finally {

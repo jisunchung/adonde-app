@@ -8,6 +8,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
@@ -25,17 +26,44 @@ function Filter({ navigation }) {
     { key: "4", value: "강" },
   ];
   const accessItems = [
-    { key: "1", value: "직통 고속버스" },
-    { key: "2", value: "직통 시외버스" },
-    { key: "3", value: "직통 기차" },
+    { key: "1", value: "직통 고속버스", disabled: false },
+    { key: "2", value: "직통 시외버스", disabled: false },
+    { key: "3", value: "직통 기차", disabled: false },
   ];
   const route = useRoute();
+  const setAccItemStatus = (express, suburbs, train) => {
+    if (express == null) {
+      accessItems[0].disabled = true;
+    }
+    if (suburbs == null) {
+      accessItems[1].disabled = true;
+    }
+    if (train == null) {
+      accessItems[2].disabled = true;
+    }
+    if (express == null && suburbs == null && train == null) {
+      Alert.alert("선택가능한 access 없음");
+    }
+  };
+  useEffect(() => {
+    // express: express_res.data,
+    // suburbs: suburbs_res.data,
+    // train: train_res.data,
+    console.log("filter express", route.params.express);
+    console.log("filter suburbs", route.params.suburbs);
+    console.log("filter train", route.params.train);
+    setAccItemStatus(
+      route.params.express,
+      route.params.suburbs,
+      route.params.train
+    );
+  });
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.box}>
-          <Text>{route.params.sido_sgg}</Text>
+          {/* <Text>{route.params.train}</Text> */}
           <Text>테마</Text>
           <MultipleSelectList
             setSelected={(val) => setTheme(val)}
