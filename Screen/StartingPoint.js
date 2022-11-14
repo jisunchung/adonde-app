@@ -333,6 +333,8 @@ function StartingPoint({ navigation }) {
 
   useEffect(() => {
     getAddress();
+    setSido("");
+    setSido_sgg("");
   }, []);
   return (
     <SafeAreaView style={styles.container}>
@@ -354,7 +356,7 @@ function StartingPoint({ navigation }) {
           <Pressable style={[styles.button, styles.buttonClose]}>
             <Text style={styles.textStyle}>현위치를 출발지로</Text>
           </Pressable>
-          <SelectList
+          {/* <SelectList
             setSelected={(val) => setSido(val)}
             data={data}
             save="value"
@@ -374,8 +376,8 @@ function StartingPoint({ navigation }) {
                 />
               );
             }
-          })}
-          {/* <Modal
+          })} */}
+          <Modal
             animationType="slide"
             transparent={true}
             visible={modalVisible}
@@ -416,10 +418,14 @@ function StartingPoint({ navigation }) {
           </Modal>
           <Pressable
             style={[styles.button, styles.buttonOpen]}
-            onPress={() => setModalVisible(true)}
+            onPress={() => [
+              setModalVisible(true),
+              setSido(""),
+              setSido_sgg(""),
+            ]}
           >
             <Text style={styles.textStyle}>출발지 선택하기</Text>
-          </Pressable> */}
+          </Pressable>
           <Text>{sido}</Text>
           <Text>{sido_sgg}</Text>
           <Button
