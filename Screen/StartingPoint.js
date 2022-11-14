@@ -340,51 +340,51 @@ function StartingPoint({ navigation }) {
               );
             }
           })}
-          {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>출발지를 선택하세요!</Text>
-            <SelectList
-              setSelected={(val) => setSido(val)}
-              data={data}
-              save="value"
-            />
-            {data.map((name, index) => {
-              if (name["key"] == sido) {
-                return (
-                  <SelectList
-                    key={index}
-                    setSelected={(val) => setSido_sgg(val)}
-                    data={name["options"]}
-                    save="value"
-                  />
-                );
-              }
-            })}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>출발지를 선택하세요!</Text>
+                <SelectList
+                  setSelected={(val) => setSido(val)}
+                  data={data}
+                  save="value"
+                />
+                {data.map((name, index) => {
+                  if (name["key"] == sido) {
+                    return (
+                      <SelectList
+                        key={index}
+                        setSelected={(val) => setSido_sgg(val)}
+                        data={name["options"]}
+                        save="value"
+                      />
+                    );
+                  }
+                })}
 
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>선택완료</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>출발지 선택하기</Text>
-      </Pressable> */}
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>선택완료</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={styles.textStyle}>출발지 선택하기</Text>
+          </Pressable>
           <Text>{sido}</Text>
           <Text>{sido_sgg}</Text>
           <Button
