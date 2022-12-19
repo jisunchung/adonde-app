@@ -30,6 +30,11 @@ function Filter({ navigation }) {
     { key: "2", value: "직통 시외버스", disabled: false },
     { key: "3", value: "직통 기차", disabled: false },
   ];
+  const access_unify = {
+    "직통 고속버스": "express_direct",
+    "직통 시외버스": "suburbs_direct",
+    "직통 기차": "train_direct",
+  };
   const route = useRoute();
   const setAccItemStatus = (express, suburbs, train) => {
     if (express == null) {
@@ -109,7 +114,7 @@ function Filter({ navigation }) {
           <Text>{access}</Text>
           <Button
             title="submit"
-            onPress={() => navigation.navigate("Result")}
+            onPress={() => navigation.push("Result", {})}
           />
         </View>
       </ScrollView>
