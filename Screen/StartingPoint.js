@@ -313,6 +313,8 @@ function StartingPoint({ navigation }) {
   };
   // 출발지에 따른 접근성 필터 상태 확인
   const changeAccItemStatus = async () => {
+    console.log("sido_sigg", sido_sgg);
+
     setLoading(true);
     console.log("loading", loading);
     try {
@@ -444,8 +446,8 @@ function StartingPoint({ navigation }) {
           <Button
             title="submit"
             onPress={() =>
-              sido_sgg == ""
-                ? Alert.alert("출발지를  선택하세요")
+              sido_sgg == " "
+                ? Alert.alert("출발지를 선택하세요")
                 : changeAccItemStatus()
             }
           ></Button>
