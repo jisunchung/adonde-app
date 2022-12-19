@@ -299,6 +299,18 @@ function StartingPoint({ navigation }) {
     newRegion.longitude = long;
     setRegion(newRegion);
   };
+  const checkMetropolitanCity = (sidoSigg) => {
+    //특별시일 경우 *2 해서 return
+    var pattern = /\s/g;
+    if (sidoSigg.match(pattern)) {
+      //특별시가 아님
+      setSido_sgg(sidoSigg);
+    } else {
+      //특별시
+      const tempCity = sidoSigg + " " + sidoSigg;
+      setSido_sgg(tempCity);
+    }
+  };
   // 출발지에 따른 접근성 필터 상태 확인
   const changeAccItemStatus = async () => {
     setLoading(true);
@@ -333,9 +345,10 @@ function StartingPoint({ navigation }) {
 
   useEffect(() => {
     getAddress();
-    setSido("");
-    setSido_sgg("");
-  }, []);
+    // setSido("");
+    // setSido_sgg("");
+    checkMetropolitanCity(sido_sgg);
+  }, [sido_sgg]);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
