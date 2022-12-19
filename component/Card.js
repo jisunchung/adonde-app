@@ -26,15 +26,16 @@ export default function App({ name, img, description }) {
         />
         <View style={styles.text_container}>
           <Text style={styles.card_des}>{description.split(".", 3)}</Text>
-          {/* <Text style={styles.card_des}>{description.split(".")}</Text> */}
-          {/* <Button title="DETAILS"></Button> */}
-          <Entypo
-            style={styles.heart_icon}
-            name={heart ? "heart" : "heart-outlined"}
-            size={24}
-            color="black"
-            onPress={clickHeart}
-          />
+          <View style={styles.action_container}>
+            <Button title="DETAILS"></Button>
+            <Entypo
+              style={styles.heart_icon}
+              name={heart ? "heart" : "heart-outlined"}
+              size={24}
+              color="black"
+              onPress={clickHeart}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -91,7 +92,10 @@ const styles = StyleSheet.create({
     color: "black",
   },
   heart_icon: {
-    paddingTop: 10,
-    paddingLeft: 230,
+    paddingTop: 8,
+  },
+  action_container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
