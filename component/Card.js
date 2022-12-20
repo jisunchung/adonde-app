@@ -25,7 +25,7 @@ export default function App({ name, img, description }) {
           }}
         />
         <View style={styles.text_container}>
-          <Text style={styles.card_des}>{description.split(".", 3)}</Text>
+          {/* <Text style={styles.card_des}>{description.split(".", 2)}</Text> */}
           <View style={styles.action_container}>
             <Button title="DETAILS"></Button>
             <Entypo
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   card_image: {
     width: 280,
-    height: 250,
+    height: 280,
 
     // borderTopStartRadius: 10,
     // borderTopEndRadius: 10,

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, SafeAreaView } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { useRoute } from "@react-navigation/native";
 import { Card, Icon } from "react-native-elements";
 import { ScrollView } from "react-native";
 import CardComp from "../component/Card";
+import { Entypo } from "@expo/vector-icons";
 
 function Result({ navigation }) {
   const [result, setResult] = useState([]);
@@ -28,49 +29,62 @@ function Result({ navigation }) {
   };
   useEffect(() => {
     searchResult();
+    // console.log("mapIcon", route.params.mapIcon);
   }, []);
-  return (
-    <ScrollView style={styles.block}>
-      {result.length == 0 ? (
-        <Text>로딩중...</Text>
-      ) : (
-        result.map((data) => (
-          <CardComp
-            key={data.sido_sgg}
-            name={data.sido_sgg}
-            img={data.image_src}
-            description={data.description}
-          ></CardComp>
-        ))
-      )}
-      {/* {result.length == 0 ? (
-        <Text>로딩중...</Text>
-      ) : (
-        result.map((data) => (
-          <Card key={data.sido_sgg} styl>
-            <Card.Title>{data.sido_sgg}</Card.Title>
-            <Card.Divider />
-            <Card.Image
-              source={{
-                uri: data.image_src,
-              }}
-            />
-            <Text style={{ marginBottom: 10 }}>{data.description}</Text>
-            <Button
-              icon={<Icon name="code" color="#ffffff" />}
-              buttonStyle={{
-                borderRadius: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                marginBottom: 0,
-              }}
-              title="DETAILS"
-            />
-          </Card>
-        ))
-      )} */}
-    </ScrollView>
-  );
+  //cardlist 형식으로 보여줌
+  if (!route.params.mapIcon) {
+    return (
+      <ScrollView style={styles.block}>
+        {/* <Entypo name="map" size={24} color="black" /> */}
+        {result.length == 0 ? (
+          <Text>로딩중...</Text>
+        ) : (
+          result.map((data) => (
+            <CardComp
+              key={data.sido_sgg}
+              name={data.sido_sgg}
+              img={data.image_src}
+              description={data.description}
+            ></CardComp>
+          ))
+        )}
+        {/* {result.length == 0 ? (
+            <Text>로딩중...</Text>
+          ) : (
+            result.map((data) => (
+              <Card key={data.sido_sgg} styl>
+                <Card.Title>{data.sido_sgg}</Card.Title>
+                <Card.Divider />
+                <Card.Image
+                  source={{
+                    uri: data.image_src,
+                  }}
+                />
+                <Text style={{ marginBottom: 10 }}>{data.description}</Text>
+                <Button
+                  icon={<Icon name="code" color="#ffffff" />}
+                  buttonStyle={{
+                    borderRadius: 0,
+                    marginLeft: 0,
+                    marginRight: 0,
+                    marginBottom: 0,
+                  }}
+                  title="DETAILS"
+                />
+              </Card>
+            ))
+          )} */}
+      </ScrollView>
+    );
+  }
+  //map에 마커로 표시해서 보여줌
+  else {
+    return (
+      <SafeAreaView>
+        <Text>map view</Text>
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
