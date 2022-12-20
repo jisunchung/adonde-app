@@ -19,9 +19,9 @@ function Main() {
     navigation.navigate("Result", { mapIcon });
   };
   useEffect(() => {
-    //listicon으로 보여질때 filterscreen으로 돌아갔다가 다시왔을 때 mapicon이 보여야하는데
-    //listicon이 보이는 오류 처리
-    setMapIcon(true);
+    //   //listicon으로 보여질때 filterscreen으로 돌아갔다가 다시왔을 때 mapicon이 보여야하는데
+    //   //listicon이 보이는 오류 처리
+    //   setMapIcon(true);
   }, []);
   return (
     <Stack.Navigator>

@@ -7,6 +7,7 @@ import { Card, Icon } from "react-native-elements";
 import { ScrollView } from "react-native";
 import CardComp from "../component/Card";
 import { Entypo } from "@expo/vector-icons";
+import ResultMap from "./ResultMap";
 
 function Result({ navigation }) {
   const [result, setResult] = useState([]);
@@ -20,7 +21,8 @@ function Result({ navigation }) {
         transportation: [],
         origin: "서울 서울",
       });
-      console.log("res.data:", res.data[2]);
+      //   console.log("res.data:", res.data[2]);
+      //   console.log("res.data:", res.data[1]);
       setResult(res.data);
     } catch (error) {
       console.log(error);
@@ -81,7 +83,7 @@ function Result({ navigation }) {
   else {
     return (
       <SafeAreaView>
-        <Text>map view</Text>
+        <ResultMap result={result} />
       </SafeAreaView>
     );
   }
