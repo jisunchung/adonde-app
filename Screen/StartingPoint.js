@@ -334,6 +334,7 @@ function StartingPoint({ navigation }) {
 
       //네비게이션 파라미터에 실어서 filter페이지로 보내기...
       await navigation.push("Filter", {
+        origin: sido_sgg,
         express: express_res.data,
         suburbs: suburbs_res.data,
         train: train_res.data,

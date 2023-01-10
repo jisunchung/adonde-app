@@ -15,14 +15,14 @@ function Result({ navigation }) {
   const searchResult = async () => {
     try {
       const res = await axios.post(`${BASE_URL}/search/`, {
-        theme: "",
-        population: [0, 0],
-        distance: "",
-        transportation: [],
-        origin: "서울 서울",
+        theme: route.params.FilterValue["theme"],
+        population: route.params.FilterValue["population"],
+        distance: route.params.FilterValue["distance"],
+        transportation: route.params.FilterValue["access"],
+        origin: route.params.FilterValue["origin"],
       });
       //   console.log("res.data:", res.data[2]);
-      //   console.log("res.data:", res.data[1]);
+      console.log("res.data length:", res.data.length);
       setResult(res.data);
     } catch (error) {
       console.log(error);
@@ -32,6 +32,8 @@ function Result({ navigation }) {
   useEffect(() => {
     searchResult();
     // console.log("mapIcon", route.params.mapIcon);
+    console.log("-------resultpage-----");
+    console.log("result", route.params.FilterValue["access"]);
   }, []);
   //cardlist 형식으로 보여줌
   if (!route.params.mapIcon) {

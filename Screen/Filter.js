@@ -15,10 +15,12 @@ import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
 import { useRoute } from "@react-navigation/native";
 function Filter({ navigation }) {
+  const route = useRoute();
   const [theme, setTheme] = useState([]);
   const [population, setPopulation] = useState(0);
   const [distance, setDistance] = useState(0);
   const [access, setAccess] = useState([]);
+
   const themeItems = [
     { key: "1", value: "산" },
     { key: "2", value: "계곡" },
@@ -35,7 +37,7 @@ function Filter({ navigation }) {
     "직통 시외버스": "suburbs_direct",
     "직통 기차": "train_direct",
   };
-  const route = useRoute();
+
   const setAccItemStatus = (express, suburbs, train) => {
     if (express == null) {
       accessItems[0].disabled = true;
@@ -50,19 +52,82 @@ function Filter({ navigation }) {
       Alert.alert("선택가능한 access 없음");
     }
   };
+  const clickSubmitBtn = () => {
+    //filter 데이터를 처리해준다
+    //테마 ? [] : ""
+    // if (theme.length == 0) {
+    //   setTheme("");
+    // }
+    // console.log("테마", theme);
+    //인구수 array[0,0]
+
+    //거리 == 0 ? "" : 거리값(int)
+
+    //접근성 array[]
+
+    navPush();
+  };
+
+  const navPush = () => {
+    //Result페이지로 result값을 넘겨준다
+
+    navigation.push("Result", {
+      FilterValue: {
+        origin: route.params.origin,
+        theme: theme,
+        population: [0, population],
+        distance: distance,
+        access: translateAccessKoToEn(),
+      },
+    });
+  };
+  const translateAccessKoToEn = () => {
+    let tempAccess = [...access];
+    tempAccess.map((item, index) => {
+      if (!isAlpha(item)) {
+        tempAccess[index] = access_unify[item];
+      }
+    });
+    return tempAccess;
+  };
+  const isAlpha = (str) => {
+    const pattern_eng = /[a-zA-Z]/;
+    if (pattern_eng.test(str)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  //   access.map((item, index) => {
+  //     if(!isAlpha(item)){
+  //         access[index] = access_unify[item]
+  //         }
+  //       }
+  //   })
+
   useEffect(() => {
     // express: express_res.data,
     // suburbs: suburbs_res.data,
     // train: train_res.data,
-    console.log("filter express", route.params.express);
-    console.log("filter suburbs", route.params.suburbs);
-    console.log("filter train", route.params.train);
+    // console.log("filter express", route.params.express);
+    // console.log("filter suburbs", route.params.suburbs);
+    // console.log("filter train", route.params.train);
     setAccItemStatus(
       route.params.express,
       route.params.suburbs,
       route.params.train
     );
-  }, []);
+    //filter 데이터를 처리해준다
+    //테마 ? [] : ""
+    if (theme.length == 0) {
+      setTheme("");
+    }
+
+    //거리 == 0 ? "" : 거리값(int)
+    if (distance == 0) {
+      setDistance("");
+    }
+  }, [theme, distance]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -112,10 +177,7 @@ function Filter({ navigation }) {
             label="접근성"
           />
           <Text>{access}</Text>
-          <Button
-            title="submit"
-            onPress={() => navigation.push("Result", {})}
-          />
+          <Button title="submit" onPress={() => clickSubmitBtn()} />
         </View>
       </ScrollView>
     </SafeAreaView>
