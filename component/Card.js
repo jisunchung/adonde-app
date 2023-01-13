@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Image, Button } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function App({ name, img, description }) {
+  const navigation = useNavigation();
   const [heart, setHeart] = React.useState(false);
   const clickHeart = () => {
     setHeart(!heart);
@@ -27,7 +29,10 @@ export default function App({ name, img, description }) {
         <View style={styles.text_container}>
           {/* <Text style={styles.card_des}>{description.split(".", 2)}</Text> */}
           <View style={styles.action_container}>
-            <Button title="DETAILS"></Button>
+            <Button
+              title="DETAILS"
+              onPress={() => navigation.navigate("Detail", { sido_sgg: name })}
+            ></Button>
             <Entypo
               style={styles.heart_icon}
               name={heart ? "heart" : "heart-outlined"}

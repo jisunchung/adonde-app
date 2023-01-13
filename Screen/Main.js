@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import Result from "./Result";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Detail from "./Detail";
 const Stack = createNativeStackNavigator();
 
 function Main() {
@@ -43,6 +44,7 @@ function Main() {
           ),
         })}
       />
+      <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
   );
 }
