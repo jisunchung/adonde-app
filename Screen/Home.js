@@ -23,9 +23,13 @@ function Home({ navigation }) {
       <Text style={styles.text}>home</Text>
       <Image
         style={styles.logo}
-        source={{
-          uri: imageUrl,
-        }}
+        source={
+          imageUrl
+            ? {
+                uri: imageUrl,
+              }
+            : null
+        }
       />
       <Button title="go start " onPress={() => navigation.navigate("Start")} />
     </View>
