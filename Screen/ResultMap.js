@@ -97,7 +97,10 @@ export default function ResultMap({ result }) {
           result.map((res) => (
             <Marker
               key={res.sido_sgg}
-              coordinate={{ latitude: res.latitude, longitude: res.longitude }}
+              coordinate={{
+                latitude: Number(res.latitude),
+                longitude: Number(res.longitude),
+              }}
               title={res.sido_sgg}
             ></Marker>
           ))
