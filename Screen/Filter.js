@@ -127,7 +127,7 @@ function Filter({ navigation }) {
     if (distance == 0) {
       setDistance("");
     }
-  }, [theme, distance]);
+  }, [accessItems, theme, distance]);
 
   return (
     <SafeAreaView style={styles.container}>
