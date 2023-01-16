@@ -7827,6 +7827,11 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-chip@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-chip/-/react-native-chip-3.0.0.tgz#4bf8f1fd09b9a2e15ba8eb46eda8523fd8f50065"
+  integrity sha512-p/olofcPAoLhxYqjgvZX2ImFESX9IJqb7LaxDlgc61Vp+zXqVdZ7VrpV2LzYQlFPHFkC+Kg/HuZS6+QW8YUjQg==
+
 react-native-codegen@^0.69.2:
   version "0.69.2"
   resolved "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.69.2.tgz"
