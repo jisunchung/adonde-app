@@ -42,8 +42,8 @@ function Detail({}) {
       setCityDetailResult(res.data);
       setRegion({
         ...region,
-        latitude: res.data["latitude"],
-        longitude: res.data["longitude"],
+        latitude: Number(res.data["latitude"]),
+        longitude: Number(res.data["longitude"]),
       });
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ function Detail({}) {
     }
   };
   const getTemp = async () => {
-    dfs_xy_conv(region.latitude, region.longitude);
+    dfs_xy_conv(Number(region.latitude), Number(region.longitude));
     try {
       const res = await axios.get(`${TEMP_BASE_URL}`, {
         params: {
@@ -146,9 +146,11 @@ function Detail({}) {
 
   const returnPlaces = Object.keys(place).map((place_type) => (
     // <ScrollView horizontal={true} style={styles.scrollView_horizontal}>
-    <View style={styles.place_block}>
+    <View style={styles.place_block} key={place_type}>
       {place[`${place_type}`].length != 0 ? (
-        <Text style={styles.place_type_text}>{place_type}</Text>
+        <Text style={styles.place_type_text} key={place_type}>
+          {place_type}
+        </Text>
       ) : null}
 
       {place[`${place_type}`].map((place_result, index) => (
