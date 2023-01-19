@@ -11,7 +11,7 @@ import { useRoute } from "@react-navigation/native";
 import { Linking, Dimensions, ScrollView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
-import { BASE_URL } from "../api";
+import { BASE_URL, TEMP_BASE_URL } from "../api";
 
 function Detail({}) {
   const [cityDetailResult, setCityDetailResult] = useState(null);
@@ -31,13 +31,14 @@ function Detail({}) {
     rivers: [],
     valleys: [],
   });
+  const [tempXY, setTempXY] = useState({});
   const route = useRoute();
   const cityDetails = async () => {
     try {
       const res = await axios.post(`${BASE_URL}/city/findOne`, {
         sido_sgg: route.params.sido_sgg,
       });
-      console.log("city details :", res.data);
+      //   console.log("city details :", res.data);
       setCityDetailResult(res.data);
       setRegion({
         ...region,
@@ -54,8 +55,8 @@ function Detail({}) {
       const res = await axios.post(`${BASE_URL}/place/findBySidoSggAndTheme`, {
         sido_sgg: route.params.sido_sgg,
       });
-      console.log("city place :", res.data);
-      console.log("palces ", Object.keys(res.data));
+      //   console.log("city place :", res.data);
+      //   console.log("palces ", Object.keys(res.data));
       setPlace({
         beaches: res.data["beaches"],
         mountains: res.data["mountains"],
@@ -63,7 +64,7 @@ function Detail({}) {
         valleys: res.data["valleys"],
       });
       setBeaches(res.data["beaches"]);
-      console.log("------------------------beaches", res.data["beaches"]);
+      //   console.log("------------------------beaches", res.data["beaches"]);
 
       //   setPlace(Object.keys(res.data));
     } catch (error) {
@@ -71,9 +72,76 @@ function Detail({}) {
     } finally {
     }
   };
+  const getTemp = async () => {
+    dfs_xy_conv(region.latitude, region.longitude);
+    try {
+      const res = await axios.get(`${TEMP_BASE_URL}`, {
+        params: {
+          base_date: "20230117",
+          base_time: "2000",
+          nx: tempXY.x,
+          ny: tempXY.y,
+          serviceKey:
+            "8bxbM4I%2BUnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ%3D%3D",
+          numOfRows: "10",
+          pageNo: "1",
+          dataType: "JSON",
+        },
+      });
+      console.log("-----------------temp--------------");
+      console.log(res.config.params);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function dfs_xy_conv(v1, v2) {
+    var RE = 6371.00877; // 지구 반경(km)
+    var GRID = 5.0; // 격자 간격(km)
+    var SLAT1 = 30.0; // 투영 위도1(degree)
+    var SLAT2 = 60.0; // 투영 위도2(degree)
+    var OLON = 126.0; // 기준점 경도(degree)
+    var OLAT = 38.0; // 기준점 위도(degree)
+    var XO = 43; // 기준점 X좌표(GRID)
+    var YO = 136; // 기1준점 Y좌표(GRID)
+
+    var DEGRAD = Math.PI / 180.0;
+
+    var re = RE / GRID;
+    var slat1 = SLAT1 * DEGRAD;
+    var slat2 = SLAT2 * DEGRAD;
+    var olon = OLON * DEGRAD;
+    var olat = OLAT * DEGRAD;
+
+    var sn =
+      Math.tan(Math.PI * 0.25 + slat2 * 0.5) /
+      Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+    var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
+    var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+    ro = (re * sf) / Math.pow(ro, sn);
+    var rs = {};
+
+    var ra = Math.tan(Math.PI * 0.25 + v1 * DEGRAD * 0.5);
+    ra = (re * sf) / Math.pow(ra, sn);
+    var theta = v2 * DEGRAD - olon;
+    if (theta > Math.PI) theta -= 2.0 * Math.PI;
+    if (theta < -Math.PI) theta += 2.0 * Math.PI;
+    theta *= sn;
+    rs["x"] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+    rs["y"] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+    setTempXY(rs);
+    return rs;
+  }
   useEffect(() => {
     cityDetails();
     getPlace();
+    // console.log(
+    //   "----------------xy--------",
+    //   dfs_xy_conv(region.latitude, region.longitude)
+    // );
+    getTemp();
   }, []);
 
   const returnPlaces = Object.keys(place).map((place_type) => (
@@ -85,6 +153,7 @@ function Detail({}) {
 
       {place[`${place_type}`].map((place_result, index) => (
         <TouchableOpacity
+          key={index}
           style={styles.place}
           onPress={() => {
             Linking.openURL(place_result["link"]);
