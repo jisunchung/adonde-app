@@ -29,6 +29,7 @@ function Detail() {
     rivers: [],
     valleys: [],
   });
+
   const route = useRoute();
 
   const cityDetails = async () => {
@@ -65,7 +66,7 @@ function Detail() {
         rivers: res.data["rivers"],
         valleys: res.data["valleys"],
       });
-      setBeaches(res.data["beaches"]);
+
       //   console.log("------------------------beaches", res.data["beaches"]);
 
       //   setPlace(Object.keys(res.data));
@@ -107,40 +108,44 @@ function Detail() {
     return (
       <ScrollView>
         <View style={styles.block}>
-          <Text style={styles.text_title}>{route.params.sido_sgg}</Text>
-          <WeatherWidget lat={region.latitude} long={region.longitude} />
-          <Text style={styles.text_des}>{cityDetailResult["description"]}</Text>
-          <Text style={styles.text_population}>
-            인구수 : {cityDetailResult["population"]}
-          </Text>
-          <Text
-            style={{ color: "blue" }}
-            onPress={() => Linking.openURL(cityDetailResult["tourism_link"])}
-          >
-            {cityDetailResult["tourism_link"]}
-          </Text>
-          <Image
-            style={styles.image}
-            source={{
-              uri: cityDetailResult["image_src"],
-            }}
-          />
-          <MapView style={styles.map} region={region}>
-            <Marker
-              coordinate={{
-                latitude: Number(cityDetailResult["latitude"]),
-                longitude: Number(cityDetailResult["longitude"]),
+          <View style={styles.description_block}>
+            <Text style={styles.text_title}>{route.params.sido_sgg}</Text>
+            <WeatherWidget lat={region.latitude} long={region.longitude} />
+            <Text style={styles.text_des}>
+              {cityDetailResult["description"]}
+            </Text>
+            <Text style={styles.text_population}>
+              인구수 : {cityDetailResult["population"]} (명)
+            </Text>
+            <Text
+              style={styles.link}
+              onPress={() => Linking.openURL(cityDetailResult["tourism_link"])}
+            >
+              {cityDetailResult["tourism_link"]}
+            </Text>
+            <Image
+              style={styles.image}
+              source={{
+                uri: cityDetailResult["image_src"],
               }}
             />
-          </MapView>
-          {returnPlaces}
+            <MapView style={styles.map} region={region}>
+              <Marker
+                coordinate={{
+                  latitude: Number(cityDetailResult["latitude"]),
+                  longitude: Number(cityDetailResult["longitude"]),
+                }}
+              />
+            </MapView>
+            {returnPlaces}
+          </View>
         </View>
       </ScrollView>
     );
   } else {
     return (
       <View style={styles.block}>
-        <Text style={styles.text}>loading...</Text>
+        <Text style={styles.loading_text}>loading...</Text>
       </View>
     );
   }
@@ -150,27 +155,52 @@ const styles = StyleSheet.create({
   block: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    backgroundColor: "#08844E",
     flex: 1,
+  },
+  loading_text: {
+    color: "white",
+    alignSelf: "center",
+    fontSize: 30,
+  },
+  description_block: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
   },
   text_title: {
     // padding: 16,
     fontSize: 24,
+    color: "grey",
+    alignSelf: "center",
+    marginBottom: 11,
   },
   text_des: {
-    fontSize: 10,
+    marginVertical: 10,
+    fontSize: 16,
   },
   text_population: {
     fontSize: 20,
+    marginBottom: 20,
+    alignSelf: "flex-end",
+    color: "grey",
   },
   image: {
-    width: screenWidth - 40,
+    marginVertical: 20,
+    width: screenWidth - 80,
     height: 300,
+    borderRadius: 10,
   },
   link: {
-    fontSize: 10,
+    fontSize: 15,
+    backgroundColor: "#42AC5E",
+    color: "#FFBE59",
+    alignSelf: "center",
   },
   map: {
-    width: screenWidth - 40,
+    borderRadius: 10,
+    width: screenWidth - 80,
     height: 300,
   },
   scrollView_horizontal: {

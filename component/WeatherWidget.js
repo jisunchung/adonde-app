@@ -131,12 +131,12 @@ function WeatherWidget({ lat, long }) {
   }, []);
 
   return (
-    <View>
-      <Text style={styles.text_weather}>온도: {weatherResult["T1H"]}°C</Text>
-      <Text style={styles.text_weather}>습도: {weatherResult["REH"]}%</Text>
+    <View style={styles.block}>
+      <Text style={styles.text_weather}>온도 {weatherResult["T1H"]}°C</Text>
+      <Text style={styles.text_weather}>습도 {weatherResult["REH"]}%</Text>
       {weatherResult["SKY"] == 1 ? (
         <Ionicons
-          style={styles.text_weather}
+          style={styles.text_weather_icon}
           name="sunny-outline"
           size={24}
           color="black"
@@ -144,7 +144,7 @@ function WeatherWidget({ lat, long }) {
       ) : null}
       {weatherResult["SKY"] == 3 ? (
         <Ionicons
-          style={styles.text_weather}
+          style={styles.text_weather_icon}
           name="md-partly-sunny-outline"
           size={24}
           color="black"
@@ -152,7 +152,7 @@ function WeatherWidget({ lat, long }) {
       ) : null}
       {weatherResult["SKY"] == 4 ? (
         <Ionicons
-          style={styles.text_weather}
+          style={styles.text_weather_icon}
           name="cloud-outline"
           size={24}
           color="black"
@@ -163,8 +163,26 @@ function WeatherWidget({ lat, long }) {
 }
 const screenWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
+  block: {
+    // paddingHorizontal: 40,
+    // paddingVertical: 40,
+    // width: screenWidth - 80,
+    backgroundColor: "blue",
+    flexDirection: "row",
+    borderRadius: 10,
+    justifyContent: "space-evenly",
+  },
   text_weather: {
-    color: "blue",
+    color: "white",
+    margin: 5,
+    padding: 5,
+    fontSize: 16,
+  },
+  text_weather_icon: {
+    color: "white",
+    margin: 4,
+    padding: 4,
+    fontSize: 24,
   },
 });
 
