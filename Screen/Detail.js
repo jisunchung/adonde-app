@@ -12,6 +12,7 @@ import { Linking, Dimensions, ScrollView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
 import { BASE_URL, TEMP_BASE_URL } from "../api";
+import { Ionicons } from "@expo/vector-icons";
 
 function Detail() {
   const [cityDetailResult, setCityDetailResult] = useState(null);
@@ -32,9 +33,10 @@ function Detail() {
     valleys: [],
   });
   const [tempXY, setTempXY] = useState({});
-  var lat, long;
+  const [weatherResult, SetWeatherResult] = useState({});
   const route = useRoute();
   const cityDetails = async () => {
+    var lat, long;
     try {
       const res = await axios.post(`${BASE_URL}/city/findOne`, {
         sido_sgg: route.params.sido_sgg,
@@ -83,19 +85,40 @@ function Detail() {
     try {
       const res = await axios.get(`${TEMP_BASE_URL}`, {
         params: {
-          base_date: "20230117",
-          base_time: "2000",
+          base_date: "20230119",
+          base_time: "1100",
           nx: x,
           ny: y,
           serviceKey:
-            "8bxbM4I%2BUnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ%3D%3D",
+            "8bxbM4I+UnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ==",
           numOfRows: "10",
           pageNo: "1",
           dataType: "JSON",
         },
       });
       console.log("-----------------temp--------------");
-      console.log(res.config.params);
+      //   console.log(res.data.response.body.items.item);
+      var tempResult = res.data.response.body.items.item;
+      var result = {};
+      tempResult.map((item) => {
+        if (item["category"] == "TMP") {
+          result["TMP"] = item["fcstValue"];
+        }
+        if (item["category"] == "SKY") {
+          result["SKY"] = item["fcstValue"];
+        }
+        // if (item["category"] == "PTY") {
+        //   result["PTY"] = item["fcstValue"];
+        // }
+        // if (item["category"] == "PCP") {
+        //   result["PCP"] = item["fcstValue"];
+        // }
+        // if (item["category"] == "POP") {
+        //   result["POP"] = item["fcstValue"];
+        // }
+      });
+      SetWeatherResult(result);
+      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -142,13 +165,23 @@ function Detail() {
   }
   useEffect(() => {
     cityDetails();
-    // getTemp();
     getPlace();
-    // console.log(
-    //   "----------------xy--------",
-    //   dfs_xy_conv(region.latitude, region.longitude)
-    // );
   }, []);
+  const returnWeather = (
+    <View>
+      <Text>온도: {weatherResult["TMP"]}</Text>
+
+      {weatherResult["SKY"] == 1 ? (
+        <Ionicons name="sunny-outline" size={24} color="black" />
+      ) : null}
+      {weatherResult["SKY"] == 3 ? (
+        <Ionicons name="md-partly-sunny-outline" size={24} color="black" />
+      ) : null}
+      {weatherResult["SKY"] == 4 ? (
+        <Ionicons name="cloud-outline" size={24} color="black" />
+      ) : null}
+    </View>
+  );
 
   const returnPlaces = Object.keys(place).map((place_type) => (
     // <ScrollView horizontal={true} style={styles.scrollView_horizontal}>
@@ -178,6 +211,7 @@ function Detail() {
       <ScrollView>
         <View style={styles.block}>
           <Text style={styles.text}>{route.params.sido_sgg}</Text>
+          {returnWeather}
           <Text style={styles.text}>{cityDetailResult["description"]}</Text>
           <Text style={styles.text}>
             인구수 : {cityDetailResult["population"]}
