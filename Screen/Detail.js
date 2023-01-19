@@ -79,19 +79,36 @@ function Detail() {
     } finally {
     }
   };
+  const ComputeBaseDateAndTime = () => {
+    var returnValue = {};
+
+    var date = new Date();
+    var hours = date.getHours();
+    returnValue["time"] = hours + "30";
+    console.log("time---------------", hours + "30");
+    //yyyymmdd
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var base_date = year + month + day;
+    console.log("date---------------", base_date);
+    returnValue["date"] = base_date;
+    return returnValue;
+  };
   const getTemp = async (lat, long) => {
+    var { date, time } = ComputeBaseDateAndTime();
     var { x, y } = dfs_xy_conv(lat, long);
     // console.log("getTemp var xy value --------------------", x, y);
     try {
       const res = await axios.get(`${TEMP_BASE_URL}`, {
         params: {
-          base_date: "20230119",
-          base_time: "1100",
+          base_date: date,
+          base_time: time,
           nx: x,
           ny: y,
           serviceKey:
             "8bxbM4I+UnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ==",
-          numOfRows: "10",
+          numOfRows: "50",
           pageNo: "1",
           dataType: "JSON",
         },
@@ -101,8 +118,8 @@ function Detail() {
       var tempResult = res.data.response.body.items.item;
       var result = {};
       tempResult.map((item) => {
-        if (item["category"] == "TMP") {
-          result["TMP"] = item["fcstValue"];
+        if (item["category"] == "T1H") {
+          result["T1H"] = item["fcstValue"];
         }
         if (item["category"] == "SKY") {
           result["SKY"] = item["fcstValue"];
@@ -169,7 +186,7 @@ function Detail() {
   }, []);
   const returnWeather = (
     <View>
-      <Text>온도: {weatherResult["TMP"]}</Text>
+      <Text>온도: {weatherResult["T1H"]}</Text>
 
       {weatherResult["SKY"] == 1 ? (
         <Ionicons name="sunny-outline" size={24} color="black" />
