@@ -13,7 +13,7 @@ import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
 import { BASE_URL, TEMP_BASE_URL } from "../api";
 import { Ionicons } from "@expo/vector-icons";
-// import WeatherWidget from "../component/WeatherWidget";
+import WeatherWidget from "../component/WeatherWidget";
 
 function Detail() {
   const [cityDetailResult, setCityDetailResult] = useState(null);
@@ -23,18 +23,12 @@ function Detail() {
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
   });
-  const [beaches, setBeaches] = useState([]);
-  const [mountains, setMountains] = useState([]);
-  const [rivers, setRivers] = useState([]);
-  const [valleys, setValleys] = useState([]);
   const [place, setPlace] = useState({
     beaches: [],
     mountains: [],
     rivers: [],
     valleys: [],
   });
-  const [tempXY, setTempXY] = useState({});
-  const [weatherResult, SetWeatherResult] = useState({});
   const route = useRoute();
 
   const cityDetails = async () => {
@@ -56,8 +50,6 @@ function Detail() {
     } catch (error) {
       console.log(error);
     } finally {
-      //도시 날씨를 불러와준다
-      getTemp(lat, long);
     }
   };
   const getPlace = async () => {
@@ -82,144 +74,11 @@ function Detail() {
     } finally {
     }
   };
-  const ComputeBaseDateAndTime = () => {
-    var returnValue = {};
-    var date = new Date();
-    var hours = date.getHours();
-    returnValue["time"] = hours + "30";
-    console.log("time---------------", hours + "30");
-    //yyyymmdd 형식으로 만들어서 return
-    var year = date.getFullYear();
-    var month = ("0" + (1 + date.getMonth())).slice(-2);
-    var day = ("0" + date.getDate()).slice(-2);
-    var base_date = year + month + day;
-    console.log("date---------------", base_date);
-    returnValue["date"] = base_date;
-    return returnValue;
-  };
-  const getTemp = async (lat, long) => {
-    var { date, time } = ComputeBaseDateAndTime();
-    var { x, y } = dfs_xy_conv(lat, long);
-    // console.log("getTemp var xy value --------------------", x, y);
-    try {
-      const res = await axios.get(`${TEMP_BASE_URL}`, {
-        params: {
-          base_date: date,
-          base_time: time,
-          nx: x,
-          ny: y,
-          serviceKey:
-            "8bxbM4I+UnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ==",
-          numOfRows: "50",
-          pageNo: "1",
-          dataType: "JSON",
-        },
-      });
-      console.log("-----------------getTempResult--------------");
-      console.log(res.config.params);
-      //   console.log(res.data.response.body.items.item);
-      var tempResult = res.data.response.body.items.item;
-      var result = {};
-      tempResult.map((item) => {
-        if (item["category"] == "T1H") {
-          result["T1H"] = item["fcstValue"];
-        }
-        if (item["category"] == "SKY") {
-          result["SKY"] = item["fcstValue"];
-        }
-        if (item["category"] == "REH") {
-          result["REH"] = item["fcstValue"];
-        }
-        // if (item["category"] == "PTY") {
-        //   result["PTY"] = item["fcstValue"];
-        // }
-        // if (item["category"] == "PCP") {
-        //   result["PCP"] = item["fcstValue"];
-        // }
-        // if (item["category"] == "POP") {
-        //   result["POP"] = item["fcstValue"];
-        // }
-      });
-      SetWeatherResult(result);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  function dfs_xy_conv(v1, v2) {
-    var RE = 6371.00877; // 지구 반경(km)
-    var GRID = 5.0; // 격자 간격(km)
-    var SLAT1 = 30.0; // 투영 위도1(degree)
-    var SLAT2 = 60.0; // 투영 위도2(degree)
-    var OLON = 126.0; // 기준점 경도(degree)
-    var OLAT = 38.0; // 기준점 위도(degree)
-    var XO = 43; // 기준점 X좌표(GRID)
-    var YO = 136; // 기1준점 Y좌표(GRID)
-
-    var DEGRAD = Math.PI / 180.0;
-
-    var re = RE / GRID;
-    var slat1 = SLAT1 * DEGRAD;
-    var slat2 = SLAT2 * DEGRAD;
-    var olon = OLON * DEGRAD;
-    var olat = OLAT * DEGRAD;
-
-    var sn =
-      Math.tan(Math.PI * 0.25 + slat2 * 0.5) /
-      Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
-    var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
-    var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
-    ro = (re * sf) / Math.pow(ro, sn);
-    var rs = {};
-
-    var ra = Math.tan(Math.PI * 0.25 + v1 * DEGRAD * 0.5);
-    ra = (re * sf) / Math.pow(ra, sn);
-    var theta = v2 * DEGRAD - olon;
-    if (theta > Math.PI) theta -= 2.0 * Math.PI;
-    if (theta < -Math.PI) theta += 2.0 * Math.PI;
-    theta *= sn;
-    rs["x"] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
-    rs["y"] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
-    setTempXY(rs);
-    return rs;
-  }
   useEffect(() => {
     cityDetails();
     getPlace();
   }, []);
-  const returnWeather = (
-    <View>
-      <Text style={styles.text_weather}>온도: {weatherResult["T1H"]}°C</Text>
-      <Text style={styles.text_weather}>습도: {weatherResult["REH"]}%</Text>
-      {weatherResult["SKY"] == 1 ? (
-        <Ionicons
-          style={styles.text_weather}
-          name="sunny-outline"
-          size={24}
-          color="black"
-        />
-      ) : null}
-      {weatherResult["SKY"] == 3 ? (
-        <Ionicons
-          style={styles.text_weather}
-          name="md-partly-sunny-outline"
-          size={24}
-          color="black"
-        />
-      ) : null}
-      {weatherResult["SKY"] == 4 ? (
-        <Ionicons
-          style={styles.text_weather}
-          name="cloud-outline"
-          size={24}
-          color="black"
-        />
-      ) : null}
-    </View>
-  );
 
   const returnPlaces = Object.keys(place).map((place_type) => (
     // <ScrollView horizontal={true} style={styles.scrollView_horizontal}>
@@ -244,12 +103,12 @@ function Detail() {
     </View>
     // </ScrollView>
   ));
-  if (cityDetailResult != null) {
+  if (cityDetailResult != null && region.latitude != 0) {
     return (
       <ScrollView>
         <View style={styles.block}>
           <Text style={styles.text_title}>{route.params.sido_sgg}</Text>
-          {returnWeather}
+          <WeatherWidget lat={region.latitude} long={region.longitude} />
           <Text style={styles.text_des}>{cityDetailResult["description"]}</Text>
           <Text style={styles.text_population}>
             인구수 : {cityDetailResult["population"]}
@@ -296,9 +155,6 @@ const styles = StyleSheet.create({
   text_title: {
     // padding: 16,
     fontSize: 24,
-  },
-  text_weather: {
-    color: "blue",
   },
   text_des: {
     fontSize: 10,
