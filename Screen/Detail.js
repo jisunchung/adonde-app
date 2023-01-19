@@ -13,7 +13,7 @@ import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
 import { BASE_URL, TEMP_BASE_URL } from "../api";
 
-function Detail({}) {
+function Detail() {
   const [cityDetailResult, setCityDetailResult] = useState(null);
   const [region, setRegion] = useState({
     latitude: 0,
@@ -32,6 +32,7 @@ function Detail({}) {
     valleys: [],
   });
   const [tempXY, setTempXY] = useState({});
+  var lat, long;
   const route = useRoute();
   const cityDetails = async () => {
     try {
@@ -45,9 +46,13 @@ function Detail({}) {
         latitude: Number(res.data["latitude"]),
         longitude: Number(res.data["longitude"]),
       });
+      lat = res.data["latitude"];
+      long = res.data["longitude"];
     } catch (error) {
       console.log(error);
     } finally {
+      //도시 날씨를 불러와준다
+      getTemp(lat, long);
     }
   };
   const getPlace = async () => {
@@ -72,15 +77,16 @@ function Detail({}) {
     } finally {
     }
   };
-  const getTemp = async () => {
-    dfs_xy_conv(Number(region.latitude), Number(region.longitude));
+  const getTemp = async (lat, long) => {
+    var { x, y } = dfs_xy_conv(lat, long);
+    // console.log("getTemp var xy value --------------------", x, y);
     try {
       const res = await axios.get(`${TEMP_BASE_URL}`, {
         params: {
           base_date: "20230117",
           base_time: "2000",
-          nx: tempXY.x,
-          ny: tempXY.y,
+          nx: x,
+          ny: y,
           serviceKey:
             "8bxbM4I%2BUnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ%3D%3D",
           numOfRows: "10",
@@ -136,12 +142,12 @@ function Detail({}) {
   }
   useEffect(() => {
     cityDetails();
+    // getTemp();
     getPlace();
     // console.log(
     //   "----------------xy--------",
     //   dfs_xy_conv(region.latitude, region.longitude)
     // );
-    getTemp();
   }, []);
 
   const returnPlaces = Object.keys(place).map((place_type) => (
