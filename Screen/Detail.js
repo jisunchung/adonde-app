@@ -81,12 +81,11 @@ function Detail() {
   };
   const ComputeBaseDateAndTime = () => {
     var returnValue = {};
-
     var date = new Date();
     var hours = date.getHours();
     returnValue["time"] = hours + "30";
     console.log("time---------------", hours + "30");
-    //yyyymmdd
+    //yyyymmdd 형식으로 만들어서 return
     var year = date.getFullYear();
     var month = ("0" + (1 + date.getMonth())).slice(-2);
     var day = ("0" + date.getDate()).slice(-2);
@@ -113,7 +112,8 @@ function Detail() {
           dataType: "JSON",
         },
       });
-      console.log("-----------------temp--------------");
+      console.log("-----------------getTempResult--------------");
+      console.log(res.config.params);
       //   console.log(res.data.response.body.items.item);
       var tempResult = res.data.response.body.items.item;
       var result = {};
@@ -123,6 +123,9 @@ function Detail() {
         }
         if (item["category"] == "SKY") {
           result["SKY"] = item["fcstValue"];
+        }
+        if (item["category"] == "REH") {
+          result["REH"] = item["fcstValue"];
         }
         // if (item["category"] == "PTY") {
         //   result["PTY"] = item["fcstValue"];
@@ -186,16 +189,31 @@ function Detail() {
   }, []);
   const returnWeather = (
     <View>
-      <Text>온도: {weatherResult["T1H"]}</Text>
-
+      <Text style={styles.text_weather}>온도: {weatherResult["T1H"]}°C</Text>
+      <Text style={styles.text_weather}>습도: {weatherResult["REH"]}%</Text>
       {weatherResult["SKY"] == 1 ? (
-        <Ionicons name="sunny-outline" size={24} color="black" />
+        <Ionicons
+          style={styles.text_weather}
+          name="sunny-outline"
+          size={24}
+          color="black"
+        />
       ) : null}
       {weatherResult["SKY"] == 3 ? (
-        <Ionicons name="md-partly-sunny-outline" size={24} color="black" />
+        <Ionicons
+          style={styles.text_weather}
+          name="md-partly-sunny-outline"
+          size={24}
+          color="black"
+        />
       ) : null}
       {weatherResult["SKY"] == 4 ? (
-        <Ionicons name="cloud-outline" size={24} color="black" />
+        <Ionicons
+          style={styles.text_weather}
+          name="cloud-outline"
+          size={24}
+          color="black"
+        />
       ) : null}
     </View>
   );
@@ -227,10 +245,10 @@ function Detail() {
     return (
       <ScrollView>
         <View style={styles.block}>
-          <Text style={styles.text}>{route.params.sido_sgg}</Text>
+          <Text style={styles.text_title}>{route.params.sido_sgg}</Text>
           {returnWeather}
-          <Text style={styles.text}>{cityDetailResult["description"]}</Text>
-          <Text style={styles.text}>
+          <Text style={styles.text_des}>{cityDetailResult["description"]}</Text>
+          <Text style={styles.text_population}>
             인구수 : {cityDetailResult["population"]}
           </Text>
           <Text
@@ -272,9 +290,18 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flex: 1,
   },
-  text: {
+  text_title: {
     // padding: 16,
     fontSize: 24,
+  },
+  text_weather: {
+    color: "blue",
+  },
+  text_des: {
+    fontSize: 10,
+  },
+  text_population: {
+    fontSize: 20,
   },
   image: {
     width: screenWidth - 40,
