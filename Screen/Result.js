@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, Text, View, Button, SafeAreaView } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { useRoute } from "@react-navigation/native";
 import { Card, Icon, Overlay } from "react-native-elements";
-import { ScrollView } from "react-native";
+import { ScrollView, Vibration, Animated } from "react-native";
 import CardComp from "../component/Card";
 import { Entypo } from "@expo/vector-icons";
 import ResultMap from "./ResultMap";
@@ -15,7 +15,18 @@ function Result({ navigation }) {
   const [shake, setShake] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
   const route = useRoute();
+  //   const MoveAnim = useRef(new Animated.Value(0)).current;
+  //   const [MoveAnim, setMoveAnim] = useState(new Animated.Value(0));
 
+  //   const MoveUp = () => {
+  //     console.log("moveup!");
+
+  //     Animated.timing(MoveAnim, {
+  //       toValue: 250,
+  //       duration: 2000,
+  //       useNativeDriver: true, // Add This line
+  //     }).start();
+  //   };
   const getRandomArbitrary = (min, max) => {
     var rand;
     rand = Math.floor(Math.random() * (max - min) + min);
@@ -25,23 +36,6 @@ function Result({ navigation }) {
     () => getRandomArbitrary(0, result.length),
     [shake]
   );
-  const showRandomCard =
-    result.length != 0 ? (
-      <View style={styles.random_block}>
-        <Text>result length: {result.length}</Text>
-        <Text>random num : {getRandomNumber}</Text>
-        <Text>random num : {getRandomNumber}</Text>
-        <Text>random num : {getRandomNumber}</Text>
-        <Text>{randomNum}</Text>
-        <Button title="다시하기" onPress={() => setShake(false)}></Button>
-        <CardComp
-          key={result[getRandomNumber].sido_sgg}
-          name={result[getRandomNumber].sido_sgg}
-          img={result[getRandomNumber].image_src}
-          description={result[getRandomNumber].description}
-        ></CardComp>
-      </View>
-    ) : null;
 
   useEffect(() => {
     const searchResult = async () => {
@@ -66,6 +60,8 @@ function Result({ navigation }) {
     Shake.addListener(() => {
       //   alert("shake!");
       setShake(true);
+      //   Vibration.vibrate();
+      //   MoveUp();
       //   alert(getRandomArbitrary(0, 100));
     });
     // setShake(true);
@@ -83,19 +79,19 @@ function Result({ navigation }) {
           <Text>로딩중...</Text>
         ) : (
           <View>
-            <View style={{}}>
-              <Overlay isVisible={shake}>
-                {/* {showRandomCard} */}
+            <View>
+              <View>
+                <Overlay overlayStyle={styles.overlay} isVisible={shake}>
+                  <CardComp
+                    key={result[getRandomNumber].sido_sgg}
+                    name={result[getRandomNumber].sido_sgg}
+                    img={result[getRandomNumber].image_src}
+                    description={result[getRandomNumber].description}
+                  ></CardComp>
 
-                <CardComp
-                  key={result[getRandomNumber].sido_sgg}
-                  name={result[getRandomNumber].sido_sgg}
-                  img={result[getRandomNumber].image_src}
-                  description={result[getRandomNumber].description}
-                ></CardComp>
-
-                <Button title="x" onPress={() => setShake(false)}></Button>
-              </Overlay>
+                  <Button title="x" onPress={() => setShake(false)}></Button>
+                </Overlay>
+              </View>
               <Button title="shake" onPress={() => setShake(true)}></Button>
             </View>
             {result.map((data) => (
@@ -155,7 +151,11 @@ const styles = StyleSheet.create({
     // backgroundColor: "#ffffff",
     // opacity: 0.5,
   },
-
+  overlay: {
+    borderRadius: 20,
+    backgroundColor: "#ffffff",
+    // opacity: 0.5,
+  },
   text: {
     padding: 16,
     fontSize: 24,
