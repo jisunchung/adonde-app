@@ -27,7 +27,7 @@ function MainTab() {
         name="Search"
         component={Search}
         options={{
-          //   headerShown: false,
+          headerShown: false,
           tabBarIcon: (props) => TabIcon({ ...props, name: "md-search" }),
         }}
       />
