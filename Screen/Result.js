@@ -82,7 +82,7 @@ function Result({ navigation }) {
       <ScrollView style={styles.block}>
         {/* <Entypo name="map" size={24} color="black" /> */}
         {result.length == 0 ? (
-          <Text>로딩중...</Text>
+          <Text style={styles.loading_text}>로딩중...</Text>
         ) : (
           <View>
             <View>
@@ -170,6 +170,11 @@ function Result({ navigation }) {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+  },
+  loading_text: {
+    marginTop: 100,
+    fontSize: 30,
+    alignSelf: "center",
   },
   random_block: {
     // backgroundColor: "#ffffff",
