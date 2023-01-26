@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Dimensions,
   Pressable,
   Alert,
@@ -18,6 +17,7 @@ import * as Location from "expo-location";
 import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Button } from "react-native-paper";
 
 import axios from "axios";
 import { BASE_URL } from "../api";
@@ -354,25 +354,26 @@ function StartingPoint({ navigation }) {
   }, [sido_sgg]);
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.box}>
-          <Text style={styles.text}>출발지 설정</Text>
-          <MapView style={styles.map} region={region}>
-            <Marker
-              coordinate={{
-                latitude: region.latitude,
-                longitude: region.longitude,
-              }}
-            />
-          </MapView>
-          <Text>
+      <View style={styles.box}>
+        <Text style={styles.text}>출발지 설정</Text>
+        <MapView style={styles.map} region={region}>
+          <Marker
+            coordinate={{
+              latitude: region.latitude,
+              longitude: region.longitude,
+            }}
+          />
+        </MapView>
+        <View style={{ flexDirection: "column" }}>
+          <Text style={styles.current_text}>
             <Ionicons name="md-pin" size={30} color={"green"} />
-            현재위치: {address}
+            {address}
           </Text>
           <Pressable style={[styles.button, styles.buttonClose]}>
             <Text style={styles.textStyle}>현위치를 출발지로</Text>
           </Pressable>
-          {/* <SelectList
+        </View>
+        {/* <SelectList
             setSelected={(val) => setSido(val)}
             data={data}
             save="value"
@@ -393,68 +394,76 @@ function StartingPoint({ navigation }) {
               );
             }
           })} */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>출발지를 선택하세요!</Text>
-                <SelectList
-                  setSelected={(val) => setSido(val)}
-                  data={data}
-                  save="value"
-                />
-                {data.map((name, index) => {
-                  if (name["key"] == sido) {
-                    return (
-                      <SelectList
-                        key={index}
-                        setSelected={(val) => setSido_sgg(val)}
-                        data={name["options"]}
-                        save="value"
-                      />
-                    );
-                  }
-                })}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>출발지를 선택하세요!</Text>
+              <SelectList
+                setSelected={(val) => setSido(val)}
+                data={data}
+                save="value"
+              />
+              {data.map((name, index) => {
+                if (name["key"] == sido) {
+                  return (
+                    <SelectList
+                      key={index}
+                      setSelected={(val) => setSido_sgg(val)}
+                      data={name["options"]}
+                      save="value"
+                    />
+                  );
+                }
+              })}
 
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={styles.textStyle}>선택완료</Text>
-                </Pressable>
-              </View>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>선택완료</Text>
+              </Pressable>
             </View>
-          </Modal>
-          <Pressable
-            style={[styles.button, styles.buttonOpen]}
-            onPress={() => [
-              setModalVisible(true),
-              setSido(""),
-              setSido_sgg(""),
-            ]}
-          >
-            <Text style={styles.textStyle}>출발지 선택하기</Text>
-          </Pressable>
-          <Text>{sido}</Text>
-          <Text>{sido_sgg}</Text>
-          <Button
-            title="submit"
-            onPress={() =>
-              sido_sgg == " "
-                ? Alert.alert("출발지를 선택하세요")
-                : changeAccItemStatus()
-            }
-          ></Button>
-          {loading && <ActivityIndicator size={"large"} color={"black"} />}
-        </View>
-      </ScrollView>
+          </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => [setModalVisible(true), setSido(""), setSido_sgg("")]}
+        >
+          <Text style={styles.textStyle}>출발지 선택하기</Text>
+        </Pressable>
+        {/* <Text>{sido}</Text> */}
+        <Text style={{ alignSelf: "center", fontSize: "17" }}>{sido_sgg}</Text>
+        <Button
+          title="submit"
+          onPress={() =>
+            sido_sgg == " "
+              ? Alert.alert("출발지를 선택하세요")
+              : changeAccItemStatus()
+          }
+        ></Button>
+        <Button
+          textColor="#FFFFFF"
+          buttonColor="#44AD5E"
+          mode="contained-tonal"
+          onPress={() =>
+            sido_sgg == " "
+              ? Alert.alert("출발지를 선택하세요")
+              : changeAccItemStatus()
+          }
+        >
+          Next
+        </Button>
+
+        {loading && <ActivityIndicator size={"large"} color={"black"} />}
+      </View>
     </SafeAreaView>
   );
 }
@@ -464,6 +473,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
+    // alignItems: "center",
   },
   scrollView: {
     // backgroundColor: "pink",
@@ -473,8 +483,9 @@ const styles = StyleSheet.create({
     // paddingVertical: 20,
   },
   text: {
+    alignSelf: "center",
     padding: 16,
-    fontSize: 24,
+    fontSize: 18,
   },
   map: {
     width: screenWidth - 40,
@@ -501,11 +512,18 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  current_text: {
+    fontSize: 17,
+    margin: 5,
+    alignSelf: "center",
+  },
   button: {
     borderRadius: 10,
     padding: 10,
     elevation: 2,
     width: 200,
+    margin: 8,
+    alignSelf: "center",
   },
   buttonOpen: {
     backgroundColor: "#44AD5E",

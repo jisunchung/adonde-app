@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Dimensions,
   StatusBar,
   ScrollView,
@@ -14,6 +13,8 @@ import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
 import { useRoute } from "@react-navigation/native";
+import { Button } from "react-native-paper";
+
 function Filter({ navigation }) {
   const route = useRoute();
   const [theme, setTheme] = useState([]);
@@ -133,51 +134,66 @@ function Filter({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.box}>
-          <Text>테마</Text>
-          <MultipleSelectList
-            placeholder="테마를 골라주세요"
-            setSelected={(val) => setTheme(val)}
-            data={themeItems}
-            save="value"
-            // onSelect={() => alert(selected)}
-            label="테마"
-          />
-          <Text>{theme}</Text>
-          <Text>인구수</Text>
-          <Slider
-            style={styles.slider}
-            value={population}
-            onValueChange={(val) => setPopulation(val)}
-            minimumValue={0}
-            maximumValue={1000}
-            minimumTrackTintColor="#44AD5E"
-            maximumTrackTintColor="#FFFFFF"
-            step={1}
-          />
-          <Text>{population} ~ 1000</Text>
-          <Text>거리</Text>
-          <Slider
-            style={styles.slider}
-            value={distance}
-            onValueChange={(val) => setDistance(val)}
-            minimumValue={0}
-            maximumValue={500}
-            minimumTrackTintColor="#44AD5E"
-            maximumTrackTintColor="#FFFFFF"
-            step={10}
-          />
-          <Text>{distance}km</Text>
-          <Text>접근성</Text>
-          <MultipleSelectList
-            placeholder="접근성을 골라주세요"
-            setSelected={(val) => setAccess(val)}
-            data={accessItems}
-            save="value"
-            // onSelect={() => alert(selected)}
-            label="접근성"
-          />
-          <Text>{access}</Text>
-          <Button title="submit" onPress={() => clickSubmitBtn()} />
+          <View style={styles.filter_type_box}>
+            <Text style={styles.filter_type_text}>테마</Text>
+            <MultipleSelectList
+              placeholder="테마를 골라주세요"
+              setSelected={(val) => setTheme(val)}
+              data={themeItems}
+              save="value"
+              // onSelect={() => alert(selected)}
+              label="테마"
+            />
+            {/* <Text>{theme}</Text> */}
+          </View>
+          <View style={styles.filter_type_box}>
+            <Text style={styles.filter_type_text}>인구수</Text>
+            <Slider
+              style={styles.slider}
+              value={population}
+              onValueChange={(val) => setPopulation(val)}
+              minimumValue={0}
+              maximumValue={1000}
+              minimumTrackTintColor="#44AD5E"
+              maximumTrackTintColor="#FFFFFF"
+              step={1}
+            />
+            <Text>{population} ~ 1000</Text>
+          </View>
+          <View style={styles.filter_type_box}>
+            <Text style={styles.filter_type_text}>거리</Text>
+            <Slider
+              style={styles.slider}
+              value={distance}
+              onValueChange={(val) => setDistance(val)}
+              minimumValue={0}
+              maximumValue={500}
+              minimumTrackTintColor="#44AD5E"
+              maximumTrackTintColor="#FFFFFF"
+              step={10}
+            />
+            <Text>{distance}km</Text>
+          </View>
+          <View style={styles.filter_type_box}>
+            <Text style={styles.filter_type_text}>접근성</Text>
+            <MultipleSelectList
+              placeholder="접근성을 골라주세요"
+              setSelected={(val) => setAccess(val)}
+              data={accessItems}
+              save="value"
+              // onSelect={() => alert(selected)}
+              label="접근성"
+            />
+            {/* <Text>{access}</Text> */}
+          </View>
+          <Button
+            textColor="#FFFFFF"
+            buttonColor="#44AD5E"
+            mode="contained-tonal"
+            onPress={() => clickSubmitBtn()}
+          >
+            Subtmit
+          </Button>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -193,9 +209,20 @@ const styles = StyleSheet.create({
   scrollView: {
     // backgroundColor: "pink",
   },
+  filter_type_text: {
+    // alignSelf: "center",
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  filter_type_box: {
+    borderRadius: 10,
+    padding: 10,
+    margin: 5,
+    // backgroundColor: "yellow",
+  },
   box: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   slider: {
     width: screenWidth - 40,

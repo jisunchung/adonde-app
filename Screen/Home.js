@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { app } from "../firebaseConfig";
+import { Button } from "react-native-paper";
+
 function Home({ navigation }) {
   const [imageUrl, setImageUrl] = useState("");
   const storage = getStorage(app);
@@ -20,7 +22,7 @@ function Home({ navigation }) {
 
   return (
     <View style={styles.block}>
-      <Text style={styles.text}>home</Text>
+      {/* <Text style={styles.text}>home</Text> */}
       <Image
         style={styles.logo}
         source={
@@ -31,15 +33,29 @@ function Home({ navigation }) {
             : null
         }
       />
-      <Button title="go start " onPress={() => navigation.navigate("Start")} />
+      <Image source={require("../assets/adonde_title.png")} />
+      <Button
+        color="#f194ff"
+        title="start "
+        onPress={() => navigation.navigate("Start")}
+      />
+      <Button
+        icon="airplane"
+        mode="contained-tonal"
+        onPress={() => navigation.navigate("Start")}
+      >
+        Start!
+      </Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   block: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    flex: 1,
+    backgroundColor: "#44AD5E",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
   text: {
     // padding: 16,
@@ -48,6 +64,9 @@ const styles = StyleSheet.create({
   logo: {
     width: 230,
     height: 225,
+  },
+  start_btn: {
+    width: 30,
   },
 });
 
