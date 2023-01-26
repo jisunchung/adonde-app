@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Main from "./Main";
 import Settings from "./Settings";
 import Mypage from "./Mypage";
+import Search from "./Search";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
@@ -20,6 +21,14 @@ function MainTab() {
         options={{
           headerShown: false,
           tabBarIcon: (props) => TabIcon({ ...props, name: "md-home-sharp" }),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{
+          //   headerShown: false,
+          tabBarIcon: (props) => TabIcon({ ...props, name: "md-search" }),
         }}
       />
       <Tab.Screen
