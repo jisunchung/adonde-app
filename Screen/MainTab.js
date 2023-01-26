@@ -26,6 +26,7 @@ function MainTab() {
         name="Mypage"
         component={Mypage}
         options={{
+          headerShown: false,
           tabBarIcon: (props) => TabIcon({ ...props, name: "md-person" }),
         }}
       />
