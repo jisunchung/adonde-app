@@ -7,7 +7,6 @@ import Filter from "./Filter";
 import Result from "./Result";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import Detail from "./Detail";
 import Details from "./Details";
 const Stack = createNativeStackNavigator();
 
