@@ -8,8 +8,8 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { Divider, Text, Switch } from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Divider, Text } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
@@ -21,11 +21,16 @@ function filterCities(cities, searchValue) {
 function Search() {
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [searchIcon, setSearchIcon] = useState(false);
 
   const search = useMemo(
     () => filterCities(cities, searchValue),
     [searchValue]
   );
+  const searchIconClick = () => {
+    console.log("click!");
+    // setSearchIcon(true);
+  };
   useEffect(() => {
     const findAllCities = async () => {
       try {
@@ -42,20 +47,32 @@ function Search() {
   return (
     <View style={styles.block}>
       <Text>검색</Text>
-      <TextInput
-        value={searchValue}
-        onChangeText={(val) => setSearchValue(val)}
-        placeholder={"search!"}
-        style={styles.input}
-      />
-      <Text>{searchValue}</Text>
+      <View style={styles.search_block}>
+        <TextInput
+          value={searchValue}
+          onChangeText={(val) => setSearchValue(val)}
+          placeholder={"search!"}
+          style={styles.input}
+        />
+        <TouchableOpacity onPress={() => searchIconClick()}>
+          <Ionicons name="md-search" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      {/* <Text>{searchValue}</Text> */}
+      {/* {!searchIcon ? ( */}
       <ScrollView>
         {search != 0 && searchValue != ""
           ? search.map((city) => (
-              <Text key={city.sido_sgg}>{city.sido_sgg}</Text>
+              <View key={city.sido_sgg}>
+                <Text key={city.sido_sgg}>{city.sido_sgg}</Text>
+                {/* <Divider key={city.sido_code} /> */}
+              </View>
             ))
           : null}
       </ScrollView>
+      {/* ) : (
+        <Text>hi</Text>
+      )} */}
     </View>
   );
 }
@@ -68,8 +85,13 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
+  search_block: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   input: {
-    width: screenWidth - 90,
+    width: screenWidth - 80,
     height: 44,
     padding: 10,
     marginTop: 20,
