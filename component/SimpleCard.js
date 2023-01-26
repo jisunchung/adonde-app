@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   card_title: {
     color: "black",
     padding: 10,
-    fontSize: 25,
+    fontSize: 20,
     marginStart: 10,
   },
   detail_btn: {},
