@@ -31,6 +31,9 @@ function Search() {
     console.log("click!");
     // setSearchIcon(true);
   };
+  const filterListClick = (sido_sgg) => {
+    setSearchValue(sido_sgg);
+  };
   useEffect(() => {
     const findAllCities = async () => {
       try {
@@ -63,10 +66,13 @@ function Search() {
       <ScrollView>
         {search != 0 && searchValue != ""
           ? search.map((city) => (
-              <View key={city.sido_sgg}>
+              <TouchableOpacity
+                key={city.sido_sgg}
+                onPress={() => filterListClick(city.sido_sgg)}
+              >
                 <Text key={city.sido_sgg}>{city.sido_sgg}</Text>
                 {/* <Divider key={city.sido_code} /> */}
-              </View>
+              </TouchableOpacity>
             ))
           : null}
       </ScrollView>
