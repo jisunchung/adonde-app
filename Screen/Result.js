@@ -8,6 +8,7 @@ import { ScrollView, Vibration, Animated } from "react-native";
 import CardComp from "../component/Card";
 import { Entypo } from "@expo/vector-icons";
 import ResultMap from "./ResultMap";
+import { Snackbar } from "react-native-paper";
 import * as Shake from "expo-shake";
 
 function Result({ navigation }) {
@@ -15,6 +16,11 @@ function Result({ navigation }) {
   const [shake, setShake] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
   const route = useRoute();
+  const [visible, setVisible] = React.useState(true);
+
+  const onToggleSnackBar = () => setVisible(!visible);
+
+  const onDismissSnackBar = () => setVisible(false);
   //   const MoveAnim = useRef(new Animated.Value(0)).current;
   //   const [MoveAnim, setMoveAnim] = useState(new Animated.Value(0));
 
@@ -80,6 +86,22 @@ function Result({ navigation }) {
         ) : (
           <View>
             <View>
+              {/* <Button
+                onPress={onToggleSnackBar}
+                title={visible ? "Hide" : "Show"}
+              ></Button>
+              <Snackbar
+                visible={visible}
+                onDismiss={onDismissSnackBar}
+                action={{
+                  label: "ok",
+                  onPress: () => {
+                    // Do something
+                  },
+                }}
+              >
+                핸드폰을 흔들어보세요!
+              </Snackbar> */}
               <View>
                 <Overlay overlayStyle={styles.overlay} isVisible={shake}>
                   <CardComp
@@ -146,7 +168,9 @@ function Result({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    flex: 1,
+  },
   random_block: {
     // backgroundColor: "#ffffff",
     // opacity: 0.5,
