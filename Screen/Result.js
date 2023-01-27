@@ -117,7 +117,7 @@ function Result({ navigation }) {
               <Button title="shake" onPress={() => setShake(true)}></Button>
             </View>
             {result.map((data) => (
-              <View>
+              <View key={data.sido_sgg}>
                 <CardComp
                   key={data.sido_sgg}
                   name={data.sido_sgg}
