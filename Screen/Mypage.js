@@ -4,12 +4,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SimpleCard from "../component/SimpleCard";
 import Detail from "./Details";
 import MypageMain from "./MypageMain";
+import Login from "./Login";
 
 function Mypage() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="mypage" component={MypageMain} />
+      <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="mypage_detail" component={Detail} />
     </Stack.Navigator>
   );
