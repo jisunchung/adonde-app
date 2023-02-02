@@ -14,13 +14,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
-export default function App({ name, storedCitiesChange }) {
+export default function App({ name, storedCitiesChange, Id }) {
   const navigation = useNavigation();
   const [heart, setHeart] = useState(true);
   const deleteStoredCities = async (sido_sgg) => {
     try {
       const res = await axios.put(`${BASE_URL}/user/deleteStoredCity`, {
-        id: "76",
+        id: "52",
         sido_sgg: sido_sgg,
       });
 

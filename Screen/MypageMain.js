@@ -9,16 +9,16 @@ import { Button } from "react-native-paper";
 function MypageMain({ Id }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
-  const storedCitiesChange = (storedCities) => {
+  function storedCitiesChange(storedCities) {
     console.log("storedCitiesChange!!", storedCities);
     setStoredCities(storedCities);
-  };
+  }
   useEffect(() => {
     console.log("user Id in mypage main", Id);
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
-          id: Id,
+          id: "52",
         });
 
         console.log("getUserStoredCities", res.data);
@@ -54,6 +54,7 @@ function MypageMain({ Id }) {
             name={city_name}
             key={city_name}
             storedCitiesChange={storedCitiesChange}
+            Id={Id}
           />
         ))}
       </ScrollView>

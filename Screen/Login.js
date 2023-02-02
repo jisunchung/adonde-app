@@ -6,7 +6,7 @@ import axios from "axios";
 import MypageMain from "./MypageMain";
 import { BASE_URL } from "../api";
 
-const REST_API_KEY = "db70b5cab2691de3b46b929e6dbd8eed";
+const REST_API_KEY = "35e319e837954b02d0571d8852eda75f";
 const REDIRECT_URI = "https://auth.expo.io/@jisun0322/adondeTest";
 
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
@@ -15,6 +15,10 @@ function Login() {
   //   const [ACCESS_TOKEN, setACCESS_TOKEN] = useState("");
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
+
+  //   const returnUserMainpage = (id) => {
+  //     return <MypageMain Id={id} />;
+  //   };
   const getUserId = async (userObj) => {
     try {
       const res = await axios.post(`${BASE_URL}/user/login`, {
@@ -52,6 +56,7 @@ function Login() {
     }
   };
   const requestToken = async (request_code) => {
+    console.log("requestToken");
     var returnValue = "none";
 
     var request_token_url = "https://kauth.kakao.com/oauth/token";
@@ -97,28 +102,19 @@ function Login() {
   };
   return (
     <View>
-      {user != null && userId != null ? (
-        <View>
-          {/* <Text>로그인성공</Text>
-          <Text>{user.profile.nickname}</Text>
-          <Text>{user.email}</Text>
-          <Text>{user.birthday}</Text> */}
-          <MypageMain Id={userId} />
-        </View>
-      ) : (
-        <WebView
-          style={{ flex: 1 }}
-          source={{
-            uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
-          }}
-          injectedJavaScript={INJECTED_JAVASCRIPT}
-          javaScriptEnabled
-          onMessage={(event) => {
-            const data = event.nativeEvent.url;
-            getRequestCode(data);
-          }}
-        />
-      )}
+      <WebView
+        style={{ flex: 1 }}
+        source={{
+          uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
+        }}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
+        javaScriptEnabled
+        onMessage={(event) => {
+          const data = event.nativeEvent.url;
+          getRequestCode(data);
+        }}
+      />
+      {/* <Text>hi</Text> */}
     </View>
   );
 }
