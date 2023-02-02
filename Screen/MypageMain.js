@@ -6,7 +6,7 @@ import { BASE_URL } from "../api";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 
-function MypageMain() {
+function MypageMain({ Id }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
   const storedCitiesChange = (storedCities) => {
@@ -14,10 +14,11 @@ function MypageMain() {
     setStoredCities(storedCities);
   };
   useEffect(() => {
+    console.log("user Id in mypage main", Id);
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
-          id: "76",
+          id: Id,
         });
 
         console.log("getUserStoredCities", res.data);
@@ -77,7 +78,7 @@ function MypageMain() {
 
 const styles = StyleSheet.create({
   block: {
-    flex: 1,
+    // flex: 1,
     paddingVertical: 20,
   },
   user_block: {

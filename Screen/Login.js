@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { View, Alert, Text } from "react-native";
 import WebView from "react-native-webview";
 import axios from "axios";
-import * as AuthSession from "expo-auth-session";
+// import * as AuthSession from "expo-auth-session";
+import MypageMain from "./MypageMain";
+import { BASE_URL } from "../api";
 
 const REST_API_KEY = "db70b5cab2691de3b46b929e6dbd8eed";
 const REDIRECT_URI = "https://auth.expo.io/@jisun0322/adondeTest";
@@ -12,6 +14,22 @@ const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from
 function Login() {
   //   const [ACCESS_TOKEN, setACCESS_TOKEN] = useState("");
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const getUserId = async (userObj) => {
+    try {
+      const res = await axios.post(`${BASE_URL}/user/login`, {
+        email: userObj.email,
+        nickname: userObj.profile.nickname,
+        profile_image: userObj.profile.profile_image_url,
+        dateofbirth: userObj.birthday,
+      });
+      console.log("getUserId", res.data.id);
+      setUserId(res.data.id);
+    } catch (e) {
+      console.log("axios error get user Id");
+      console.log(e);
+    }
+  };
   const getUserData = async (access_token) => {
     const ACCESS_TOKEN = access_token;
     try {
@@ -25,14 +43,11 @@ function Login() {
       const res = await axios.get(url, Header);
       console.log("res", res.data.kakao_account);
       setUser(res.data.kakao_account);
+      getUserId(res.data.kakao_account);
     } catch (e) {
-      console.log("액시오스 에러");
+      console.log("axios error");
       console.log(e);
 
-      // const response =  Failure<string> => {
-      //   result: 'fail',
-      //   error: '토큰 에러',
-      // };
       return;
     }
   };
@@ -69,7 +84,7 @@ function Login() {
       });
   };
 
-  const getCode = (target) => {
+  const getRequestCode = (target) => {
     console.log("-------url : ");
     console.log(target);
     const exp = "code=";
@@ -81,13 +96,14 @@ function Login() {
     }
   };
   return (
-    <View style={{ flex: 1 }}>
-      {user != null ? (
+    <View>
+      {user != null && userId != null ? (
         <View>
-          <Text>로그인성공</Text>
+          {/* <Text>로그인성공</Text>
           <Text>{user.profile.nickname}</Text>
           <Text>{user.email}</Text>
-          <Text>{user.birthday}</Text>
+          <Text>{user.birthday}</Text> */}
+          <MypageMain Id={userId} />
         </View>
       ) : (
         <WebView
@@ -99,7 +115,7 @@ function Login() {
           javaScriptEnabled
           onMessage={(event) => {
             const data = event.nativeEvent.url;
-            getCode(data);
+            getRequestCode(data);
           }}
         />
       )}
