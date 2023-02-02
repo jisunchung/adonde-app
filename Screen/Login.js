@@ -6,7 +6,7 @@ import axios from "axios";
 import MypageMain from "./MypageMain";
 import { BASE_URL } from "../api";
 
-const REST_API_KEY = "35e319e837954b02d0571d8852eda75f";
+const REST_API_KEY = "db70b5cab2691de3b46b929e6dbd8eed";
 const REDIRECT_URI = "https://auth.expo.io/@jisun0322/adondeTest";
 
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
@@ -94,14 +94,16 @@ function Login() {
     console.log(target);
     const exp = "code=";
     const condition = target.indexOf(exp);
+    console.log("condition", condition);
     if (condition !== -1) {
       const requestCode = target.substring(condition + exp.length);
       requestToken(requestCode);
       console.log("requestCode", requestCode);
     }
+    // requestToken(target);
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <WebView
         style={{ flex: 1 }}
         source={{
@@ -114,7 +116,6 @@ function Login() {
           getRequestCode(data);
         }}
       />
-      {/* <Text>hi</Text> */}
     </View>
   );
 }
