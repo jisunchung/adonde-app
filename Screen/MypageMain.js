@@ -6,7 +6,7 @@ import { BASE_URL } from "../api";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 
-function MypageMain({ Id }) {
+function MypageMain() {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
   function storedCitiesChange(storedCities) {
@@ -14,7 +14,6 @@ function MypageMain({ Id }) {
     setStoredCities(storedCities);
   }
   useEffect(() => {
-    console.log("user Id in mypage main", Id);
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
@@ -54,7 +53,6 @@ function MypageMain({ Id }) {
             name={city_name}
             key={city_name}
             storedCitiesChange={storedCitiesChange}
-            Id={Id}
           />
         ))}
       </ScrollView>

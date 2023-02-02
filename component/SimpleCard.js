@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
-export default function App({ name, storedCitiesChange, Id }) {
+export default function App({ name, storedCitiesChange }) {
   const navigation = useNavigation();
   const [heart, setHeart] = useState(true);
   const deleteStoredCities = async (sido_sgg) => {

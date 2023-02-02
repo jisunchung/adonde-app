@@ -102,21 +102,31 @@ function Login() {
     }
     // requestToken(target);
   };
-  return (
-    <View style={{ flex: 1 }}>
-      <WebView
-        style={{ flex: 1 }}
-        source={{
-          uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
-        }}
-        injectedJavaScript={INJECTED_JAVASCRIPT}
-        javaScriptEnabled
-        onMessage={(event) => {
-          const data = event.nativeEvent.url;
-          getRequestCode(data);
-        }}
-      />
-    </View>
-  );
+  if (user == null) {
+    return (
+      <View style={{ flex: 1 }}>
+        <WebView
+          style={{ flex: 1 }}
+          source={{
+            uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
+          }}
+          injectedJavaScript={INJECTED_JAVASCRIPT}
+          javaScriptEnabled
+          onMessage={(event) => {
+            const data = event.nativeEvent.url;
+            getRequestCode(data);
+          }}
+        />
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <Text>로그인 완료</Text>
+        <Text>{user.profile.nickname}</Text>
+        <Text>{user.email}</Text>
+      </View>
+    );
+  }
 }
 export default Login;
