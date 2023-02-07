@@ -4,8 +4,11 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { app } from "../firebaseConfig";
 import { Button } from "react-native-paper";
+//redux
+import { connect } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
-function Home({ navigation }) {
+function Home({ navigation, user }) {
   const [imageUrl, setImageUrl] = useState("");
   const storage = getStorage(app);
   const storageRef = ref(storage, `logo.png`);
@@ -46,6 +49,7 @@ function Home({ navigation }) {
       >
         Start!
       </Button>
+      <Text>welcome! {user.nickname}</Text>
     </View>
   );
 }
@@ -70,4 +74,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const mapStateToProps = (state, myOwnProps) => {
+  console.log("내이름", state.user.user);
+  return {
+    user: state.user.user,
+  };
+};
+
+const mapDispatchToProps = {
+  // ... normally is an object full of action creators
+  setUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
