@@ -5,7 +5,12 @@ let id = 0;
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    user_obj: {},
+    user_obj: {
+      user: {
+        id: null,
+        nickname: "비회원",
+      },
+    },
   },
   reducers: {
     SET_USER: (state, action) => {

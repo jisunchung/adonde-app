@@ -36,7 +36,7 @@ function Home({ navigation, USER_DATA }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      {USER_DATA.id ? <Text>welcome! {USER_DATA.nickname}</Text> : null}
+      <Text>welcome! {USER_DATA.nickname}</Text>
       <Button
         icon="airplane"
         mode="contained-tonal"

@@ -8,7 +8,7 @@ import { Button } from "react-native-paper";
 //redux
 import { connect } from "react-redux";
 
-function MypageMain({ USER_DATA }) {
+function MypageMain({ navigation, USER_DATA }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
   function storedCitiesChange(storedCities) {
@@ -68,7 +68,9 @@ function MypageMain({ USER_DATA }) {
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
           mode="contained-tonal"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.push("Login");
+          }}
         >
           로그인
         </Button>
