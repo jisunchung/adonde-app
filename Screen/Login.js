@@ -98,6 +98,7 @@ function Login({ SET_USER, USER_DATA }) {
         dateofbirth: userObj.birthday,
       });
       setUser(res.data);
+      console.log("getUser", res.data);
       //redux
       SET_USER(res.data);
     } catch (e) {
@@ -134,10 +135,8 @@ function Login({ SET_USER, USER_DATA }) {
   }
 }
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("USER_DATA", state.user.user);
-  return {
-    USER_DATA: state.user.user,
-  };
+  // console.log("USER_DATA", state.user.user_obj);
+  return {};
 };
 
 const mapDispatchToProps = {

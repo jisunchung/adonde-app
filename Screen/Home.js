@@ -36,7 +36,7 @@ function Home({ navigation, USER_DATA }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      {/* {USER_DATA.id ? <Text>welcome! {USER_DATA.user.nickname}</Text> : null} */}
+      {USER_DATA.id ? <Text>welcome! {USER_DATA.nickname}</Text> : null}
       <Button
         icon="airplane"
         mode="contained-tonal"
@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("mapStateTopProps USER_DATA in Home", state.user.user);
+  console.log("mapStateTopProps USER_DATA in Home", state.user.user_obj.user);
   return {
-    USER_DATA: state.user.user,
+    USER_DATA: state.user.user_obj.user,
   };
 };
 

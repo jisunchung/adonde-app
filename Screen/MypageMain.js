@@ -19,7 +19,7 @@ function MypageMain({ USER_DATA }) {
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
-          id: USER_DATA.user.id,
+          id: USER_DATA.id,
         });
 
         console.log("getUserStoredCities", res.data);
@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("mypage main get user id", state.user.user.user.id);
+  console.log("mypage main get user id", state.user.user_obj.user.id);
   return {
-    USER_DATA: state.user.user,
+    USER_DATA: state.user.user_obj.user,
   };
 };
 

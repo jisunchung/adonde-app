@@ -5,11 +5,11 @@ let id = 0;
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: {},
+    user_obj: {},
   },
   reducers: {
     SET_USER: (state, action) => {
-      state.user = { ...state.user, user: action.payload };
+      state.user_obj = { ...state.user_obj, user: action.payload };
     },
   },
 });
