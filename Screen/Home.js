@@ -36,7 +36,7 @@ function Home({ navigation, USER_DATA }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      <Text>welcome! {USER_DATA.nickname}</Text>
+      <Text style={styles.user_text}>welcome! {USER_DATA.nickname}</Text>
       <Button
         icon="airplane"
         mode="contained-tonal"
@@ -62,6 +62,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 230,
     height: 225,
+  },
+  user_text: {
+    color: "white",
+    // fontWeight: "bold",
+    fontStyle: "italic",
+    fontSize: "20",
   },
   start_btn: {
     width: 30,
