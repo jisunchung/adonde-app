@@ -6,7 +6,6 @@ import { app } from "../firebaseConfig";
 import { Button } from "react-native-paper";
 //redux
 import { connect } from "react-redux";
-import { setUser } from "../redux/userSlice";
 
 function Home({ navigation, user }) {
   const [imageUrl, setImageUrl] = useState("");
@@ -18,7 +17,7 @@ function Home({ navigation, user }) {
     console.log(imageUrl);
   };
   useEffect(() => {
-    console.log(storage);
+    // console.log(storage);
     // console.log(storageRef);
     url();
   });
@@ -37,11 +36,7 @@ function Home({ navigation, user }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      <Button
-        color="#f194ff"
-        title="start "
-        onPress={() => navigation.navigate("Start")}
-      />
+      <Text>welcome! {user.nickname}</Text>
       <Button
         icon="airplane"
         mode="contained-tonal"
@@ -49,7 +44,6 @@ function Home({ navigation, user }) {
       >
         Start!
       </Button>
-      <Text>welcome! {user.nickname}</Text>
     </View>
   );
 }
@@ -75,15 +69,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("내이름", state.user.user);
+  console.log("mapStateTopProps user", state.user.user);
   return {
     user: state.user.user,
   };
 };
 
-const mapDispatchToProps = {
-  // ... normally is an object full of action creators
-  setUser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
