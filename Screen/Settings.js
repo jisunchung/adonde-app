@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { Divider, Text, Switch } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
-
-function Settings() {
+import { Button } from "react-native-paper";
+function Settings({ navigation }) {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (

@@ -4,8 +4,10 @@ import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { app } from "../firebaseConfig";
 import { Button } from "react-native-paper";
+//redux
+import { connect } from "react-redux";
 
-function Home({ navigation }) {
+function Home({ navigation, USER_DATA }) {
   const [imageUrl, setImageUrl] = useState("");
   const storage = getStorage(app);
   const storageRef = ref(storage, `logo.png`);
@@ -15,7 +17,7 @@ function Home({ navigation }) {
     console.log(imageUrl);
   };
   useEffect(() => {
-    console.log(storage);
+    // console.log(storage);
     // console.log(storageRef);
     url();
   });
@@ -34,11 +36,7 @@ function Home({ navigation }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      <Button
-        color="#f194ff"
-        title="start "
-        onPress={() => navigation.navigate("Start")}
-      />
+      <Text>welcome! {USER_DATA.nickname}</Text>
       <Button
         icon="airplane"
         mode="contained-tonal"
@@ -70,4 +68,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const mapStateToProps = (state, myOwnProps) => {
+  console.log("mapStateTopProps USER_DATA in Home", state.user.user_obj.user);
+  return {
+    USER_DATA: state.user.user_obj.user,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

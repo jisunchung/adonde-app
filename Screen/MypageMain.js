@@ -5,33 +5,37 @@ import axios from "axios";
 import { BASE_URL } from "../api";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
+//redux
+import { connect } from "react-redux";
 
-function MypageMain({ Id }) {
+function MypageMain({ navigation, USER_DATA }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
-  const storedCitiesChange = (storedCities) => {
+  const [isLogin, setIsLogin] = useState(false);
+  function storedCitiesChange(storedCities) {
     console.log("storedCitiesChange!!", storedCities);
     setStoredCities(storedCities);
-  };
+  }
+
   useEffect(() => {
-    console.log("user Id in mypage main", Id);
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
-          id: Id,
+          id: USER_DATA.id,
         });
 
         console.log("getUserStoredCities", res.data);
         setUser(res.data);
         setStoredCities(res.data.storedCities);
+        return true;
       } catch (error) {
         console.log(error);
+        return false;
       } finally {
       }
     };
-
     getUserStoredCities();
-  }, []);
+  }, [USER_DATA]);
   return user ? (
     <View style={styles.block}>
       <View style={styles.user_block}>
@@ -67,7 +71,9 @@ function MypageMain({ Id }) {
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
           mode="contained-tonal"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.push("Login");
+          }}
         >
           로그인
         </Button>
@@ -92,4 +98,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MypageMain;
+const mapStateToProps = (state, myOwnProps) => {
+  console.log("mypage main get user", state.user.user_obj.user);
+  return {
+    USER_DATA: state.user.user_obj.user,
+  };
+};
+
+export default connect(mapStateToProps)(MypageMain);
