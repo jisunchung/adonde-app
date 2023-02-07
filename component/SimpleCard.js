@@ -13,14 +13,16 @@ import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
+//redux
+import { connect } from "react-redux";
 
-export default function App({ name, storedCitiesChange }) {
+function SimpleCard({ name, storedCitiesChange, USER_DATA }) {
   const navigation = useNavigation();
   const [heart, setHeart] = useState(true);
   const deleteStoredCities = async (sido_sgg) => {
     try {
       const res = await axios.put(`${BASE_URL}/user/deleteStoredCity`, {
-        id: "52",
+        id: USER_DATA.id,
         sido_sgg: sido_sgg,
       });
 
@@ -105,3 +107,12 @@ const styles = StyleSheet.create({
     // alignSelf: "flex-end",
   },
 });
+
+const mapStateToProps = (state, myOwnProps) => {
+  // console.log("simplecard get user id", state.user.user_obj.user.id);
+  return {
+    USER_DATA: state.user.user_obj.user,
+  };
+};
+
+export default connect(mapStateToProps)(SimpleCard);

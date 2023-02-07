@@ -11,10 +11,12 @@ import { connect } from "react-redux";
 function MypageMain({ navigation, USER_DATA }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
+  const [isLogin, setIsLogin] = useState(false);
   function storedCitiesChange(storedCities) {
     console.log("storedCitiesChange!!", storedCities);
     setStoredCities(storedCities);
   }
+
   useEffect(() => {
     const getUserStoredCities = async () => {
       try {
@@ -25,14 +27,15 @@ function MypageMain({ navigation, USER_DATA }) {
         console.log("getUserStoredCities", res.data);
         setUser(res.data);
         setStoredCities(res.data.storedCities);
+        return true;
       } catch (error) {
         console.log(error);
+        return false;
       } finally {
       }
     };
-
     getUserStoredCities();
-  }, []);
+  }, [USER_DATA]);
   return user ? (
     <View style={styles.block}>
       <View style={styles.user_block}>
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("mypage main get user id", state.user.user_obj.user.id);
+  console.log("mypage main get user", state.user.user_obj.user);
   return {
     USER_DATA: state.user.user_obj.user,
   };
