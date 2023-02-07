@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, myOwnProps) => {
-  console.log("mapStateTopProps user", state.user.user);
+  console.log("mapStateTopProps USER_DATA in Home", state.user.user);
   return {
     USER_DATA: state.user.user,
   };

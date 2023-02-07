@@ -79,7 +79,7 @@ function Login({ SET_USER, USER_DATA }) {
       };
       const res = await axios.get(url, Header);
       console.log("res", res.data.kakao_account);
-      setUser(res.data.kakao_account);
+
       getUserId(res.data.kakao_account);
     } catch (e) {
       console.log("axios error");
@@ -97,6 +97,7 @@ function Login({ SET_USER, USER_DATA }) {
         profile_image: userObj.profile.profile_image_url,
         dateofbirth: userObj.birthday,
       });
+      setUser(res.data);
       //redux
       SET_USER(res.data);
     } catch (e) {
@@ -126,9 +127,8 @@ function Login({ SET_USER, USER_DATA }) {
     return (
       <View>
         <Text>로그인 완료</Text>
-        {/* <Text>{USER_DATA.user.nickname}</Text> */}
-        {/* <Text>{USER_DATA.user.email}</Text> */}
-        {/* <Text>{USER_DATA.user.id}</Text> */}
+        <Text>{user.nickname}</Text>
+        <Text>{user.email}</Text>
       </View>
     );
   }
