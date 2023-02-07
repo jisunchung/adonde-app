@@ -35,14 +35,6 @@ function Settings({ navigation }) {
         </TouchableOpacity>
         <Divider />
       </View>
-      <Button
-        textColor="#FFFFFF"
-        buttonColor="#44AD5E"
-        mode="contained-tonal"
-        onPress={() => navigation.push("Login")}
-      >
-        Subtmit
-      </Button>
     </View>
   );
 }
