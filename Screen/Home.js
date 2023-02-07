@@ -7,7 +7,7 @@ import { Button } from "react-native-paper";
 //redux
 import { connect } from "react-redux";
 
-function Home({ navigation, user }) {
+function Home({ navigation, USER_DATA }) {
   const [imageUrl, setImageUrl] = useState("");
   const storage = getStorage(app);
   const storageRef = ref(storage, `logo.png`);
@@ -36,7 +36,7 @@ function Home({ navigation, user }) {
         }
       />
       <Image source={require("../assets/adonde_title.png")} />
-      <Text>welcome! {user.nickname}</Text>
+      {/* {USER_DATA.id ? <Text>welcome! {USER_DATA.user.nickname}</Text> : null} */}
       <Button
         icon="airplane"
         mode="contained-tonal"
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, myOwnProps) => {
   console.log("mapStateTopProps user", state.user.user);
   return {
-    user: state.user.user,
+    USER_DATA: state.user.user,
   };
 };
 

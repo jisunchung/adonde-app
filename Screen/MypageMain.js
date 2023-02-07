@@ -5,8 +5,10 @@ import axios from "axios";
 import { BASE_URL } from "../api";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
+//redux
+import { connect } from "react-redux";
 
-function MypageMain() {
+function MypageMain({ USER_DATA }) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
   function storedCitiesChange(storedCities) {
@@ -17,7 +19,7 @@ function MypageMain() {
     const getUserStoredCities = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
-          id: "52",
+          id: USER_DATA.user.id,
         });
 
         console.log("getUserStoredCities", res.data);
@@ -91,4 +93,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MypageMain;
+const mapStateToProps = (state, myOwnProps) => {
+  console.log("mypage main get user id", state.user.user.user.id);
+  return {
+    USER_DATA: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps)(MypageMain);

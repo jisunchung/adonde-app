@@ -126,8 +126,9 @@ function Login({ SET_USER, USER_DATA }) {
     return (
       <View>
         <Text>로그인 완료</Text>
-        <Text>{user.profile.nickname}</Text>
-        <Text>{user.email}</Text>
+        {/* <Text>{USER_DATA.user.nickname}</Text> */}
+        {/* <Text>{USER_DATA.user.email}</Text> */}
+        {/* <Text>{USER_DATA.user.id}</Text> */}
       </View>
     );
   }
