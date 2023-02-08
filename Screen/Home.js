@@ -14,7 +14,7 @@ function Home({ navigation, USER_DATA }) {
   const url = async () => {
     const imageUrl = await getDownloadURL(storageRef);
     setImageUrl(imageUrl);
-    console.log(imageUrl);
+    // console.log(imageUrl);
   };
   useEffect(() => {
     // console.log(storage);

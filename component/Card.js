@@ -2,17 +2,25 @@ import * as React from "react";
 import { Text, View, StyleSheet, Image, Button } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from "react";
 
 export default function App({ name, img, description }) {
   const navigation = useNavigation();
   const [heart, setHeart] = React.useState(false);
   const clickHeart = () => {
+    if (heart) {
+      console.log("하트 클릭");
+    } else {
+      console.log("하트 취소");
+    }
     setHeart(!heart);
-    console.log("heartClick:", name);
   };
   const clickCard = () => {
     alert("cardclick");
   };
+  useEffect(() => {
+    console.log("heartClick:", name, heart);
+  }, [heart]);
   return (
     <View style={styles.container}>
       <View style={styles.card_template}>

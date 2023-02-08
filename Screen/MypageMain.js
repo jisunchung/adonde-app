@@ -7,14 +7,22 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 //redux
 import { connect } from "react-redux";
+import { SET_STORED_CITIES } from "../redux/userSlice";
 
-function MypageMain({ navigation, USER_DATA }) {
+function MypageMain({
+  navigation,
+  USER_DATA,
+  USER_SOTRED_CITIES,
+  SET_STORED_CITIES,
+}) {
   const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
   const [isLogin, setIsLogin] = useState(false);
   function storedCitiesChange(storedCities) {
+    //자식 comp로 전달
     console.log("storedCitiesChange!!", storedCities);
-    setStoredCities(storedCities);
+    // setStoredCities(storedCities);
+    SET_STORED_CITIES(storedCities);
   }
 
   useEffect(() => {
@@ -26,7 +34,8 @@ function MypageMain({ navigation, USER_DATA }) {
 
         console.log("getUserStoredCities", res.data);
         setUser(res.data);
-        setStoredCities(res.data.storedCities);
+        // setStoredCities(res.data.storedCities);
+        SET_STORED_CITIES(res.data.storedCities);
         return true;
       } catch (error) {
         console.log(error);
@@ -53,7 +62,7 @@ function MypageMain({ navigation, USER_DATA }) {
         <Text>{user.email}</Text>
       </View>
       <ScrollView>
-        {StoredCities.map((city_name) => (
+        {USER_SOTRED_CITIES.map((city_name) => (
           <SimpleCard
             name={city_name}
             key={city_name}
@@ -100,9 +109,19 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, myOwnProps) => {
   console.log("mypage main get user", state.user.user_obj.user);
+  console.log(
+    "mypage main get user storedcities",
+    state.user.user_storedCities
+  );
   return {
     USER_DATA: state.user.user_obj.user,
+    USER_SOTRED_CITIES: state.user.user_storedCities,
   };
 };
 
-export default connect(mapStateToProps)(MypageMain);
+const mapDispatchToProps = {
+  // ... normally is an object full of action creators
+  SET_STORED_CITIES,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MypageMain);

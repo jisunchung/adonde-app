@@ -11,14 +11,18 @@ export const userSlice = createSlice({
         nickname: "비회원",
       },
     },
+    user_storedCities: [],
   },
   reducers: {
     SET_USER: (state, action) => {
       state.user_obj = { ...state.user_obj, user: action.payload };
     },
+    SET_STORED_CITIES: (state, action) => {
+      state.user_storedCities = action.payload;
+    },
   },
 });
 
-export const { SET_USER } = userSlice.actions;
+export const { SET_USER, SET_STORED_CITIES } = userSlice.actions;
 
 export default userSlice.reducer;
