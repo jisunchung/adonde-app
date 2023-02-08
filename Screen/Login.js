@@ -13,10 +13,10 @@ import { SET_USER } from "../redux/userSlice";
 //kako login
 
 const REST_API_KEY = "db70b5cab2691de3b46b929e6dbd8eed";
-const REDIRECT_URI = "https://auth.expo.io/@jisun0322/adondeTest";
+const REDIRECT_URI = "https://adondeadmin.netlify.app/loading";
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
-function Login({ SET_USER, USER_DATA }) {
+function Login({ navigation, SET_USER, USER_DATA }) {
   //   const [ACCESS_TOKEN, setACCESS_TOKEN] = useState("");
   const [user, setUser] = useState(null);
 
@@ -101,6 +101,8 @@ function Login({ SET_USER, USER_DATA }) {
       console.log("getUser", res.data);
       //redux
       SET_USER(res.data);
+      //mypageMain 으로 되돌아가게 해줌!
+      navigation.goBack();
     } catch (e) {
       console.log("axios error get user Id");
       console.log(e);
