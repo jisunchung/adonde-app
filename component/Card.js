@@ -3,8 +3,10 @@ import { Text, View, StyleSheet, Image, Button } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
+//redux
+import { connect, Connect } from "react-redux";
 
-export default function App({ name, img, description }) {
+function Card({ name, img, description, USER_SOTRED_CITIES }) {
   const navigation = useNavigation();
   const [heart, setHeart] = React.useState(false);
   const clickHeart = () => {
@@ -19,8 +21,12 @@ export default function App({ name, img, description }) {
     alert("cardclick");
   };
   useEffect(() => {
-    console.log("heartClick:", name, heart);
-  }, [heart]);
+    // console.log("result page storedcities", USER_SOTRED_CITIES);
+    //user가 저장한 도시의 경우 heart가 체크되어있도록 해줌
+    if (USER_SOTRED_CITIES.includes(name)) {
+      setHeart(true);
+    }
+  }, [USER_SOTRED_CITIES]);
   return (
     <View style={styles.container}>
       <View style={styles.card_template}>
@@ -111,3 +117,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
+const mapStateToProps = (state, myOwnProps) => {
+  return {
+    USER_SOTRED_CITIES: state.user.user_storedCities,
+  };
+};
+
+export default connect(mapStateToProps)(Card);
