@@ -3,28 +3,71 @@ import { Text, View, StyleSheet, Image, Button } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
+import axios from "axios";
+import { BASE_URL } from "../api";
 //redux
 import { connect, Connect } from "react-redux";
+import { SET_STORED_CITIES } from "../redux/userSlice";
 
-function Card({ name, img, description, USER_SOTRED_CITIES }) {
+function Card({
+  name,
+  img,
+  description,
+  USER_DATA,
+  USER_SOTRED_CITIES,
+  SET_STORED_CITIES,
+}) {
   const navigation = useNavigation();
   const [heart, setHeart] = React.useState(false);
-  const clickHeart = () => {
-    if (heart) {
-      console.log("하트 클릭");
-    } else {
-      console.log("하트 취소");
+  // addStoredCity
+  const addStoredCity = async () => {
+    try {
+      const res = await axios.put(`${BASE_URL}/user/addStoredCity`, {
+        id: USER_DATA.id,
+        sido_sgg: name,
+      });
+
+      console.log("addStoredCity", res.data);
+      SET_STORED_CITIES(res.data);
+    } catch (error) {
+      console.log(error);
     }
-    setHeart(!heart);
   };
-  const clickCard = () => {
-    alert("cardclick");
+  //deleteStoredCity
+  const deleteStoredCity = async (sido_sgg) => {
+    try {
+      const res = await axios.put(`${BASE_URL}/user/deleteStoredCity`, {
+        id: USER_DATA.id,
+        sido_sgg: name,
+      });
+
+      console.log("deleteStoredCity", res.data);
+      SET_STORED_CITIES(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const clickHeart = () => {
+    if (USER_DATA.id != null) {
+      if (!heart) {
+        console.log("하트 클릭");
+        addStoredCity();
+      } else {
+        console.log("하트 취소");
+        deleteStoredCity();
+      }
+      setHeart(!heart);
+    } else {
+      alert("로그인 후 사용해주세요!");
+    }
   };
   useEffect(() => {
     // console.log("result page storedcities", USER_SOTRED_CITIES);
     //user가 저장한 도시의 경우 heart가 체크되어있도록 해줌
     if (USER_SOTRED_CITIES.includes(name)) {
       setHeart(true);
+    } else {
+      setHeart(false);
     }
   }, [USER_SOTRED_CITIES]);
   return (
@@ -120,8 +163,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, myOwnProps) => {
   return {
+    USER_DATA: state.user.user_obj.user,
     USER_SOTRED_CITIES: state.user.user_storedCities,
   };
 };
 
-export default connect(mapStateToProps)(Card);
+const mapDispatchToProps = {
+  SET_STORED_CITIES,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

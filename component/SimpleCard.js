@@ -15,19 +15,26 @@ import axios from "axios";
 import { BASE_URL } from "../api";
 //redux
 import { connect } from "react-redux";
+import { SET_STORED_CITIES } from "../redux/userSlice";
 
-function SimpleCard({ name, storedCitiesChange, USER_DATA }) {
+function SimpleCard({
+  name,
+  storedCitiesChange,
+  USER_DATA,
+  SET_STORED_CITIES,
+}) {
   const navigation = useNavigation();
   const [heart, setHeart] = useState(true);
-  const deleteStoredCities = async (sido_sgg) => {
+  const deleteStoredCity = async (sido_sgg) => {
     try {
       const res = await axios.put(`${BASE_URL}/user/deleteStoredCity`, {
         id: USER_DATA.id,
         sido_sgg: sido_sgg,
       });
 
-      console.log("deleteStoredCities", res.data);
-      storedCitiesChange(res.data);
+      console.log("deleteStoredCity", res.data);
+      SET_STORED_CITIES(res.data);
+      // storedCitiesChange(res.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -36,7 +43,7 @@ function SimpleCard({ name, storedCitiesChange, USER_DATA }) {
   const clickHeart = () => {
     setHeart(!heart);
     console.log("heartClick:", name);
-    deleteStoredCities(name);
+    deleteStoredCity(name);
   };
   const clickCard = () => {
     alert("cardclick");
@@ -114,5 +121,8 @@ const mapStateToProps = (state, myOwnProps) => {
     USER_DATA: state.user.user_obj.user,
   };
 };
+const mapDispatchToProps = {
+  SET_STORED_CITIES,
+};
 
-export default connect(mapStateToProps)(SimpleCard);
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleCard);

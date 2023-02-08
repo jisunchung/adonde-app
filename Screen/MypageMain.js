@@ -58,7 +58,7 @@ function MypageMain({
           <SimpleCard
             name={city_name}
             key={city_name}
-            storedCitiesChange={storedCitiesChange}
+            // storedCitiesChange={storedCitiesChange}
           />
         ))}
       </ScrollView>
