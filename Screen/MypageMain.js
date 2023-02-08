@@ -15,13 +15,10 @@ function MypageMain({
   USER_SOTRED_CITIES,
   SET_STORED_CITIES,
 }) {
-  const [StoredCities, setStoredCities] = useState([]);
   const [user, setUser] = useState();
-  const [isLogin, setIsLogin] = useState(false);
+  //자식 comp로 전달하는 함수
   function storedCitiesChange(storedCities) {
-    //자식 comp로 전달
     console.log("storedCitiesChange!!", storedCities);
-    // setStoredCities(storedCities);
     SET_STORED_CITIES(storedCities);
   }
 
@@ -31,16 +28,11 @@ function MypageMain({
         const res = await axios.post(`${BASE_URL}/user/findOneById`, {
           id: USER_DATA.id,
         });
-
-        console.log("getUserStoredCities", res.data);
+        console.log("getUserStoredCities in mypage main", res.data);
         setUser(res.data);
-        // setStoredCities(res.data.storedCities);
         SET_STORED_CITIES(res.data.storedCities);
-        return true;
       } catch (error) {
         console.log(error);
-        return false;
-      } finally {
       }
     };
     getUserStoredCities();
@@ -104,6 +96,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 30,
+    marginBottom: 10,
   },
 });
 
@@ -120,7 +113,6 @@ const mapStateToProps = (state, myOwnProps) => {
 };
 
 const mapDispatchToProps = {
-  // ... normally is an object full of action creators
   SET_STORED_CITIES,
 };
 
