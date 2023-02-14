@@ -10,6 +10,7 @@ import { Entypo } from "@expo/vector-icons";
 import ResultMap from "./ResultMap";
 import { Snackbar } from "react-native-paper";
 import * as Shake from "expo-shake";
+import AdCard from "../component/AdCard";
 
 function Result({ navigation }) {
   const [result, setResult] = useState([]);
@@ -17,6 +18,8 @@ function Result({ navigation }) {
   const [randomNum, setRandomNum] = useState(0);
   const route = useRoute();
   const [visible, setVisible] = React.useState(true);
+  const [adList, setAdList] = useState([]);
+  const [adAndResultList, setAdAndResultList] = useState([]);
 
   const onToggleSnackBar = () => setVisible(!visible);
 
@@ -44,6 +47,19 @@ function Result({ navigation }) {
   );
 
   useEffect(() => {
+    const getAdList = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/ad/orderByRand`);
+
+        // console.log("getAdList:", res.data.data);
+        // console.log("res data views: ", res.data.data);
+        setAdList(res.data.data);
+        console.log("Adlist", res.data.data.length);
+      } catch (error) {
+        console.log(error);
+      } finally {
+      }
+    };
     const searchResult = async () => {
       try {
         const res = await axios.post(`${BASE_URL}/search/`, {
@@ -57,12 +73,19 @@ function Result({ navigation }) {
         console.log("res.data length:", res.data.length);
         //   console.log("Random Num", getRandomArbitrary(0, res.data.length));
         setResult(res.data);
+        getAdList();
       } catch (error) {
         console.log(error);
       } finally {
+        setAdAndResultList(result.concat(adList));
+        console.log("adAndResultList", adAndResultList.length);
       }
     };
+
+    console.log("-------resultpage-----");
+    console.log("result", route.params);
     searchResult();
+
     Shake.addListener(() => {
       //   alert("shake!");
       setShake(true);
@@ -72,15 +95,11 @@ function Result({ navigation }) {
     });
     // setShake(true);
     // setRandomNum(getRandomArbitrary(0, result.length));
-
-    console.log("-------resultpage-----");
-    console.log("result", route.params.FilterValue["access"]);
   }, []);
   //cardlist 형식으로 보여줌
   if (!route.params.mapIcon) {
     return (
       <ScrollView style={styles.block}>
-        {/* <Entypo name="map" size={24} color="black" /> */}
         {result.length == 0 ? (
           <Text style={styles.loading_text}>로딩중...</Text>
         ) : (
@@ -102,6 +121,7 @@ function Result({ navigation }) {
               >
                 핸드폰을 흔들어보세요!
               </Snackbar> */}
+              {/* shake! */}
               <View>
                 <Overlay overlayStyle={styles.overlay} isVisible={shake}>
                   <CardComp
@@ -115,7 +135,29 @@ function Result({ navigation }) {
                 </Overlay>
               </View>
               <Button title="shake" onPress={() => setShake(true)}></Button>
+              {/* result */}
+              {/* <View>
+                {adList.map((data) => (
+                  <View key={data.id}>
+                    <AdCard
+                      key={data.id}
+                      name={data.name}
+                      img={data.img}
+                      description={data.description}
+                    />
+                  </View>
+                ))}
+              </View> */}
             </View>
+            {adList.length == 0 ? (
+              <Text style={styles.loading_text}>광고 로딩중...</Text>
+            ) : (
+              <AdCard
+                name={adList[0].name}
+                img={adList[0].img}
+                description={adList[0].description}
+              />
+            )}
             {result.map((data) => (
               <View key={data.sido_sgg}>
                 <CardComp

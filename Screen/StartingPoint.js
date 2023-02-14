@@ -34,7 +34,7 @@ function StartingPoint({ navigation }) {
   //출발지 설정 state
   const [modalVisible, setModalVisible] = useState(false);
   const [sido, setSido] = useState("");
-  const [sido_sgg, setSido_sgg] = useState("");
+  const [sido_sgg, setSido_sgg] = useState("서울 서울");
   const data = [
     {
       key: "특별/광역시",
