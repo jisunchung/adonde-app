@@ -6,6 +6,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -21,86 +22,72 @@ function AdCard({ name, img, description }) {
     <TouchableOpacity>
       <View style={styles.container}>
         <View style={styles.card_template}>
-          <Text style={styles.card_title}>
-            <Entypo name="info-with-circle" size={24} color="black" />
-            {name}
-          </Text>
-          <Image
-            style={styles.card_image}
-            source={{
-              uri: img,
-            }}
-          />
-          <View style={styles.text_container}>
-            {/* <Text style={styles.card_des}>{description.split(".", 2)}</Text> */}
-            <View style={styles.action_container}>
-              {/* <Button
-              title="DETAILS"
-              onPress={() => navigation.navigate("Detail", { sido_sgg: name })}
-            ></Button> */}
-              <Text> {description}</Text>
-            </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.card_title_text}>
+              <Entypo name="info-with-circle" size={20} color="black" />
+            </Text>
+            <Text style={styles.card_title_text}>{name}</Text>
+          </View>
+          <View style={styles.card_info_container}>
+            <Image
+              style={styles.card_image}
+              source={img ? { uri: img } : null}
+            />
+            <Text style={styles.card_des_text}> {description}</Text>
           </View>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
-
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 5,
     // backgroundColor: "yellow",
   },
   card_template: {
-    width: 280,
-    height: 380,
-    backgroundColor: "#D8F781",
+    // padding: 5,
+    width: screenWidth,
+    height: 170,
+    backgroundColor: "#E0F2F7",
+    //그림자...
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.7,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.3,
+    shadowRadius: 2.84,
+    elevation: 1,
+
     // borderWidth: 7,
-    borderRadius: 10,
+    // borderRadius: 10,
+  },
+
+  card_title_text: {
+    color: "black",
+    padding: 8,
+    fontSize: 20,
+  },
+  card_info_container: {
+    flexDirection: "row",
+    marginLeft: 30,
+    // justifyContent: "center"
   },
   card_image: {
-    width: 280,
-    height: 280,
+    width: 120,
+    height: 120,
 
     // borderTopStartRadius: 10,
     // borderTopEndRadius: 10,
   },
-  text_container: {
-    position: "absolute",
-    width: 280,
-    // height: 30,
-    bottom: 0,
-    padding: 10,
-    // backgroundColor: "rgba(0,0,0, 0.3)",
-    backgroundColor: "#44AD5E",
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  card_title: {
-    color: "black",
-    padding: 10,
-    fontSize: 25,
-  },
-  card_des: {
-    color: "black",
-  },
-  heart_icon: {
-    paddingTop: 8,
-  },
-  action_container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  card_des_text: {
+    margin: 30,
+    fontSize: 18,
   },
 });
 

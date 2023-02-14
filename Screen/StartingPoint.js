@@ -34,7 +34,7 @@ function StartingPoint({ navigation }) {
   //출발지 설정 state
   const [modalVisible, setModalVisible] = useState(false);
   const [sido, setSido] = useState("");
-  const [sido_sgg, setSido_sgg] = useState("서울 서울");
+  const [sido_sgg, setSido_sgg] = useState("");
   const data = [
     {
       key: "특별/광역시",
@@ -369,7 +369,10 @@ function StartingPoint({ navigation }) {
             <Ionicons name="md-pin" size={30} color={"green"} />
             {address}
           </Text>
-          <Pressable style={[styles.button, styles.buttonClose]}>
+          <Pressable
+            onPress={() => setSido_sgg("서울 서울")}
+            style={[styles.button, styles.buttonClose]}
+          >
             <Text style={styles.textStyle}>현위치를 출발지로</Text>
           </Pressable>
         </View>
