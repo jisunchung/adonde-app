@@ -4,45 +4,71 @@ import {
   View,
   StyleSheet,
   Image,
-  Button,
-  TouchableOpacity,
   Dimensions,
+  TouchableOpacity,
+  Button,
+  Linking,
 } from "react-native";
+import { Overlay } from "react-native-elements";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
-function AdCard({ name, img, description, subject }) {
+function AdCard({ data }) {
   const navigation = useNavigation();
-
+  const [visible, setVisible] = React.useState(false);
   useEffect(() => {}, []);
+  const adClick = () => {
+    console.log(data.name, "click");
+    setVisible(true);
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={adClick}>
       <View style={styles.container}>
         <View style={styles.card_template}>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.card_title_text}>
               <Entypo name="info-with-circle" size={20} color="black" />
             </Text>
-            <Text style={styles.card_title_text}>{name}</Text>
+            <Text style={styles.card_title_text}>{data.name}</Text>
           </View>
           <View style={styles.card_info_container}>
             <Image
               style={styles.card_image}
-              source={img ? { uri: img } : null}
+              source={data.img ? { uri: data.img } : null}
             />
 
             <View style={styles.card_des_container}>
-              <Text style={styles.card_des_text}>{subject}</Text>
+              <Text style={styles.card_des_text}>{data.subject}</Text>
               <Text numberOfLines={5} style={styles.card_des_text}>
-                {description}
+                {data.description}
               </Text>
             </View>
           </View>
         </View>
       </View>
+      <Overlay visible={visible}>
+        <Text>{data.name}</Text>
+        <Image
+          style={styles.overlay_img}
+          source={data.img ? { uri: data.img } : null}
+        />
+        <Text>{data.comp_name}</Text>
+        <Text>{data.comp_email}</Text>
+        <Text>{data.subject}</Text>
+        <Text>{data.description}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(data.url);
+          }}
+        >
+          <Text style={{ color: "blue" }}>{data.url}</Text>
+        </TouchableOpacity>
+
+        <Button title="x" onPress={() => setVisible(false)}></Button>
+      </Overlay>
     </TouchableOpacity>
   );
 }
@@ -101,6 +127,10 @@ const styles = StyleSheet.create({
     margin: 15,
     fontSize: 15,
     // alignSelf: "center",
+  },
+  overlay_img: {
+    width: 100,
+    height: 100,
   },
 });
 

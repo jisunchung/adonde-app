@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { StyleSheet, Text, View, Button, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { useRoute } from "@react-navigation/native";
@@ -13,6 +20,7 @@ import * as Shake from "expo-shake";
 import AdCard from "../component/AdCard";
 
 function Result({ navigation }) {
+  const [adOverlayVisible, setAdOverlayVisible] = useState(false);
   const [result, setResult] = useState([]);
   const [shake, setShake] = useState(false);
   const [randomNum, setRandomNum] = useState(0);
@@ -152,12 +160,19 @@ function Result({ navigation }) {
             {adList.length == 0 ? (
               <Text style={styles.loading_text}>광고 로딩중...</Text>
             ) : (
-              <AdCard
-                name={adList[0].name}
-                img={adList[0].img}
-                description={adList[0].description}
-                subject={adList[0].subject}
-              />
+              // (
+              //   <AdCard
+              //     name={adList[0].name}
+              //     img={adList[0].img}
+              //     description={adList[0].description}
+              //     subject={adList[0].subject}
+              //   />
+              // )
+              adList.map((data) => (
+                <View key={data.id}>
+                  <AdCard data={data} />
+                </View>
+              ))
             )}
             {result.map((data) => (
               <View key={data.sido_sgg}>
