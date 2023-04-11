@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
-function AdCard({ name, img, description }) {
+function AdCard({ name, img, description, subject }) {
   const navigation = useNavigation();
 
   useEffect(() => {}, []);
@@ -33,10 +33,13 @@ function AdCard({ name, img, description }) {
               style={styles.card_image}
               source={img ? { uri: img } : null}
             />
-            <Text numberOfLines={5} style={styles.card_des_text}>
-              {" "}
-              {description}
-            </Text>
+
+            <View style={styles.card_des_container}>
+              <Text style={styles.card_des_text}>{subject}</Text>
+              <Text numberOfLines={5} style={styles.card_des_text}>
+                {description}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -50,7 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
-    marginBottom: 50,
     // backgroundColor: "yellow",
   },
   card_template: {
@@ -82,22 +84,23 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     // backgroundColor: "red",
     width: screenWidth - 40,
-    // flexWrap: "wrap",
     // justifyContent: "center"
   },
   card_image: {
     width: 120,
     height: 120,
-    // flexWrap: "wrap",
     // borderTopStartRadius: 10,
     // borderTopEndRadius: 10,
+    borderRadius: 10,
     flexShrink: 0,
+  },
+  card_des_container: {
+    flexShrink: 1,
   },
   card_des_text: {
     margin: 15,
     fontSize: 15,
-    // flexWrap: "wrap",
-    flexShrink: 1,
+    // alignSelf: "center",
   },
 });
 

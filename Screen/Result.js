@@ -156,6 +156,7 @@ function Result({ navigation }) {
                 name={adList[0].name}
                 img={adList[0].img}
                 description={adList[0].description}
+                subject={adList[0].subject}
               />
             )}
             {result.map((data) => (
