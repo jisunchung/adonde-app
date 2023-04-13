@@ -50,24 +50,30 @@ function AdCard({ data }) {
         </View>
       </View>
       <Overlay visible={visible}>
-        <Text>{data.name}</Text>
-        <Image
-          style={styles.overlay_img}
-          source={data.img ? { uri: data.img } : null}
-        />
-        <Text>{data.comp_name}</Text>
-        <Text>{data.comp_email}</Text>
-        <Text>{data.subject}</Text>
-        <Text>{data.description}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            Linking.openURL(data.url);
-          }}
-        >
-          <Text style={{ color: "blue" }}>{data.url}</Text>
-        </TouchableOpacity>
+        <View style={styles.ad_overlay_container}>
+          <Text style={styles.ad_overlay_title}>{data.name}</Text>
+          <Text>{data.subject}</Text>
+          <Image
+            style={styles.ad_overlay_img}
+            source={data.img ? { uri: data.img } : null}
+          />
 
-        <Button title="x" onPress={() => setVisible(false)}></Button>
+          <Text style={styles.ad_overlay_description}>{data.description}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(data.url);
+            }}
+          >
+            <Text style={{ color: "blue" }}>{data.url}</Text>
+          </TouchableOpacity>
+
+          {/* <View style={styles.ad_overlay_company}> */}
+          <Text style={styles.ad_overlay_company_name}>{data.comp_name}</Text>
+          <Text style={styles.ad_overlay_company_email}>{data.comp_email}</Text>
+          {/* </View> */}
+
+          <Button title="x" onPress={() => setVisible(false)}></Button>
+        </View>
       </Overlay>
     </TouchableOpacity>
   );
@@ -128,9 +134,37 @@ const styles = StyleSheet.create({
     fontSize: 15,
     // alignSelf: "center",
   },
-  overlay_img: {
-    width: 100,
-    height: 100,
+  ad_overlay_container: {
+    width: screenWidth - 20,
+    padding: 15,
+    paddingBottom: 0,
+    alignItems: "center",
+    // backgroundColor: "skyblue",
+    // borderRadius: 10,
+    // borderColor: "skyblue",
+    // borderWidth: 2,
+  },
+  ad_overlay_title: {
+    fontSize: 25,
+    fontWeight: "bold",
+    paddingBottom: 15,
+  },
+  ad_overlay_img: {
+    width: 150,
+    height: 150,
+    margin: 10,
+  },
+  ad_overlay_description: {
+    fontSize: 20,
+  },
+  ad_overlay_company_name: {
+    marginTop: 30,
+    color: "grey",
+    // backgroundColor: "skyblue",
+    alignItems: "center",
+  },
+  ad_overlay_company_email: {
+    color: "grey",
   },
 });
 

@@ -53,7 +53,7 @@ function Result({ navigation }) {
     () => getRandomArbitrary(0, result.length),
     [shake]
   );
-
+  const mixAdandCityResult = () => {};
   useEffect(() => {
     const getAdList = async () => {
       try {
@@ -62,7 +62,7 @@ function Result({ navigation }) {
         // console.log("getAdList:", res.data.data);
         // console.log("res data views: ", res.data.data);
         setAdList(res.data.data);
-        console.log("Adlist", res.data.data.length);
+        console.log("Adlist length", res.data.data.length);
       } catch (error) {
         console.log(error);
       } finally {
@@ -85,13 +85,12 @@ function Result({ navigation }) {
       } catch (error) {
         console.log(error);
       } finally {
-        setAdAndResultList(result.concat(adList));
-        console.log("adAndResultList", adAndResultList.length);
       }
     };
 
     console.log("-------resultpage-----");
     console.log("result", route.params);
+    // console.log("result, ad", result, adList);
     searchResult();
 
     Shake.addListener(() => {
