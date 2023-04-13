@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   logo: {
+    marginTop: 75,
     width: 230,
     height: 225,
   },

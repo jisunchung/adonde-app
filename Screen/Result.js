@@ -53,7 +53,21 @@ function Result({ navigation }) {
     () => getRandomArbitrary(0, result.length),
     [shake]
   );
-  const mixAdandCityResult = () => {};
+
+  const mixAdandCityResult = (cityResult, adList) => {
+    console.log("mix data", cityResult.concat(adList));
+    // adlist 4 result 10 result2개당 1개의 광고가 나옴
+    // 10/2 = 5 / 1 2 (2) 3 4 (5) 5 6 (8) 7 8 (11) 9 10 (14)
+    // 10/3 = 3   1 2 3 (3) 4 5 6 (7) 7 8 9 (11)
+    //섞어주기
+    // for(i=0; i< result.length/3)
+
+    return adList.length + cityResult.length;
+  };
+  const getAdlistAndCityResult = useMemo(
+    () => mixAdandCityResult(result, adList),
+    [result, adList]
+  );
   useEffect(() => {
     const getAdList = async () => {
       try {
@@ -129,6 +143,7 @@ function Result({ navigation }) {
                 핸드폰을 흔들어보세요!
               </Snackbar> */}
               {/* shake! */}
+
               <View>
                 <Overlay overlayStyle={styles.overlay} isVisible={shake}>
                   <CardComp
@@ -142,33 +157,15 @@ function Result({ navigation }) {
                 </Overlay>
               </View>
               <Button title="shake" onPress={() => setShake(true)}></Button>
+
               {/* result */}
-              {/* <View>
-                {adList.map((data) => (
-                  <View key={data.id}>
-                    <AdCard
-                      key={data.id}
-                      name={data.name}
-                      img={data.img}
-                      description={data.description}
-                    />
-                  </View>
-                ))}
-              </View> */}
             </View>
             {adList.length == 0 ? (
               <Text style={styles.loading_text}>광고 로딩중...</Text>
             ) : (
-              // (
-              //   <AdCard
-              //     name={adList[0].name}
-              //     img={adList[0].img}
-              //     description={adList[0].description}
-              //     subject={adList[0].subject}
-              //   />
-              // )
               adList.map((data) => (
                 <View key={data.id}>
+                  <Text>{getAdlistAndCityResult}</Text>
                   <AdCard data={data} />
                 </View>
               ))
@@ -185,32 +182,6 @@ function Result({ navigation }) {
             ))}
           </View>
         )}
-        {/* {result.length == 0 ? (
-            <Text>로딩중...</Text>
-          ) : (
-            result.map((data) => (
-              <Card key={data.sido_sgg} styl>
-                <Card.Title>{data.sido_sgg}</Card.Title>
-                <Card.Divider />
-                <Card.Image
-                  source={{
-                    uri: data.image_src,
-                  }}
-                />
-                <Text style={{ marginBottom: 10 }}>{data.description}</Text>
-                <Button
-                  icon={<Icon name="code" color="#ffffff" />}
-                  buttonStyle={{
-                    borderRadius: 0,
-                    marginLeft: 0,
-                    marginRight: 0,
-                    marginBottom: 0,
-                  }}
-                  title="DETAILS"
-                />
-              </Card>
-            ))
-          )} */}
       </ScrollView>
     );
   }
