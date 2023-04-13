@@ -20,9 +20,18 @@ function AdCard({ data }) {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
   useEffect(() => {}, []);
-  const adClick = () => {
-    console.log(data.name, "click");
+  const adClick = async () => {
+    console.log(data.name, data.id, "click");
     setVisible(true);
+    //조회수++
+    try {
+      const res = await axios.put(`${BASE_URL}/ad/updateView`, {
+        id: data.id,
+      });
+      console.log("update views :", res.data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <TouchableOpacity onPress={adClick}>
