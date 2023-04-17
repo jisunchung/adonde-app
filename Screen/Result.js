@@ -58,7 +58,7 @@ function Result({ navigation }) {
     // console.log("mix data", cityResult.concat(adList));
     // adlist 5 result 10
     // result2개당 1개의 광고가 나옴
-    // 1 2 (2) 3 4 (5) 5 6 (8) 7 8 (11) 9 10 (14)
+    // 1 2 3 4 (5) 5 6 7 8 (11) 9 10 (14)
     //
     // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
     var cityIdx = 0;
@@ -84,12 +84,12 @@ function Result({ navigation }) {
     // }
     // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
 
-    for (let i = 0; i < cityResult.length + cityResult.length / 2; i++) {
-      if ((i + 1) % 3 != 0 && cityIdx != cityResult.length) {
+    for (let i = 0; i < cityResult.length + cityResult.length / 4; i++) {
+      if ((i + 1) % 5 != 0 && cityIdx != cityResult.length) {
         adAndResultList[i] = cityResult[cityIdx];
         console.log("cityIdx", cityIdx);
         cityIdx++;
-      } else if ((i + 1) % 3 != 0) {
+      } else if ((i + 1) % 5 != 0) {
         adAndResultList[i] = adList[adIdx % adList.length];
         console.log("adidx", adIdx);
         adIdx++;
