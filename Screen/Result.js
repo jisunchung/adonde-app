@@ -28,6 +28,7 @@ function Result({ navigation }) {
   const [visible, setVisible] = React.useState(true);
   const [adList, setAdList] = useState([]);
   const [adAndResultList, setAdAndResultList] = useState([]);
+  const [loadingText, setLoadingText] = useState("로딩중...");
 
   const onToggleSnackBar = () => setVisible(!visible);
 
@@ -135,7 +136,11 @@ function Result({ navigation }) {
         console.log("res.data length:", res.data.length);
         //   console.log("Random Num", getRandomArbitrary(0, res.data.length));
         setResult(res.data);
-        getAdList();
+        if (res.data.length != 0) {
+          getAdList();
+        } else {
+          setLoadingText("검색결과가 없습니다 :(");
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -161,8 +166,8 @@ function Result({ navigation }) {
   if (!route.params.mapIcon) {
     return (
       <ScrollView style={styles.block}>
-        {result.length == 0 ? (
-          <Text style={styles.loading_text}>로딩중...</Text>
+        {adAndResultList.length == 0 ? (
+          <Text style={styles.loading_text}>{loadingText}</Text>
         ) : (
           <View>
             <View>
