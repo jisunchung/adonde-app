@@ -55,12 +55,52 @@ function Result({ navigation }) {
   );
 
   const mixAdandCityResult = (cityResult, adList) => {
-    console.log("mix data", cityResult.concat(adList));
-    // adlist 4 result 10 result2개당 1개의 광고가 나옴
-    // 10/2 = 5 / 1 2 (2) 3 4 (5) 5 6 (8) 7 8 (11) 9 10 (14)
-    // 10/3 = 3   1 2 3 (3) 4 5 6 (7) 7 8 9 (11)
-    //섞어주기
-    // for(i=0; i< result.length/3)
+    // console.log("mix data", cityResult.concat(adList));
+    // adlist 5 result 10
+    // result2개당 1개의 광고가 나옴
+    // 1 2 (2) 3 4 (5) 5 6 (8) 7 8 (11) 9 10 (14)
+    //
+    // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
+    var cityIdx = 0;
+    var adIdx = 0;
+    // for (let i = 0; i < cityResult.length + adList.length; i++) {
+    //   // console.log(adList.length, cityResult.length);
+    //   //
+    //   if ((i + 1) % 3 != 0 && cityIdx <= cityResult.length) {
+    //     adAndResultList[i] = cityResult[cityIdx];
+    //     cityIdx++;
+    //     console.log(i, "cityIdx", cityIdx, cityIdx);
+    //   } else if ((i + 1) % 3 == 0 && adIdx < adList.length) {
+    //     adAndResultList[i] = adList[adIdx];
+    //     adIdx++;
+    //     console.log(i, "adidx", adIdx);
+    //   } else if (cityResult.length < adList.length) {
+    //     break;
+    //   } else {
+    //     adAndResultList[i] = cityResult[cityIdx];
+    //     cityIdx++;
+    //     console.log(i, "else cityidx", cityIdx);
+    //   }
+    // }
+    // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
+
+    for (let i = 0; i < cityResult.length + cityResult.length / 2; i++) {
+      if ((i + 1) % 3 != 0 && cityIdx != cityResult.length) {
+        adAndResultList[i] = cityResult[cityIdx];
+        console.log("cityIdx", cityIdx);
+        cityIdx++;
+      } else if ((i + 1) % 3 != 0) {
+        adAndResultList[i] = adList[adIdx % adList.length];
+        console.log("adidx", adIdx);
+        adIdx++;
+      } else {
+        adAndResultList[i] = adList[adIdx % adList.length];
+        console.log("adidx", adIdx);
+        adIdx++;
+      }
+    }
+
+    // console.log("adAndResultList", adAndResultList);
 
     return adList.length + cityResult.length;
   };
@@ -160,7 +200,7 @@ function Result({ navigation }) {
 
               {/* result */}
             </View>
-            {adList.length == 0 ? (
+            {/* {adList.length == 0 ? (
               <Text style={styles.loading_text}>광고 로딩중...</Text>
             ) : (
               adList.map((data) => (
@@ -179,7 +219,29 @@ function Result({ navigation }) {
                   description={data.description}
                 ></CardComp>
               </View>
-            ))}
+            ))} */}
+
+            {adAndResultList.map((data, index) =>
+              data != undefined ? (
+                Object.keys(data).includes("id") ? (
+                  <View key={index}>
+                    {/* <Text>{getAdlistAndCityResult}</Text> */}
+                    <AdCard data={data} />
+                  </View>
+                ) : (
+                  <View key={data.sido_sgg}>
+                    <CardComp
+                      key={data.sido_sgg}
+                      name={data.sido_sgg}
+                      img={data.image_src}
+                      description={data.description}
+                    ></CardComp>
+                  </View>
+                )
+              ) : (
+                <Text>undefined</Text>
+              )
+            )}
           </View>
         )}
       </ScrollView>
