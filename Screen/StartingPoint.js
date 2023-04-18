@@ -346,6 +346,21 @@ function StartingPoint({ navigation }) {
     }
   };
 
+  //현위치를 출발지로
+  const CurrentLocationAsStart = () => {
+    console.log("현위치를 출발지로", region.latitude, region.longitude);
+    checkNowInSouthKorea(region.latitude, region.longitude);
+  };
+
+  const checkNowInSouthKorea = (lat, lon) => {
+    // 우리나라는 동경 124도와 132도 사이, 북위 33도와 43도 사이
+    if (lat <= 43 && lat >= 33 && lon <= 132 && lon >= 124) {
+      setSido_sgg("서울 서울");
+    } else {
+      alert("사용 가능한 지역을 벗어났습니다 :(");
+    }
+  };
+
   useEffect(() => {
     getAddress();
     // setSido("");
@@ -369,12 +384,14 @@ function StartingPoint({ navigation }) {
             <Ionicons name="md-pin" size={30} color={"green"} />
             {address}
           </Text>
-          <Pressable
-            onPress={() => setSido_sgg("서울 서울")}
-            style={[styles.button, styles.buttonClose]}
-          >
-            <Text style={styles.textStyle}>현위치를 출발지로</Text>
-          </Pressable>
+          {region.latitude != 0 ? (
+            <Pressable
+              onPress={() => CurrentLocationAsStart()}
+              style={[styles.button, styles.buttonClose]}
+            >
+              <Text style={styles.textStyle}>현위치를 출발지로</Text>
+            </Pressable>
+          ) : null}
         </View>
         {/* <SelectList
             setSelected={(val) => setSido(val)}
