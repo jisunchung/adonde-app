@@ -63,11 +63,11 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
     var adIdx = 0;
 
     for (let i = 0; i < cityResult.length + cityResult.length / 4; i++) {
-      if ((i + 1) % 5 != 0 && cityIdx != cityResult.length) {
+      if (i % 5 != 0 && cityIdx != cityResult.length) {
         adAndResultList[i] = cityResult[cityIdx];
         // console.log("cityIdx", cityIdx);
         cityIdx++;
-      } else if ((i + 1) % 5 != 0) {
+      } else if (i % 5 != 0) {
         adAndResultList[i] = adList[adIdx % adList.length];
         // console.log("adidx", adIdx);
         adIdx++;
