@@ -21,6 +21,7 @@ import { Button } from "react-native-paper";
 
 import axios from "axios";
 import { BASE_URL } from "../api";
+import { async } from "@firebase/util";
 function StartingPoint({ navigation }) {
   //지도 state
   const [ok, setOk] = useState(true);
@@ -351,14 +352,60 @@ function StartingPoint({ navigation }) {
   };
 
   //현위치를 출발지로
-  const CurrentLocationAsStart = () => {
-    console.log("현위치를 출발지로", location);
+  const CurrentLocationAsStart = async () => {
+    console.log("현위치를 출발지로", region);
 
     if (location.isoCountryCode == "KR") {
       setSido_sgg("서울 서울");
     } else {
       alert("사용 가능한 범위를 벗어났습니다 :(");
     }
+    // 주소 test Array [
+    //   Object {
+    //     "city": "의정부시",
+    //     "country": "대한민국",
+    //     "district": "의정부동",
+    //     "isoCountryCode": "KR",
+    //     "name": "의정부동 493-8",
+    //     "postalCode": "11650",
+    //     "region": "경기도",
+    //     "street": "의정부동",
+    //     "streetNumber": "493-8",
+    //     "subregion": null,
+    //     "timezone": "Asia/Seoul",
+    //   },
+    // ]
+    // Object {
+    //   "city": null,
+    //   "country": "대한민국",
+    //   "district": "평창읍",
+    //   "isoCountryCode": "KR",
+    //   "name": "하리 171-5",
+    //   "postalCode": "25374",
+    //   "region": "강원도",
+    //   "street": "하리",
+    //   "streetNumber": "171-5",
+    //   "subregion": "평창군",
+    //   "timezone": "Asia/Seoul",
+    // },
+    // Object {
+    //   "city": "인천광역시",
+    //   "country": "대한민국",
+    //   "district": "만수동",
+    //   "isoCountryCode": "KR",
+    //   "name": "효성상아아파트",
+    //   "postalCode": "21542",
+    //   "region": "인천광역시",
+    //   "street": "만수동",
+    //   "streetNumber": "905-3",
+    //   "subregion": null,
+    //   "timezone": "Asia/Seoul",
+    // },
+    const add = await Location.reverseGeocodeAsync(
+      { latitude: 37.4564330950855, longitude: 126.72226644218145 },
+      { useGoogleMaps: false }
+    );
+    console.log("주소 test", add);
   };
 
   useEffect(() => {
