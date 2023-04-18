@@ -51,7 +51,7 @@ function AdCard({ data }) {
 
             <View style={styles.card_des_container}>
               <Text style={styles.card_des_text}>{data.subject}</Text>
-              <Text numberOfLines={5} style={styles.card_des_text}>
+              <Text numberOfLines={2} style={styles.card_des_text}>
                 {data.description}
               </Text>
             </View>
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   card_des_text: {
     margin: 15,
     fontSize: 15,
+
     // alignSelf: "center",
   },
   ad_overlay_container: {
