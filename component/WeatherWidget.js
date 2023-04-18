@@ -14,7 +14,11 @@ import { TEMP_BASE_URL } from "../api";
 import { Ionicons } from "@expo/vector-icons";
 
 function WeatherWidget({ lat, long }) {
-  const [weatherResult, SetWeatherResult] = useState({});
+  const [weatherResult, SetWeatherResult] = useState({
+    T1H: 10,
+    REH: 50,
+    SKY: 1,
+  });
   const route = useRoute();
 
   const ComputeBaseDateAndTime = () => {
