@@ -6,6 +6,7 @@ import {
   Button,
   SafeAreaView,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../api";
@@ -49,6 +50,12 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
   //     }).start();
   //   };
   const getRandomArbitrary = (min, max) => {
+    if (shake) {
+      Vibration.vibrate();
+      setTimeout(function () {
+        setShake(false);
+      }, 3000);
+    }
     var rand;
     rand = Math.floor(Math.random() * (max - min) + min);
     return rand;
@@ -132,7 +139,9 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
     // shake기능
     Shake.addListener(() => {
       //   alert("shake!");
+
       setShake(true);
+
       // Vibration.vibrate();
       //   MoveUp();
       //   alert(getRandomArbitrary(0, 100));
@@ -168,7 +177,7 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
               {/* shake! */}
 
               <View>
-                <Overlay overlayStyle={styles.overlay} isVisible={shake}>
+                {/* <Overlay overlayStyle={styles.overlay} isVisible={shake}>
                   <CardComp
                     key={result[getRandomNumber].sido_sgg}
                     name={result[getRandomNumber].sido_sgg}
@@ -177,7 +186,24 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
                   ></CardComp>
 
                   <Button title="x" onPress={() => setShake(false)}></Button>
-                </Overlay>
+                </Overlay> */}
+                <Modal animationType="slide" transparent={true} visible={shake}>
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <CardComp
+                        key={result[getRandomNumber].sido_sgg}
+                        name={result[getRandomNumber].sido_sgg}
+                        img={result[getRandomNumber].image_src}
+                        description={result[getRandomNumber].description}
+                      ></CardComp>
+
+                      <Button
+                        title="x"
+                        onPress={() => setShake(false)}
+                      ></Button>
+                    </View>
+                  </View>
+                </Modal>
               </View>
               <Button title="shake" onPress={() => setShake(true)}></Button>
 
@@ -240,6 +266,34 @@ const styles = StyleSheet.create({
   text: {
     padding: 16,
     fontSize: 24,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    width: "85%",
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 4,
+    paddingTop: 15,
+  },
+  textStyle: {
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 
