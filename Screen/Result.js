@@ -230,8 +230,7 @@ function Result({ navigation }) {
               data != undefined ? (
                 Object.keys(data).includes("id") ? (
                   <View key={index}>
-                    {/* <Text>{getAdlistAndCityResult}</Text> */}
-                    <AdCard data={data} />
+                    <AdCard key={index} data={data} />
                   </View>
                 ) : (
                   <View key={data.sido_sgg}>
@@ -244,7 +243,7 @@ function Result({ navigation }) {
                   </View>
                 )
               ) : (
-                <Text>undefined</Text>
+                <Text key={index}>undefined</Text>
               )
             )}
           </View>
