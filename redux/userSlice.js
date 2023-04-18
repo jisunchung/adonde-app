@@ -12,6 +12,7 @@ export const userSlice = createSlice({
       },
     },
     user_storedCities: [],
+    mapIcon: true,
   },
   reducers: {
     SET_USER: (state, action) => {
@@ -20,9 +21,12 @@ export const userSlice = createSlice({
     SET_STORED_CITIES: (state, action) => {
       state.user_storedCities = action.payload;
     },
+    SET_MAP_ICON: (state, action) => {
+      state.mapIcon = action.payload;
+    },
   },
 });
 
-export const { SET_USER, SET_STORED_CITIES } = userSlice.actions;
+export const { SET_USER, SET_STORED_CITIES, SET_MAP_ICON } = userSlice.actions;
 
 export default userSlice.reducer;

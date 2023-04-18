@@ -18,8 +18,11 @@ import ResultMap from "./ResultMap";
 import { Snackbar } from "react-native-paper";
 import * as Shake from "expo-shake";
 import AdCard from "../component/AdCard";
+//redux
+import { connect } from "react-redux";
+import { SET_MAP_ICON } from "../redux/userSlice";
 
-function Result({ navigation }) {
+function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
   const [adOverlayVisible, setAdOverlayVisible] = useState(false);
   const [result, setResult] = useState([]);
   const [shake, setShake] = useState(false);
@@ -56,54 +59,25 @@ function Result({ navigation }) {
   );
 
   const mixAdandCityResult = (cityResult, adList) => {
-    // console.log("mix data", cityResult.concat(adList));
-    // adlist 5 result 10
-    // result2개당 1개의 광고가 나옴
-    // 1 2 3 4 (5) 5 6 7 8 (11) 9 10 (14)
-    //
-    // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
     var cityIdx = 0;
     var adIdx = 0;
-    // for (let i = 0; i < cityResult.length + adList.length; i++) {
-    //   // console.log(adList.length, cityResult.length);
-    //   //
-    //   if ((i + 1) % 3 != 0 && cityIdx <= cityResult.length) {
-    //     adAndResultList[i] = cityResult[cityIdx];
-    //     cityIdx++;
-    //     console.log(i, "cityIdx", cityIdx, cityIdx);
-    //   } else if ((i + 1) % 3 == 0 && adIdx < adList.length) {
-    //     adAndResultList[i] = adList[adIdx];
-    //     adIdx++;
-    //     console.log(i, "adidx", adIdx);
-    //   } else if (cityResult.length < adList.length) {
-    //     break;
-    //   } else {
-    //     adAndResultList[i] = cityResult[cityIdx];
-    //     cityIdx++;
-    //     console.log(i, "else cityidx", cityIdx);
-    //   }
-    // }
-    // console.log("last city", cityResult[cityResult.length - 1].sido_sgg);
 
     for (let i = 0; i < cityResult.length + cityResult.length / 4; i++) {
       if ((i + 1) % 5 != 0 && cityIdx != cityResult.length) {
         adAndResultList[i] = cityResult[cityIdx];
-        console.log("cityIdx", cityIdx);
+        // console.log("cityIdx", cityIdx);
         cityIdx++;
       } else if ((i + 1) % 5 != 0) {
         adAndResultList[i] = adList[adIdx % adList.length];
-        console.log("adidx", adIdx);
+        // console.log("adidx", adIdx);
         adIdx++;
       } else {
         adAndResultList[i] = adList[adIdx % adList.length];
-        console.log("adidx", adIdx);
+        // console.log("adidx", adIdx);
         adIdx++;
       }
     }
-
     // console.log("adAndResultList", adAndResultList);
-
-    return adList.length + cityResult.length;
   };
   const getAdlistAndCityResult = useMemo(
     () => mixAdandCityResult(result, adList),
@@ -147,15 +121,19 @@ function Result({ navigation }) {
       }
     };
 
-    console.log("-------resultpage-----");
-    console.log("result", route.params);
-    // console.log("result, ad", result, adList);
+    console.log("--------------------------resultpage--------------------");
+
+    //api 호출
     searchResult();
 
+    //mapicon이 false인 상태에서 search페이지로 갔다가 다시 돌아오는 경우 초기화해줌
+    SET_MAP_ICON(true);
+
+    // shake기능
     Shake.addListener(() => {
       //   alert("shake!");
       setShake(true);
-      //   Vibration.vibrate();
+      // Vibration.vibrate();
       //   MoveUp();
       //   alert(getRandomArbitrary(0, 100));
     });
@@ -163,7 +141,7 @@ function Result({ navigation }) {
     // setRandomNum(getRandomArbitrary(0, result.length));
   }, []);
   //cardlist 형식으로 보여줌
-  if (!route.params.mapIcon) {
+  if (MAP_ICON_DATA) {
     return (
       <ScrollView style={styles.block}>
         {adAndResultList.length == 0 ? (
@@ -205,26 +183,6 @@ function Result({ navigation }) {
 
               {/* result */}
             </View>
-            {/* {adList.length == 0 ? (
-              <Text style={styles.loading_text}>광고 로딩중...</Text>
-            ) : (
-              adList.map((data) => (
-                <View key={data.id}>
-                  <Text>{getAdlistAndCityResult}</Text>
-                  <AdCard data={data} />
-                </View>
-              ))
-            )}
-            {result.map((data) => (
-              <View key={data.sido_sgg}>
-                <CardComp
-                  key={data.sido_sgg}
-                  name={data.sido_sgg}
-                  img={data.image_src}
-                  description={data.description}
-                ></CardComp>
-              </View>
-            ))} */}
 
             {adAndResultList.map((data, index) =>
               data != undefined ? (
@@ -285,4 +243,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Result;
+const mapStateToProps = (state, myOwnProps) => {
+  return {
+    MAP_ICON_DATA: state.user.mapIcon,
+  };
+};
+const mapDispatchToProps = {
+  SET_MAP_ICON,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Result);

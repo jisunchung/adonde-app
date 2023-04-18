@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Home";
@@ -8,22 +8,20 @@ import Result from "./Result";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Details from "./Details";
+//redux
+import { connect } from "react-redux";
+import { SET_MAP_ICON } from "../redux/userSlice";
 const Stack = createNativeStackNavigator();
 
-function Main() {
+function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
   const navigation = useNavigation();
   const [mapIcon, setMapIcon] = useState(true);
+
   const clickMapIcon = () => {
-    setMapIcon(!mapIcon);
-    console.log("clickmapicon", mapIcon);
-    //Result페이지에 파라미터를 실어서 보냄
-    navigation.navigate("Result", { mapIcon });
+    SET_MAP_ICON(!MAP_ICON_DATA);
   };
-  useEffect(() => {
-    //   //listicon으로 보여질때 filterscreen으로 돌아갔다가 다시왔을 때 mapicon이 보여야하는데
-    //   //listicon이 보이는 오류 처리
-    //   setMapIcon(true);
-  }, []);
+  useEffect(() => {}, []);
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -36,13 +34,12 @@ function Main() {
       <Stack.Screen name="Start" component={StartingPoint} />
       <Stack.Screen name="Filter" component={Filter} />
       <Stack.Screen
-        initialParams={{ mapIcon: false }}
         name="Result"
         component={Result}
         options={({ navigation }) => ({
           headerRight: () => (
             <Entypo
-              name={mapIcon ? "map" : "list"}
+              name={MAP_ICON_DATA ? "map" : "list"}
               size={24}
               color="black"
               onPress={clickMapIcon}
@@ -63,4 +60,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+const mapStateToProps = (state, myOwnProps) => {
+  return {
+    MAP_ICON_DATA: state.user.mapIcon,
+  };
+};
+
+const mapDispatchToProps = {
+  SET_MAP_ICON,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
