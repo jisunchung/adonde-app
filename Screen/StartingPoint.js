@@ -272,6 +272,7 @@ function StartingPoint({ navigation }) {
     },
   ];
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState(null);
 
   //지도, 현재위치, 주소
   const getAddress = async () => {
@@ -290,6 +291,9 @@ function StartingPoint({ navigation }) {
       { useGoogleMaps: false }
     );
     updateRegion(latitude, longitude);
+
+    console.log("location", location);
+    setLocation(location[0]);
 
     SetAddress(location[0].region + ", " + location[0].city);
   };
@@ -348,16 +352,12 @@ function StartingPoint({ navigation }) {
 
   //현위치를 출발지로
   const CurrentLocationAsStart = () => {
-    console.log("현위치를 출발지로", region.latitude, region.longitude);
-    checkNowInSouthKorea(region.latitude, region.longitude);
-  };
+    console.log("현위치를 출발지로", location);
 
-  const checkNowInSouthKorea = (lat, lon) => {
-    // 우리나라는 동경 124도와 132도 사이, 북위 33도와 43도 사이
-    if (lat <= 43 && lat >= 33 && lon <= 132 && lon >= 124) {
+    if (location.isoCountryCode == "KR") {
       setSido_sgg("서울 서울");
     } else {
-      alert("사용 가능한 지역을 벗어났습니다 :(");
+      alert("사용 가능한 범위를 벗어났습니다 :(");
     }
   };
 
