@@ -81,32 +81,35 @@ function Detail() {
     getPlace();
   }, []);
 
-  const returnPlaces = Object.keys(place).map((place_type) => (
-    // <ScrollView horizontal={true} style={styles.scrollView_horizontal}>
+  const returnPlaces = Object.keys(place).map((place_type, index) => (
     <View style={styles.place_block} key={place_type}>
       {place[`${place_type}`].length != 0 ? (
         <Text style={styles.place_type_text} key={place_type}>
           {place_type}
         </Text>
       ) : null}
-
-      {place[`${place_type}`].map((place_result, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.place}
-          onPress={() => {
-            Linking.openURL(place_result["link"]);
-          }}
-        >
-          <Text key={index}>{place_result["name"]}</Text>
-        </TouchableOpacity>
-      ))}
+      <ScrollView horizontal={true} nestedScrollEnabled={true} key={index}>
+        {place[`${place_type}`].map((place_result, index) => (
+          <View style={styles.horizontal_view}>
+            <TouchableOpacity
+              style={styles.TouchableOpacity_place_block}
+              key={index}
+              onPress={() => {
+                Linking.openURL(place_result["link"]);
+              }}
+            >
+              <Text key={index} style={styles.place_name_text}>
+                {place_result["name"]}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
     </View>
-    // </ScrollView>
   ));
   if (cityDetailResult != null && region.latitude != 0) {
     return (
-      <ScrollView>
+      <ScrollView style={{ height: "100%", width: "100%" }}>
         <View style={styles.block}>
           <View style={styles.description_block}>
             <Text style={styles.text_title}>{route.params.sido_sgg}</Text>
@@ -117,12 +120,14 @@ function Detail() {
             <Text style={styles.text_population}>
               인구수 : {cityDetailResult["population"]} (명)
             </Text>
+
             <Text
               style={styles.link}
               onPress={() => Linking.openURL(cityDetailResult["tourism_link"])}
             >
               {cityDetailResult["tourism_link"]}
             </Text>
+
             <Image
               style={styles.image}
               source={{
@@ -192,10 +197,12 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 10,
   },
+
   link: {
-    fontSize: 15,
-    backgroundColor: "#42AC5E",
-    color: "#FFBE59",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    // color: "#FFBE59",
+    color: "#5882FA",
     alignSelf: "center",
   },
   map: {
@@ -203,47 +210,31 @@ const styles = StyleSheet.create({
     width: screenWidth - 80,
     height: 300,
   },
-  scrollView_horizontal: {
-    width: screenWidth - 40,
-    // height: "100%",
-    backgroundColor: "red",
+  horizontal_view: {
+    flexDirection: "row",
+    margin: 10,
+    marginBottom: 15,
   },
   place_block: {
     backgroundColor: "powderblue",
     margin: 10,
-    // flexDirection: "row",
     position: "relative",
     alignItems: "flex-start",
     borderRadius: 10,
-    // justifyContent: "center",
-    // width: screenWidth - 40,
-    // height: "auto",
   },
   place_type_text: {
-    color: "white",
-    margin: 5,
+    fontSize: 16,
+    color: "steelblue",
+    fontWeight: "bold",
+    margin: 8,
     alignSelf: "center",
-    backgroundColor: "steelblue",
   },
-  place: {
-    // width: ,
-    // backgroundColor: "skyblue",
-    // padding: 20,
-    // margin: 10,
-    // flexDirection: "column",
-    // flexWrap: "wrap",
-    // borderRadius: 20,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: "oldlace",
-    // alignSelf: "flex-start",
-    // flexDirection: "row",
-    marginHorizontal: "1%",
-    marginBottom: 6,
-    // minWidth: "48%",
-    // textAlign: "center",
+  TouchableOpacity_place_block: {
+    padding: 5,
+    backgroundColor: "#F4FA58",
+    borderRadius: 5,
   },
+  place_name_text: { color: "grey", fontSize: 14 },
 });
 
 export default Detail;
