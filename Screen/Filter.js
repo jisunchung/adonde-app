@@ -8,12 +8,15 @@ import {
   ScrollView,
   SafeAreaView,
   Alert,
+  TurboModuleRegistry,
 } from "react-native";
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
 import { useRoute } from "@react-navigation/native";
 import { Button } from "react-native-paper";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Filter({ navigation }) {
   const route = useRoute();
@@ -135,7 +138,9 @@ function Filter({ navigation }) {
       <ScrollView style={styles.scrollView}>
         <View style={styles.box}>
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>테마</Text>
+            <Text style={styles.filter_type_text}>
+              <FontAwesome5 name="map" size={24} color="black" /> 테마
+            </Text>
             <MultipleSelectList
               placeholder="테마를 골라주세요"
               setSelected={(val) => setTheme(val)}
@@ -146,8 +151,17 @@ function Filter({ navigation }) {
             />
             {/* <Text>{theme}</Text> */}
           </View>
+          <View
+            style={{
+              borderBottomColor: "grey",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>인구수</Text>
+            <Text style={styles.filter_type_text}>
+              <FontAwesome5 name="users" size={24} color="black" /> 인구수
+            </Text>
+
             <Slider
               style={styles.slider}
               value={population}
@@ -158,10 +172,23 @@ function Filter({ navigation }) {
               maximumTrackTintColor="#FFFFFF"
               step={1}
             />
-            <Text>{population} ~ 1000</Text>
+            {population == 0 ? null : <Text>~ {population}(명)</Text>}
           </View>
+          <View
+            style={{
+              borderBottomColor: "grey",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>거리</Text>
+            <Text style={styles.filter_type_text}>
+              <MaterialCommunityIcons
+                name="map-marker-distance"
+                size={24}
+                color="black"
+              />{" "}
+              거리
+            </Text>
             <Slider
               style={styles.slider}
               value={distance}
@@ -172,10 +199,18 @@ function Filter({ navigation }) {
               maximumTrackTintColor="#FFFFFF"
               step={10}
             />
-            <Text>{distance}km</Text>
+            {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
           </View>
+          <View
+            style={{
+              borderBottomColor: "grey",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+            }}
+          />
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>접근성</Text>
+            <Text style={styles.filter_type_text}>
+              <FontAwesome5 name="train" size={24} color="black" /> 접근성
+            </Text>
             <MultipleSelectList
               placeholder="접근성을 골라주세요"
               setSelected={(val) => setAccess(val)}
@@ -186,16 +221,18 @@ function Filter({ navigation }) {
             />
             {/* <Text>{access}</Text> */}
           </View>
-          <Button
-            textColor="#FFFFFF"
-            buttonColor="#44AD5E"
-            mode="contained-tonal"
-            onPress={() => clickSubmitBtn()}
-          >
-            Subtmit
-          </Button>
         </View>
       </ScrollView>
+      <View style={{ alignSelf: "center", width: 200, margin: 40 }}>
+        <Button
+          textColor="#FFFFFF"
+          buttonColor="#44AD5E"
+          mode="contained-tonal"
+          onPress={() => clickSubmitBtn()}
+        >
+          Subtmit
+        </Button>
+      </View>
     </SafeAreaView>
   );
 }
@@ -223,9 +260,12 @@ const styles = StyleSheet.create({
   box: {
     paddingHorizontal: 10,
     paddingVertical: 10,
+    backgroundColor: "#CEF6CE",
+    borderRadius: 20,
+    margin: 20,
   },
   slider: {
-    width: screenWidth - 40,
+    width: screenWidth - 80,
   },
 });
 
