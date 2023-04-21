@@ -90,7 +90,7 @@ function Detail() {
       ) : null}
       <ScrollView horizontal={true} nestedScrollEnabled={true} key={index}>
         {place[`${place_type}`].map((place_result, index) => (
-          <View style={styles.horizontal_view}>
+          <View style={styles.horizontal_view} key={index}>
             <TouchableOpacity
               style={styles.TouchableOpacity_place_block}
               key={index}
