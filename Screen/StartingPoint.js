@@ -18,7 +18,8 @@ import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button } from "react-native-paper";
-
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { async } from "@firebase/util";
@@ -417,7 +418,11 @@ function StartingPoint({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.text}>출발지 설정</Text>
+        <Text style={styles.text}>
+          {" "}
+          <Entypo name="location-pin" size={26} color="black" />
+          출발지 설정
+        </Text>
         <MapView style={styles.map} region={region}>
           <Marker
             coordinate={{
@@ -426,20 +431,20 @@ function StartingPoint({ navigation }) {
             }}
           />
         </MapView>
-        <View style={{ flexDirection: "column" }}>
-          <Text style={styles.current_text}>
-            <Ionicons name="md-pin" size={30} color={"green"} />
-            {address}
-          </Text>
-          {region.latitude != 0 ? (
-            <Pressable
-              onPress={() => CurrentLocationAsStart()}
-              style={[styles.button, styles.buttonClose]}
-            >
-              <Text style={styles.textStyle}>현위치를 출발지로</Text>
-            </Pressable>
-          ) : null}
+        <View style={styles.current_location_box}>
+          <View style={styles.location_arrow_back}>
+            <FontAwesome5 name="location-arrow" size={10} color="white" />
+          </View>
+          <Text style={styles.current_text}> {address}</Text>
         </View>
+        {region.latitude != 0 ? (
+          <Pressable
+            onPress={() => CurrentLocationAsStart()}
+            style={[styles.button, styles.buttonClose]}
+          >
+            <Text style={styles.textStyle}>현위치를 출발지로</Text>
+          </Pressable>
+        ) : null}
         {/* <SelectList
             setSelected={(val) => setSido(val)}
             data={data}
@@ -507,29 +512,37 @@ function StartingPoint({ navigation }) {
           <Text style={styles.textStyle}>출발지 선택하기</Text>
         </Pressable>
         {/* <Text>{sido}</Text> */}
-        <Text style={{ alignSelf: "center", fontSize: "17" }}>{sido_sgg}</Text>
-        <Button
+        {sido_sgg != " " ? (
+          <Text style={{ alignSelf: "center", fontSize: "17" }}>
+            출발지 : {sido_sgg}
+          </Text>
+        ) : null}
+        {/* <Button
           title="submit"
           onPress={() =>
             sido_sgg == " "
               ? Alert.alert("출발지를 선택하세요")
               : changeAccItemStatus()
           }
-        ></Button>
-        <Button
-          textColor="#FFFFFF"
-          buttonColor="#44AD5E"
-          mode="contained-tonal"
-          onPress={() =>
-            sido_sgg == " "
-              ? Alert.alert("출발지를 선택하세요")
-              : changeAccItemStatus()
-          }
-        >
-          Next
-        </Button>
+        ></Button> */}
 
-        {loading && <ActivityIndicator size={"large"} color={"black"} />}
+        <View style={{ marginTop: 20 }}>
+          <Button
+            textColor="#FFFFFF"
+            buttonColor="#44AD5E"
+            mode="contained-tonal"
+            onPress={() =>
+              sido_sgg == " "
+                ? Alert.alert("출발지를 선택하세요")
+                : changeAccItemStatus()
+            }
+          >
+            Next
+          </Button>
+          <View style={{ marginTop: 10 }}>
+            {loading && <ActivityIndicator size={"large"} color={"black"} />}
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -557,6 +570,7 @@ const styles = StyleSheet.create({
   map: {
     width: screenWidth - 40,
     height: 300,
+    borderRadius: 10,
   },
   centeredView: {
     flex: 1,
@@ -579,8 +593,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  current_location_box: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 8,
+  },
+  location_arrow_back: {
+    backgroundColor: "#2E64FE",
+    padding: 7,
+    borderRadius: 20,
+    width: 25,
+    height: 25,
+  },
   current_text: {
-    fontSize: 17,
+    fontSize: 20,
     margin: 5,
     alignSelf: "center",
   },
