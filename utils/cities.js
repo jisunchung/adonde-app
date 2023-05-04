@@ -235,4 +235,145 @@ const START_POINT_DATA = [
   },
 ];
 
-export { START_POINT_DATA };
+function current_location_formatting(city, region, subregion) {
+  console.log("current_location_formatting", city, region, subregion);
+
+  // 주소 test Array [
+  //   Object {
+  //     "city": "의정부시",
+  //     "country": "대한민국",
+  //     "district": "의정부동",
+  //     "isoCountryCode": "KR",
+  //     "name": "의정부동 493-8",
+  //     "postalCode": "11650",
+  //     "region": "경기도",
+  //     "street": "의정부동",
+  //     "streetNumber": "493-8",
+  //     "subregion": null,
+  //     "timezone": "Asia/Seoul",
+  //   },
+  // ]
+  // Object {
+  //   "city": null,
+  //   "country": "대한민국",
+  //   "district": "평창읍",
+  //   "isoCountryCode": "KR",
+  //   "name": "하리 171-5",
+  //   "postalCode": "25374",
+  //   "region": "강원도",
+  //   "street": "하리",
+  //   "streetNumber": "171-5",
+  //   "subregion": "평창군",
+  //   "timezone": "Asia/Seoul",
+  // },
+  // Object {
+  //   "city": "공주시",
+  //   "country": "대한민국",
+  //   "district": "계룡면",
+  //   "isoCountryCode": "KR",
+  //   "name": "32613",
+  //   "postalCode": "32613",
+  //   "region": "충청남도",
+  //   "street": null,
+  //   "streetNumber": null,
+  //   "subregion": null,
+  //   "timezone": "Asia/Seoul",
+  // },
+  // Object {
+  //   "city": "인천광역시",
+  //   "country": "대한민국",
+  //   "district": "만수동",
+  //   "isoCountryCode": "KR",
+  //   "name": "효성상아아파트",
+  //   "postalCode": "21542",
+  //   "region": "인천광역시",
+  //   "street": "만수동",
+  //   "streetNumber": "905-3",
+  //   "subregion": null,
+  //   "timezone": "Asia/Seoul",
+  // },
+  // Object {
+  //   "city": "서울특별시",
+  //   "country": "대한민국",
+  //   "district": "태평로1가",
+  //   "isoCountryCode": "KR",
+  //   "name": "서울특별시청",
+  //   "postalCode": "04524",
+  //   "region": "서울특별시",
+  //   "street": "세종대로",
+  //   "streetNumber": "110",
+  //   "subregion": null,
+  //   "timezone": "Asia/Seoul",
+  // },
+  // Object {
+  //   "city": "세종특별자치시",
+  //   "country": "대한민국",
+  //   "district": "종촌동",
+  //   "isoCountryCode": "KR",
+  //   "name": "종촌동 663",
+  //   "postalCode": "30064",
+  //   "region": "세종특별자치시",
+  //   "street": "종촌동",
+  //   "streetNumber": "663",
+  //   "subregion": null,
+  //   "timezone": "Asia/Seoul",
+  // },
+  //     Object {
+  //     "city": "제주시",
+  //     "country": "대한민국",
+  //     "district": "이도이동",
+  //     "isoCountryCode": "KR",
+  //     "name": "제주시청",
+  //     "postalCode": "63208",
+  //     "region": "제주특별자치도",
+  //     "street": "광양9길",
+  //     "streetNumber": "10",
+  //     "subregion": null,
+  //     "timezone": "Asia/Seoul",
+  //   },
+  //   Object {
+  //     "city": "서귀포시",
+  //     "country": "대한민국",
+  //     "district": "안덕면",
+  //     "isoCountryCode": "KR",
+  //     "name": "화순리 844-3",
+  //     "postalCode": "63530",
+  //     "region": "제주특별자치도",
+  //     "street": "화순리",
+  //     "streetNumber": "844-3",
+  //     "subregion": null,
+  //     "timezone": "Asia/Seoul",
+  //   },
+  //구현
+  //city, region, subregion 값 사용 ->
+  //if city, region값이 같을 경우
+  //특별/광역시이기 때문에 이름 두번 반복하여(ex)"서울 서울") 저장
+  //if region == 제주특별자치도
+  //city값에서 "시"를 빼고 앞에 제주도를 붙여 저장
+  //else
+  // city 값이 null일 경우 subregion가져옴 region + city(or subregion)앞 두글자
+  var result;
+  if (city == region) {
+    result = city.substr(0, 2);
+    console.log(result + " " + result);
+    return result + " " + result;
+  } else if (region == "제주특별자치도") {
+    result = city.slice(0, -1);
+    console.log("제주도" + " " + result);
+    return "제주도" + " " + result;
+  } else {
+    if (city == null) {
+      //읍
+      result = subregion.substr(0, 2);
+      console.log("city==null", region + " " + result);
+      return region + " " + result;
+    } else {
+      //의정부시, 동두천시, 남양주시 3글자인게 있기 때문에 뒤에 "시"만 빼줌
+      result = city.slice(0, -1);
+      console.log(region + " " + result);
+      return region + " " + result;
+    }
+  }
+}
+
+export { START_POINT_DATA, current_location_formatting };
