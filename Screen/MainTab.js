@@ -43,6 +43,7 @@ function MainTab() {
         name="Setting"
         component={Settings}
         options={{
+          headerShown: false,
           tabBarIcon: (props) =>
             TabIcon({ ...props, name: "md-settings-sharp" }),
         }}
