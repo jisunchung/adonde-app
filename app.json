@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "adondeTest",
-    "slug": "adondeTest",
+    "name": "adondeApp",
+    "slug": "adondeApp",
+    "owner": "adondeadmin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
