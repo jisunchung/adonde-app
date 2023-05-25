@@ -10,7 +10,7 @@ function Mypage() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="mypageMain" component={MypageMain} />
+      <Stack.Screen name="마이페이지" component={MypageMain} />
       <Stack.Screen name="mypage_detail" component={Detail} />
     </Stack.Navigator>
   );

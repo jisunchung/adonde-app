@@ -8,7 +8,7 @@ function Search() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="search" component={SearchMain} />
+      <Stack.Screen name="검색" component={SearchMain} />
       <Stack.Screen name="search_detail" component={Detail} />
     </Stack.Navigator>
   );
