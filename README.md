@@ -25,6 +25,8 @@ RootStack
 │   │    └── Detail
 │   │
 │   └── Setting
+│        ├── SettingMain
+│        └── About
 │
 ```
 
