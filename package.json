@@ -24,8 +24,6 @@
     "expo-shake": "^1.0.0-alpha.1",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.15.6",
-    "firebase": "^9.14.0",
-    "or": "^0.2.0",
     "react": "18.1.0",
     "react-native": "0.70.8",
     "react-native-chip": "^3.0.0",

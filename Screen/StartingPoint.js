@@ -22,7 +22,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
-import { async } from "@firebase/util";
+
 //출발지 data 불러오기
 import { START_POINT_DATA, current_location_formatting } from "../utils/cities";
 function StartingPoint({ navigation }) {
