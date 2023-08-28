@@ -1,40 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
-import { initializeApp } from "firebase/app";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { app } from "../firebaseConfig";
+//firebase
+// import { initializeApp } from "firebase/app";
+// import { getDownloadURL, getStorage, ref } from "firebase/storage";
+// import { app } from "../firebaseConfig";
 import { Button } from "react-native-paper";
 //redux
 import { connect } from "react-redux";
 
 function Home({ navigation, USER_DATA }) {
-  const [imageUrl, setImageUrl] = useState("");
-  const storage = getStorage(app);
-  const storageRef = ref(storage, `logo.png`);
-  const url = async () => {
-    const imageUrl = await getDownloadURL(storageRef);
-    setImageUrl(imageUrl);
-    // console.log(imageUrl);
-  };
-  useEffect(() => {
-    // console.log(storage);
-    // console.log(storageRef);
-    url();
-  });
+  // const [imageUrl, setImageUrl] = useState("");
+  // const storage = getStorage(app);
+  // const storageRef = ref(storage, `logo.png`);
+  // const url = async () => {
+  //   const imageUrl = await getDownloadURL(storageRef);
+  //   setImageUrl(imageUrl);
+  //   // console.log(imageUrl);
+  // };
+  // useEffect(() => {
+  //   // console.log(storage);
+  //   // console.log(storageRef);
+  //   url();
+  // });
 
   return (
     <View style={styles.block}>
-      {/* <Text style={styles.text}>home</Text> */}
-      <Image
-        style={styles.logo}
-        source={
-          imageUrl
-            ? {
-                uri: imageUrl,
-              }
-            : null
-        }
-      />
+      <Image style={styles.logo} source={require("../assets/logo.png")} />
       <Image source={require("../assets/adonde_title.png")} />
       <Text style={styles.user_text}>welcome! {USER_DATA.nickname}</Text>
       <Button
