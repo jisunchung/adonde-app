@@ -40,7 +40,7 @@ function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
           headerRight: () => (
             <Entypo
               name={MAP_ICON_DATA ? "map" : "list"}
-              size={24}
+              style={{ fontSize: 23 }}
               color="black"
               onPress={clickMapIcon}
             />

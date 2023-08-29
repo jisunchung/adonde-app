@@ -74,7 +74,7 @@ function Card({
     <View style={styles.container}>
       <View style={styles.card_template}>
         <Text style={styles.card_title}>
-          <Entypo name="location-pin" size={24} color="black" />
+          <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
           {name}
         </Text>
         <Image
@@ -93,7 +93,6 @@ function Card({
             <Entypo
               style={styles.heart_icon}
               name={heart ? "heart" : "heart-outlined"}
-              size={24}
               color="black"
               onPress={clickHeart}
             />
@@ -153,6 +152,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   heart_icon: {
+    fontSize: 25,
     paddingTop: 8,
   },
   action_container: {

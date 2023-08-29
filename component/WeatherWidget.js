@@ -142,7 +142,7 @@ function WeatherWidget({ lat, long }) {
         <Ionicons
           style={styles.text_weather_icon}
           name="sunny-outline"
-          size={24}
+          // size={24}
           color="black"
         />
       ) : null}
@@ -150,7 +150,7 @@ function WeatherWidget({ lat, long }) {
         <Ionicons
           style={styles.text_weather_icon}
           name="md-partly-sunny-outline"
-          size={24}
+          // size={24}
           color="black"
         />
       ) : null}
@@ -158,7 +158,7 @@ function WeatherWidget({ lat, long }) {
         <Ionicons
           style={styles.text_weather_icon}
           name="cloud-outline"
-          size={24}
+          // size={24}
           color="black"
         />
       ) : null}

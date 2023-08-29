@@ -71,7 +71,7 @@ function SearchMain() {
             navigation.navigate("search_detail", { sido_sgg: searchValue })
           }
         >
-          <Ionicons name="md-search" size={24} color="black" />
+          <Ionicons name="md-search" style={{ fontSize: 24 }} color="black" />
         </TouchableOpacity>
         {/* ) : null} */}
       </View>

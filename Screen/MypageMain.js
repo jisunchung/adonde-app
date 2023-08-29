@@ -67,7 +67,11 @@ function MypageMain({
   ) : (
     <View style={styles.block}>
       <View style={styles.user_block}>
-        <FontAwesome name="user-circle-o" size={90} color="black" />
+        <FontAwesome
+          name="user-circle-o"
+          style={{ fontSize: 90 }}
+          color="black"
+        />
         <Text style={{ margin: 20 }}>로그인 후 사용해주세요!</Text>
         <Button
           textColor="#FFFFFF"

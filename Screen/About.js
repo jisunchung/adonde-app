@@ -16,7 +16,7 @@ function About() {
   return (
     <View style={styles.block}>
       <View style={styles.dev_title}>
-        <Fontisto name="persons" size={24} color="black" />
+        <Fontisto name="persons" style={{ fontSize: 20 }} color="black" />
         <Text style={styles.dev_title_text}>developers</Text>
       </View>
 

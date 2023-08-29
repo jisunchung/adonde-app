@@ -39,7 +39,11 @@ function AdCard({ data }) {
         <View style={styles.card_template}>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.card_title_text}>
-              <Entypo name="info-with-circle" size={20} color="black" />
+              <Entypo
+                name="info-with-circle"
+                style={{ fontSize: 20 }}
+                color="black"
+              />
             </Text>
             <Text style={styles.card_title_text}>{data.name}</Text>
           </View>

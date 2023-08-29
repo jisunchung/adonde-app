@@ -56,13 +56,12 @@ function SimpleCard({
         onPress={() => navigation.navigate("mypage_detail", { sido_sgg: name })}
       >
         <Text style={styles.card_title}>
-          <Entypo name="location-pin" size={24} color="black" />
+          <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
           {name}
         </Text>
         <Entypo
           style={styles.heart_icon}
           name={heart ? "heart" : "heart-outlined"}
-          size={24}
           color="black"
           onPress={clickHeart}
         />
@@ -112,6 +111,7 @@ const styles = StyleSheet.create({
     // alignContent: "flex-end",
     // alignItems: "flex-end",
     // alignSelf: "flex-end",
+    fontSize: 20,
   },
 });
 

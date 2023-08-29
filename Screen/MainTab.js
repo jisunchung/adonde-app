@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 function MainTab() {
   const TabIcon = ({ name, size, color }) => {
-    return <Ionicons name={name} size={size} color={color} />;
+    return <Ionicons name={name} style={{ fontSize: size }} color={color} />;
   };
 
   return (

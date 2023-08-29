@@ -158,7 +158,7 @@ function StartingPoint({ navigation }) {
       <View style={styles.box}>
         <Text style={styles.text}>
           {" "}
-          <Entypo name="location-pin" size={26} color="black" />
+          <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
           출발지 설정
         </Text>
         <MapView style={styles.map} region={region}>
@@ -171,7 +171,11 @@ function StartingPoint({ navigation }) {
         </MapView>
         <View style={styles.current_location_box}>
           <View style={styles.location_arrow_back}>
-            <FontAwesome5 name="location-arrow" size={10} color="white" />
+            <FontAwesome5
+              name="location-arrow"
+              style={{ fontSize: 10 }}
+              color="white"
+            />
           </View>
           <Text style={styles.current_text}> {address}</Text>
         </View>
@@ -278,7 +282,9 @@ function StartingPoint({ navigation }) {
             Next
           </Button>
           <View style={{ marginTop: 10 }}>
-            {loading && <ActivityIndicator size={"large"} color={"black"} />}
+            {loading && (
+              <ActivityIndicator style={{ fontSize: 10 }} color={"black"} />
+            )}
           </View>
         </View>
       </View>

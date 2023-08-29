@@ -40,14 +40,18 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
         >
           <View style={styles.settingList_action}>
             <View style={styles.settingList_left_group}>
-              <AntDesign name="notification" size={24} color="black" />
+              <AntDesign
+                name="notification"
+                style={{ fontSize: 24 }}
+                color="black"
+              />
 
               <Text style={styles.settingList_text}>광고등록</Text>
             </View>
 
             <MaterialIcons
               name="keyboard-arrow-right"
-              size={24}
+              style={{ fontSize: 24 }}
               color="black"
             />
           </View>
@@ -60,12 +64,12 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
         >
           <View style={styles.settingList_action}>
             <View style={styles.settingList_left_group}>
-              <Entypo name="instagram" size={24} color="black" />
+              <Entypo name="instagram" style={{ fontSize: 24 }} color="black" />
               <Text style={styles.settingList_text}>인스타그램</Text>
             </View>
             <MaterialIcons
               name="keyboard-arrow-right"
-              size={24}
+              style={{ fontSize: 24 }}
               color="black"
             />
           </View>
@@ -78,12 +82,12 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
         >
           <View style={styles.settingList_action}>
             <View style={styles.settingList_left_group}>
-              <AntDesign name="github" size={24} color="black" />
+              <AntDesign name="github" style={{ fontSize: 24 }} color="black" />
               <Text style={styles.settingList_text}>github</Text>
             </View>
             <MaterialIcons
               name="keyboard-arrow-right"
-              size={24}
+              style={{ fontSize: 24 }}
               color="black"
             />
           </View>
@@ -96,12 +100,16 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
         >
           <View style={styles.settingList_action}>
             <View style={styles.settingList_left_group}>
-              <Octicons name="paper-airplane" size={24} color="black" />
+              <Octicons
+                name="paper-airplane"
+                style={{ fontSize: 24 }}
+                color="black"
+              />
               <Text style={styles.settingList_text}>아이디어 및 버그 제보</Text>
             </View>
             <MaterialIcons
               name="keyboard-arrow-right"
-              size={24}
+              style={{ fontSize: 24 }}
               color="black"
             />
           </View>
@@ -112,14 +120,14 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
             <View style={styles.settingList_left_group}>
               <Ionicons
                 name="information-circle-outline"
-                size={30}
+                style={{ fontSize: 24 }}
                 color="black"
               />
               <Text style={styles.settingList_text}>About</Text>
             </View>
             <MaterialIcons
               name="keyboard-arrow-right"
-              size={24}
+              style={{ fontSize: 24 }}
               color="black"
             />
           </View>
@@ -131,14 +139,18 @@ function Settings({ navigation, SET_USER, SET_STORED_CITIES, USER_DATA }) {
             <TouchableOpacity onPress={() => logout()}>
               <View style={styles.settingList_action}>
                 <View style={styles.settingList_left_group}>
-                  <AntDesign name="logout" size={24} color="red" />
+                  <AntDesign
+                    name="logout"
+                    style={{ fontSize: 24 }}
+                    color="red"
+                  />
                   <Text style={[styles.settingList_text, { color: "red" }]}>
                     로그아웃
                   </Text>
                 </View>
                 <MaterialIcons
                   name="keyboard-arrow-right"
-                  size={24}
+                  style={{ fontSize: 24 }}
                   color="black"
                 />
               </View>
