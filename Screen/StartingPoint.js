@@ -255,7 +255,7 @@ function StartingPoint({ navigation }) {
         </Pressable>
         {/* <Text>{sido}</Text> */}
         {sido_sgg != " " ? (
-          <Text style={{ alignSelf: "center", fontSize: "17" }}>
+          <Text style={{ alignSelf: "center", fontSize: 17 }}>
             출발지 : {sido_sgg}
           </Text>
         ) : null}

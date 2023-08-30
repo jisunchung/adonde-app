@@ -139,8 +139,7 @@ function Filter({ navigation }) {
         <View style={styles.box}>
           <View style={styles.filter_type_box}>
             <Text style={styles.filter_type_text}>
-              <FontAwesome5 name="map" style={{ fontSize: 20 }} color="black" />{" "}
-              테마
+              <FontAwesome5 name="map" size={24} color="black" /> 테마
             </Text>
             <MultipleSelectList
               placeholder="테마를 골라주세요"
@@ -160,12 +159,7 @@ function Filter({ navigation }) {
           />
           <View style={styles.filter_type_box}>
             <Text style={styles.filter_type_text}>
-              <FontAwesome5
-                name="users"
-                style={{ fontSize: 20 }}
-                color="black"
-              />{" "}
-              인구수
+              <FontAwesome5 name="users" size={24} color="black" /> 인구수
             </Text>
 
             <Slider
@@ -190,7 +184,7 @@ function Filter({ navigation }) {
             <Text style={styles.filter_type_text}>
               <MaterialCommunityIcons
                 name="map-marker-distance"
-                style={{ fontSize: 20 }}
+                size={24}
                 color="black"
               />{" "}
               거리
@@ -215,12 +209,7 @@ function Filter({ navigation }) {
           />
           <View style={styles.filter_type_box}>
             <Text style={styles.filter_type_text}>
-              <FontAwesome5
-                name="train"
-                style={{ fontSize: 20 }}
-                color="black"
-              />{" "}
-              접근성
+              <FontAwesome5 name="train" size={24} color="black" /> 접근성
             </Text>
             <MultipleSelectList
               placeholder="접근성을 골라주세요"

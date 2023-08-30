@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     color: "white",
     // fontWeight: "bold",
     fontStyle: "italic",
-    fontSize: "20",
+    fontSize: 20,
   },
   start_btn: {
     width: 30,
