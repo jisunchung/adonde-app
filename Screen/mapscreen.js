@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import axios from "axios";
-// import * as Application from "expo-application";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
