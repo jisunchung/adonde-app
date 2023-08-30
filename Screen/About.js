@@ -9,14 +9,13 @@ import {
   Linking,
   Dimensions,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 
 function About() {
   return (
     <View style={styles.block}>
       <View style={styles.dev_title}>
-        <Fontisto name="persons" style={{ fontSize: 20 }} color="black" />
+        <Fontisto name="persons" style={styles.dev_title_icon} color="black" />
         <Text style={styles.dev_title_text}>developers</Text>
       </View>
 
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 10,
   },
+  dev_title_icon: { fontSize: 24 },
   dev_title_text: { marginLeft: 10, fontSize: 20 },
   dev_part_block: {
     borderStyle: "solid",
