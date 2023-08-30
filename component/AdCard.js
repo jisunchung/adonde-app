@@ -10,16 +10,14 @@ import {
   Linking,
 } from "react-native";
 import { Overlay } from "react-native-elements";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
 function AdCard({ data }) {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
-  useEffect(() => {}, []);
   const adClick = async () => {
     console.log(data.name, data.id, "click");
     setVisible(true);
@@ -37,13 +35,9 @@ function AdCard({ data }) {
     <TouchableOpacity onPress={adClick}>
       <View style={styles.container}>
         <View style={styles.card_template}>
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.card_flex_direction}>
             <Text style={styles.card_title_text}>
-              <Entypo
-                name="info-with-circle"
-                style={{ fontSize: 20 }}
-                color="black"
-              />
+              <Entypo name="info-with-circle" style={styles.card_title_icon} />
             </Text>
             <Text style={styles.card_title_text}>{data.name}</Text>
           </View>
@@ -77,13 +71,11 @@ function AdCard({ data }) {
               Linking.openURL(data.url);
             }}
           >
-            <Text style={{ color: "blue" }}>{data.url}</Text>
+            <Text style={styles.ad_overlay_url}>{data.url}</Text>
           </TouchableOpacity>
 
-          {/* <View style={styles.ad_overlay_company}> */}
           <Text style={styles.ad_overlay_company_name}>{data.comp_name}</Text>
           <Text style={styles.ad_overlay_company_email}>{data.comp_email}</Text>
-          {/* </View> */}
 
           <Button title="x" onPress={() => setVisible(false)}></Button>
         </View>
@@ -98,10 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
-    // backgroundColor: "yellow",
   },
   card_template: {
-    // padding: 5,
     width: screenWidth,
     height: 170,
     backgroundColor: "#E0F2F7",
@@ -114,9 +104,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2.84,
     elevation: 1,
+  },
 
-    // borderWidth: 7,
-    // borderRadius: 10,
+  card_flex_direction: {
+    flexDirection: "row",
   },
 
   card_title_text: {
@@ -124,18 +115,15 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 20,
   },
+  card_title_icon: { fontSize: 20 },
   card_info_container: {
     flexDirection: "row",
     marginLeft: 30,
-    // backgroundColor: "red",
     width: screenWidth - 40,
-    // justifyContent: "center"
   },
   card_image: {
     width: 120,
     height: 120,
-    // borderTopStartRadius: 10,
-    // borderTopEndRadius: 10,
     borderRadius: 10,
     flexShrink: 0,
   },
@@ -145,18 +133,12 @@ const styles = StyleSheet.create({
   card_des_text: {
     margin: 15,
     fontSize: 15,
-
-    // alignSelf: "center",
   },
   ad_overlay_container: {
     width: screenWidth - 20,
     padding: 15,
     paddingBottom: 0,
     alignItems: "center",
-    // backgroundColor: "skyblue",
-    // borderRadius: 10,
-    // borderColor: "skyblue",
-    // borderWidth: 2,
   },
   ad_overlay_title: {
     fontSize: 25,
@@ -171,10 +153,10 @@ const styles = StyleSheet.create({
   ad_overlay_description: {
     fontSize: 20,
   },
+  ad_overlay_url: { color: "blue" },
   ad_overlay_company_name: {
     marginTop: 30,
     color: "grey",
-    // backgroundColor: "skyblue",
     alignItems: "center",
   },
   ad_overlay_company_email: {
