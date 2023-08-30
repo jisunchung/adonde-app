@@ -3,8 +3,6 @@ import {
   Text,
   View,
   StyleSheet,
-  Image,
-  Button,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
@@ -17,12 +15,7 @@ import { BASE_URL } from "../api";
 import { connect } from "react-redux";
 import { SET_STORED_CITIES } from "../redux/userSlice";
 
-function SimpleCard({
-  name,
-  storedCitiesChange,
-  USER_DATA,
-  SET_STORED_CITIES,
-}) {
+function SimpleCard({ name, USER_DATA, SET_STORED_CITIES }) {
   const navigation = useNavigation();
   const [heart, setHeart] = useState(true);
   const deleteStoredCity = async (sido_sgg) => {
@@ -56,7 +49,11 @@ function SimpleCard({
         onPress={() => navigation.navigate("mypage_detail", { sido_sgg: name })}
       >
         <Text style={styles.card_title}>
-          <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
+          <Entypo
+            name="location-pin"
+            style={styles.card_title_icon}
+            color="black"
+          />
           {name}
         </Text>
         <Entypo
@@ -104,13 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginStart: 10,
   },
-  detail_btn: {},
+  card_title_icon: { fontSize: 20 },
   heart_icon: {
-    // justifyContent: "flex-end",
-    // marginStart: "43%",
-    // alignContent: "flex-end",
-    // alignItems: "flex-end",
-    // alignSelf: "flex-end",
     fontSize: 20,
   },
 });
