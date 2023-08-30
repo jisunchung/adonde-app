@@ -9,14 +9,7 @@ import { BASE_URL } from "../api";
 import { connect, Connect } from "react-redux";
 import { SET_STORED_CITIES } from "../redux/userSlice";
 
-function Card({
-  name,
-  img,
-  description,
-  USER_DATA,
-  USER_SOTRED_CITIES,
-  SET_STORED_CITIES,
-}) {
+function Card({ name, img, USER_DATA, USER_SOTRED_CITIES, SET_STORED_CITIES }) {
   const navigation = useNavigation();
   const [heart, setHeart] = React.useState(false);
   // addStoredCity
@@ -74,7 +67,11 @@ function Card({
     <View style={styles.container}>
       <View style={styles.card_template}>
         <Text style={styles.card_title}>
-          <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
+          <Entypo
+            name="location-pin"
+            style={styles.card_title_icon}
+            color="black"
+          />
           {name}
         </Text>
         <Image
@@ -108,7 +105,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    // backgroundColor: "yellow",
   },
   card_template: {
     width: 280,
@@ -128,14 +124,10 @@ const styles = StyleSheet.create({
   card_image: {
     width: 280,
     height: 280,
-
-    // borderTopStartRadius: 10,
-    // borderTopEndRadius: 10,
   },
   text_container: {
     position: "absolute",
     width: 280,
-    // height: 30,
     bottom: 0,
     padding: 10,
     // backgroundColor: "rgba(0,0,0, 0.3)",
@@ -148,6 +140,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 25,
   },
+  card_title_icon: { fontSize: 20 },
   card_des: {
     color: "black",
   },
