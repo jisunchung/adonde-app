@@ -13,9 +13,12 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/81eb3e0a-7ded-4cfa-8a7b-4441be6790d3"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.adondeadmin.adondeApp"
@@ -33,6 +36,9 @@
       "eas": {
         "projectId": "81eb3e0a-7ded-4cfa-8a7b-4441be6790d3"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
