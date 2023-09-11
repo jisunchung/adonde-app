@@ -52,7 +52,7 @@ function WeatherWidget({ lat, long }) {
           nx: x,
           ny: y,
           serviceKey:
-            "8bxbM4I+UnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ==",
+            "8bxbM4I%2BUnsyfG8sejCXK5P1HwSSFaACcpZlTlfDqJzhoOEhqU2wg2w24OoeVVanHP6V9PiX1gZHv3JYBICnuQ%3D%3D",
           numOfRows: "50",
           pageNo: "1",
           dataType: "JSON",
