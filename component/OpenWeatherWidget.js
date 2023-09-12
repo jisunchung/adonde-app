@@ -15,27 +15,26 @@ import { Ionicons } from "@expo/vector-icons";
 
 function WeatherWidget({ lat, long }) {
   const [weatherResult, SetWeatherResult] = useState({
-    temp: 10,
-    hum: 50,
-    icon: 1,
+    temp: 0,
+    hum: 0,
+    icon: 0,
   });
   const route = useRoute();
 
   const getTemp = async (lat, long) => {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${OPEN_WEARHER_API_KEY}&units=metric&lang=kr`;
-    // console.log("getTemp var xy value --------------------", x, y);
     axios
       .get(url)
       .then((responseData) => {
-        console.log(responseData.data.weather[0].icon);
+        console.log(responseData.data.main);
+
         SetWeatherResult({
           temp: Math.round(responseData.data.main.temp),
           hum: responseData.data.main.humidity,
-          icon: responseData.data.weather[0],
+          icon: responseData.data.weather[0].icon,
         });
       })
       .catch((error) => console.log(error));
-    // const iconURL = `http://openweathermap.org/img/wn/${responseData.data.weather[0].icon}@2x.png`;
     console.log(weatherResult);
   };
 
@@ -44,6 +43,7 @@ function WeatherWidget({ lat, long }) {
     getTemp(lat, long);
   }, []);
 
+  const iconURL = `http://openweathermap.org/img/wn/${weatherResult["icon"]}@2x.png`;
   return (
     <View style={styles.block}>
       <Text style={styles.text_weather}>온도 {weatherResult["temp"]}°C</Text>
@@ -51,7 +51,7 @@ function WeatherWidget({ lat, long }) {
       <Image
         style={styles.text_weather_icon}
         source={{
-          url: `http://openweathermap.org/img/wn/${weatherResult["icon"]}@2x.png`,
+          url: iconURL,
         }}
       />
     </View>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   text_weather_icon: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
   },
 });
 
