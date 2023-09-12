@@ -107,11 +107,7 @@ function Detail() {
     </View>
   ));
 
-  if (
-    cityDetailResult != null &&
-    region.latitude != 0 &&
-    !route.params.loading
-  ) {
+  if (cityDetailResult != null && region.latitude != 0) {
     return (
       <ScrollView style={{ height: "100%", width: "100%" }}>
         <View style={styles.block}>
