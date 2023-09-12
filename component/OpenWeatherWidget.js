@@ -10,7 +10,7 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { Linking, Dimensions, ScrollView } from "react-native";
 import axios from "axios";
-import { OPEN_WEARHER_API_KEY, TEMP_BASE_URL } from "../api";
+import { OPEN_WEARHER_API_KEY } from "../api";
 import { Ionicons } from "@expo/vector-icons";
 
 function WeatherWidget({ lat, long }) {
