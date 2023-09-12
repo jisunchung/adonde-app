@@ -31,17 +31,14 @@ function SearchMain() {
     () => filterCities(cities, searchValue),
     [searchValue]
   );
-  const checkSearchValue = async () => {
-    console.log("city check!", searchValue);
-    try {
-      const res = await axios.post(`${BASE_URL}/city/findOne`, {
-        sido_sgg: searchValue,
-      });
-      if (res.data != null)
+  const checkSearchValue = () => {
+    for (let i = 0; i < search.length; i++) {
+      if (search[i].sido_sgg == searchValue)
         navigation.navigate("search_detail", { sido_sgg: searchValue });
-      else Alert.alert("검색어를 다시 입력해주세요!");
-    } catch (error) {
-      console.log(error);
+      else {
+        Alert.alert("검색어를 다시 입력해주세요!");
+        break;
+      }
     }
   };
 
