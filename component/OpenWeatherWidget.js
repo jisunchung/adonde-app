@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { Linking, Dimensions, ScrollView } from "react-native";
 import axios from "axios";
 import { OPEN_WEARHER_API_KEY } from "../api";
-import { Ionicons } from "@expo/vector-icons";
 
-function WeatherWidget({ lat, long }) {
+function WeatherWidget({ lat, long, navigation }) {
   const [weatherResult, SetWeatherResult] = useState({
     temp: 0,
     hum: 0,
@@ -32,6 +23,9 @@ function WeatherWidget({ lat, long }) {
           temp: Math.round(responseData.data.main.temp),
           hum: responseData.data.main.humidity,
           icon: responseData.data.weather[0].icon,
+        });
+        navigation.push("Detail", {
+          loading: false,
         });
       })
       .catch((error) => console.log(error));
@@ -57,12 +51,9 @@ function WeatherWidget({ lat, long }) {
     </View>
   );
 }
-const screenWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   block: {
-    // paddingHorizontal: 40,
-    // paddingVertical: 40,
-    // width: screenWidth - 80,
     backgroundColor: "#A9D0F5",
     flexDirection: "row",
     borderRadius: 10,

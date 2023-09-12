@@ -11,8 +11,7 @@ import { useRoute } from "@react-navigation/native";
 import { Linking, Dimensions, ScrollView } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
-import { BASE_URL, TEMP_BASE_URL } from "../api";
-import { Ionicons } from "@expo/vector-icons";
+import { BASE_URL } from "../api";
 import WeatherWidget from "../component/OpenWeatherWidget";
 
 function Detail() {
@@ -107,7 +106,12 @@ function Detail() {
       </ScrollView>
     </View>
   ));
-  if (cityDetailResult != null && region.latitude != 0) {
+
+  if (
+    cityDetailResult != null &&
+    region.latitude != 0 &&
+    !route.params.loading
+  ) {
     return (
       <ScrollView style={{ height: "100%", width: "100%" }}>
         <View style={styles.block}>
