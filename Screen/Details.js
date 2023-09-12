@@ -13,7 +13,7 @@ import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
 import { BASE_URL, TEMP_BASE_URL } from "../api";
 import { Ionicons } from "@expo/vector-icons";
-import WeatherWidget from "../component/WeatherWidget";
+import WeatherWidget from "../component/OpenWeatherWidget";
 
 function Detail() {
   const [cityDetailResult, setCityDetailResult] = useState(null);
