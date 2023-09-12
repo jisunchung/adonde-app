@@ -6,9 +6,9 @@ import { OPEN_WEARHER_API_KEY } from "../api";
 
 function WeatherWidget({ lat, long, navigation }) {
   const [weatherResult, SetWeatherResult] = useState({
-    temp: 0,
-    hum: 0,
-    icon: 0,
+    temp: null,
+    hum: null,
+    icon: null,
   });
   const route = useRoute();
 
