@@ -7,6 +7,7 @@ import {
   TextInput,
   Dimensions,
   ScrollView,
+  Alert,
 } from "react-native";
 import { Divider, Text } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +19,7 @@ function SearchMain() {
   const navigation = useNavigation();
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [searchIcon, setSearchIcon] = useState(false);
+  const [isExistingCity, setIsExistingCity] = useState(false);
   const inputRef = useRef();
 
   const filterCities = (cities, searchValue) => {
@@ -30,29 +31,34 @@ function SearchMain() {
     () => filterCities(cities, searchValue),
     [searchValue]
   );
-  const checkSearchValue = () => {
-    setSearchIcon(false);
+  const checkSearchValue = async () => {
+    console.log("city check!", searchValue);
+    try {
+      const res = await axios.post(`${BASE_URL}/city/findOne`, {
+        sido_sgg: searchValue,
+      });
+      if (res.data != null)
+        navigation.navigate("search_detail", { sido_sgg: searchValue });
+      else Alert.alert("검색어를 다시 입력해주세요!");
+    } catch (error) {
+      console.log(error);
+    }
   };
-  //   const searchIconVisible = useMemo(() => setSearchIcon(false), [searchValue]);
 
   const filterListClick = (sido_sgg) => {
-    // setSearchIcon(true);
     setSearchValue(sido_sgg);
   };
   useEffect(() => {
     const findAllCities = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/city/findAll`);
-        // console.log("findAll", res.data.length);
-
         setCities(res.data);
       } catch (error) {
         console.log(error);
       }
     };
-    console.log(inputRef.current.value);
+
     findAllCities();
-    setSearchIcon(false);
   }, []);
   return (
     <View style={styles.block}>
@@ -65,15 +71,9 @@ function SearchMain() {
           placeholder={"search!"}
           style={styles.input}
         />
-        {/* {searchIcon ? ( */}
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("search_detail", { sido_sgg: searchValue })
-          }
-        >
+        <TouchableOpacity onPress={() => checkSearchValue()}>
           <Ionicons name="md-search" style={{ fontSize: 24 }} color="black" />
         </TouchableOpacity>
-        {/* ) : null} */}
       </View>
 
       <ScrollView>
