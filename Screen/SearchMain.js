@@ -32,18 +32,22 @@ function SearchMain() {
     [searchValue]
   );
   const checkSearchValue = () => {
-    for (let i = 0; i < search.length; i++) {
-      if (search[i].sido_sgg == searchValue)
-        navigation.navigate("search_detail", { sido_sgg: searchValue });
-      else {
-        Alert.alert("검색어를 다시 입력해주세요!");
-        break;
+    if (search.length == 0) Alert.alert("검색어를 다시 입력해주세요!");
+    else {
+      for (let i = 0; i < search.length; i++) {
+        if (search[i].sido_sgg == searchValue)
+          navigation.navigate("search_detail", { sido_sgg: searchValue });
+        else {
+          Alert.alert("검색어를 다시 입력해주세요!");
+          break;
+        }
       }
     }
   };
 
   const filterListClick = (sido_sgg) => {
     setSearchValue(sido_sgg);
+    navigation.navigate("search_detail", { sido_sgg: searchValue });
   };
   useEffect(() => {
     const findAllCities = async () => {
