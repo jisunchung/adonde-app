@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Divider, Text } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { useNavigation } from "@react-navigation/native";
@@ -49,19 +50,19 @@ function SearchMain() {
     () => filterCities(cities, searchValue),
     [searchValue]
   );
-  const checkSearchValue = () => {
-    if (search.length == 0) Alert.alert("검색어를 다시 입력해주세요!");
-    else {
-      for (let i = 0; i < search.length; i++) {
-        if (search[i].sido_sgg == searchValue)
-          navigation.navigate("search_detail", { sido_sgg: searchValue });
-        else {
-          Alert.alert("검색어를 다시 입력해주세요!");
-          break;
-        }
-      }
-    }
-  };
+  // const checkSearchValue = () => {
+  //   if (search.length == 0) Alert.alert("검색어를 다시 입력해주세요!");
+  //   else {
+  //     for (let i = 0; i < search.length; i++) {
+  //       if (search[i].sido_sgg == searchValue)
+  //         navigation.navigate("search_detail", { sido_sgg: searchValue });
+  //       else {
+  //         Alert.alert("검색어를 다시 입력해주세요!");
+  //         break;
+  //       }
+  //     }
+  //   }
+  // };
 
   const filterListClick = (sido_sgg) => {
     setSearchValue(sido_sgg);
@@ -85,12 +86,12 @@ function SearchMain() {
       <View style={styles.chip} key={index}>
         <TouchableOpacity
           key={index}
-          style={{ padding: 5 }}
+          style={styles.chip_touchable_block}
           onPress={() => {
             setSearchValue(value);
           }}
         >
-          <Text key={index} style={{ color: "white" }}>
+          <Text key={index} style={styles.chip_text}>
             {value}
           </Text>
         </TouchableOpacity>
@@ -110,8 +111,11 @@ function SearchMain() {
           placeholder={"search!"}
           style={styles.input}
         />
-        <TouchableOpacity onPress={() => checkSearchValue()}>
+        {/* <TouchableOpacity onPress={() => checkSearchValue()}>
           <Ionicons name="md-search" style={{ fontSize: 24 }} color="black" />
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => setSearchValue("")}>
+          <Feather name="delete" size={24} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -151,7 +155,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#08844E",
   },
-  chip_text: {},
+  chip_touchable_block: {
+    padding: 5,
+  },
+  chip_text: { color: "white" },
   search_block: {
     flexDirection: "row",
     justifyContent: "space-between",
