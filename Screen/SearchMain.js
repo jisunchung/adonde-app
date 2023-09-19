@@ -20,6 +20,25 @@ function SearchMain() {
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef();
+  const [administrativeDistrictList, setAdministrativeDistrictList] = useState([
+    "서울",
+    "부산",
+    "대구",
+    "인천",
+    "광주",
+    "대전",
+    "울산",
+    "세종",
+    "경기도",
+    "강원도",
+    "충청북도",
+    "충청남도",
+    "전라남도",
+    "전라북도",
+    "경상북도",
+    "경상남도",
+    "제주도",
+  ]);
 
   const filterCities = (cities, searchValue) => {
     return cities.filter((city) =>
@@ -60,9 +79,29 @@ function SearchMain() {
 
     findAllCities();
   }, []);
+
+  const administrativeDistrictChip = administrativeDistrictList.map(
+    (value, index) => (
+      <View style={styles.chip} key={index}>
+        <TouchableOpacity
+          key={index}
+          style={{ padding: 5 }}
+          onPress={() => {
+            setSearchValue(value);
+          }}
+        >
+          <Text key={index} style={{ color: "white" }}>
+            {value}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  );
+
   return (
     <View style={styles.block}>
-      <Text>도시검색</Text>
+      {/* <Text>도시검색</Text> */}
+      <View style={styles.chip_block}>{administrativeDistrictChip}</View>
       <View style={styles.search_block}>
         <TextInput
           ref={inputRef}
@@ -103,6 +142,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
+  chip_block: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  chip: {
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: "#08844E",
+  },
+  chip_text: {},
   search_block: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -112,7 +161,7 @@ const styles = StyleSheet.create({
     width: screenWidth - 80,
     height: 44,
     padding: 10,
-    marginTop: 20,
+    marginTop: 15,
     marginBottom: 10,
     backgroundColor: "#e8e8e8",
   },
