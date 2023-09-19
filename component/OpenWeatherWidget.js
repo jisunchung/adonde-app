@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   text_weather: {
     color: "#6E6E6E",
     fontSize: 16,
-    marginLeft: 10,
+    // marginLeft: 5,
   },
   temp_icon: {
     fontSize: 30,
