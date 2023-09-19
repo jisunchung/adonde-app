@@ -19,7 +19,6 @@ function SearchMain() {
   const navigation = useNavigation();
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [isExistingCity, setIsExistingCity] = useState(false);
   const inputRef = useRef();
 
   const filterCities = (cities, searchValue) => {
@@ -47,7 +46,7 @@ function SearchMain() {
 
   const filterListClick = (sido_sgg) => {
     setSearchValue(sido_sgg);
-    navigation.navigate("search_detail", { sido_sgg: searchValue });
+    navigation.navigate("search_detail", { sido_sgg });
   };
   useEffect(() => {
     const findAllCities = async () => {
