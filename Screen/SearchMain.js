@@ -119,11 +119,12 @@ function SearchMain() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "#e8e8e8" }}>
         {search != 0 && searchValue != ""
           ? search.map((city) => (
               <TouchableOpacity
                 key={city.sido_sgg}
+                style={styles.filterList_block}
                 onPress={() => filterListClick(city.sido_sgg)}
               >
                 <Text style={styles.filterList_text} key={city.sido_sgg}>
@@ -166,15 +167,24 @@ const styles = StyleSheet.create({
   },
   input: {
     width: screenWidth - 80,
-    height: 44,
+    height: 45,
     padding: 10,
     marginTop: 15,
     marginBottom: 10,
     backgroundColor: "#e8e8e8",
   },
+  filterList_block: {
+    borderStyle: "solid",
+    // borderTopWidth: 1,
+    borderBottomWidth: 0.3,
+    borderColor: "#BDBDBD",
+    padding: 5,
+    marginLeft: 5,
+    marginRight: 5,
+  },
   filterList_text: {
     fontSize: 15,
-    margin: 3,
+    margin: 5,
   },
 });
 
