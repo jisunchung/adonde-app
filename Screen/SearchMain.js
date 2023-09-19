@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   chip: {
     margin: 5,
     borderRadius: 10,
-    backgroundColor: "#08844E",
+    backgroundColor: "#44AD5E",
   },
   chip_touchable_block: {
     padding: 5,
