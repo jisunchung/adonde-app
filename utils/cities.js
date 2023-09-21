@@ -375,5 +375,29 @@ function current_location_formatting(city, region, subregion) {
     }
   }
 }
+//searchMain에서 사용
+const administrativeDistrictList = [
+  { name: "서울", sido_sgg: "서울 서울", isSpecialCity: true, click: false },
+  { name: "부산", sido_sgg: "부산 부산", isSpecialCity: true, click: false },
+  { name: "대구", sido_sgg: "대구 대구", isSpecialCity: true, click: false },
+  { name: "인천", sido_sgg: "인천 인천", isSpecialCity: true, click: false },
+  { name: "대전", sido_sgg: "대전 대전", isSpecialCity: true, click: false },
+  { name: "울산", sido_sgg: "울산 울산", isSpecialCity: true, click: false },
+  { name: "세종", sido_sgg: "세종 세종", isSpecialCity: true, click: false },
+  { name: "광주", isSpecialCity: false, click: false },
+  { name: "경기도", isSpecialCity: false, click: false },
+  { name: "강원도", isSpecialCity: false, click: false },
+  { name: "충청북도", isSpecialCity: false, click: false },
+  { name: "충청남도", isSpecialCity: false, click: false },
+  { name: "전라남도", isSpecialCity: false, click: false },
+  { name: "전라북도", isSpecialCity: false, click: false },
+  { name: "경상남도", isSpecialCity: false, click: false },
+  { name: "경상북도", isSpecialCity: false, click: false },
+  { name: "제주도", isSpecialCity: false, click: false },
+];
 
-export { START_POINT_DATA, current_location_formatting };
+export {
+  START_POINT_DATA,
+  administrativeDistrictList,
+  current_location_formatting,
+};

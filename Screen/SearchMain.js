@@ -15,48 +15,13 @@ import { Feather } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 import { useNavigation } from "@react-navigation/native";
+import { administrativeDistrictList } from "../utils/cities";
 
 function SearchMain() {
   const navigation = useNavigation();
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef();
-  const [administrativeDistrictList, setAdministrativeDistrictList] = useState([
-    { name: "서울", click: false },
-    { name: "부산", click: false },
-    { name: "대구", click: false },
-    { name: "인천", click: false },
-    { name: "광주", click: false },
-    { name: "대전", click: false },
-    { name: "울산", click: false },
-    { name: "세종", click: false },
-    { name: "경기도", click: false },
-    { name: "강원도", click: false },
-    { name: "충청북도", click: false },
-    { name: "충청남도", click: false },
-    { name: "전라남도", click: false },
-    { name: "전라북도", click: false },
-    { name: "경상남도", click: false },
-    { name: "경상북도", click: false },
-    { name: "제주도", click: false },
-    // "서울",
-    // "부산",
-    // "대구",
-    // "인천",
-    // "광주",
-    // "대전",
-    // "울산",
-    // "세종",
-    // "경기도",
-    // "강원도",
-    // "충청북도",
-    // "충청남도",
-    // "전라남도",
-    // "전라북도",
-    // "경상북도",
-    // "경상남도",
-    // "제주도",
-  ]);
   const [beforeIdx, setBeforeIdx] = useState(null);
 
   const filterCities = (cities, searchValue) => {
@@ -70,7 +35,7 @@ function SearchMain() {
   );
 
   const filterListClick = (sido_sgg) => {
-    setSearchValue(sido_sgg);
+    // setSearchValue(sido_sgg);
     navigation.navigate("search_detail", { sido_sgg });
   };
   useEffect(() => {
@@ -87,14 +52,18 @@ function SearchMain() {
   }, []);
 
   const onPressChip = (value, index) => {
-    value.click = true;
     // console.log("before", administrativeDistrictList[beforeIdx]);
-    beforeIdx != null && beforeIdx != index
-      ? (administrativeDistrictList[beforeIdx].click = false)
-      : null;
-    setSearchValue(value.name);
+    if (value.isSpecialCity) {
+      navigation.navigate("search_detail", { sido_sgg: value.sido_sgg });
+    } else {
+      value.click = true;
+      beforeIdx != null && beforeIdx != index
+        ? (administrativeDistrictList[beforeIdx].click = false)
+        : null;
+      setSearchValue(value.name);
+      setBeforeIdx(index);
+    }
     // console.log("now", value);
-    setBeforeIdx(index);
   };
   const administrativeDistrictChip = administrativeDistrictList.map(
     (value, index) => (
@@ -135,7 +104,7 @@ function SearchMain() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={{ backgroundColor: "#e8e8e8" }}>
+      <ScrollView style={styles.filterList_scrollView}>
         {search != 0 && searchValue != ""
           ? search.map((city) => (
               <TouchableOpacity
@@ -168,11 +137,13 @@ const styles = StyleSheet.create({
   },
   chip: {
     margin: 5,
+    marginRight: 8,
     borderRadius: 10,
-    backgroundColor: "#00727C",
+    backgroundColor: "#0086B3",
   },
   chip_click: {
     margin: 5,
+    marginRight: 8,
     borderRadius: 10,
     backgroundColor: "#44AD5E",
   },
@@ -191,12 +162,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 15,
     marginBottom: 10,
+    borderRadius: 5,
     backgroundColor: "#e8e8e8",
   },
+  filterList_scrollView: { backgroundColor: "#e8e8e8", borderRadius: 5 },
   filterList_block: {
     borderStyle: "solid",
-    // borderTopWidth: 1,
-    borderBottomWidth: 0.3,
+    borderBottomWidth: 0.5,
     borderColor: "#BDBDBD",
     padding: 5,
     marginLeft: 5,
@@ -204,7 +176,7 @@ const styles = StyleSheet.create({
   },
   filterList_text: {
     fontSize: 15,
-    margin: 5,
+    margin: 7,
   },
 });
 
