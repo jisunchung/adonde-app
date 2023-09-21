@@ -82,6 +82,9 @@ function SearchMain() {
   );
   const onPressDeleteIcon = () => {
     setSearchValue("");
+    adDistrictListClickToFalse();
+  };
+  const adDistrictListClickToFalse = () => {
     beforeIdx != null
       ? (administrativeDistrictList[beforeIdx].click = false)
       : null;
@@ -95,7 +98,10 @@ function SearchMain() {
         <TextInput
           ref={inputRef}
           value={searchValue}
-          onChangeText={(val) => setSearchValue(val)}
+          onChangeText={(val) => {
+            setSearchValue(val);
+            adDistrictListClickToFalse();
+          }}
           placeholder={"search!"}
           style={styles.input}
         />
