@@ -56,7 +56,7 @@ function SearchMain() {
     if (value.isSpecialCity) {
       navigation.navigate("search_detail", { sido_sgg: value.sido_sgg });
     } else {
-      setSearchValue(value.name);
+      // setSearchValue(value.name);
       value.click = true;
       beforeIdx != null && beforeIdx != index
         ? (administrativeDistrictList[beforeIdx].click = false)
@@ -71,6 +71,9 @@ function SearchMain() {
         <TouchableOpacity
           key={index}
           style={styles.chip_touchable_block}
+          onPressIn={() =>
+            !value.isSpecialCity ? setSearchValue(value.name) : null
+          }
           onPress={() => onPressChip(value, index)}
         >
           <Text key={index} style={styles.chip_text}>
