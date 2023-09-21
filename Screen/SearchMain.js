@@ -56,11 +56,11 @@ function SearchMain() {
     if (value.isSpecialCity) {
       navigation.navigate("search_detail", { sido_sgg: value.sido_sgg });
     } else {
+      setSearchValue(value.name);
       value.click = true;
       beforeIdx != null && beforeIdx != index
         ? (administrativeDistrictList[beforeIdx].click = false)
         : null;
-      setSearchValue(value.name);
       setBeforeIdx(index);
     }
     // console.log("now", value);
