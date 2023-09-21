@@ -52,16 +52,15 @@ function SearchMain() {
   }, []);
 
   const onPressChip = (value, index) => {
-    // console.log("before", administrativeDistrictList[beforeIdx]);
-    if (value.isSpecialCity) {
-      navigation.navigate("search_detail", { sido_sgg: value.sido_sgg });
-    } else {
-      // setSearchValue(value.name);
+    if (!value.isSpecialCity) {
+      setSearchValue(value.name);
       value.click = true;
       beforeIdx != null && beforeIdx != index
         ? (administrativeDistrictList[beforeIdx].click = false)
         : null;
       setBeforeIdx(index);
+    } else {
+      navigation.navigate("search_detail", { sido_sgg: value.sido_sgg });
     }
     // console.log("now", value);
   };
@@ -71,9 +70,9 @@ function SearchMain() {
         <TouchableOpacity
           key={index}
           style={styles.chip_touchable_block}
-          onPressIn={() =>
-            !value.isSpecialCity ? setSearchValue(value.name) : null
-          }
+          // onPressIn={() =>
+          //   !value.isSpecialCity ? setSearchValue(value.name) : null
+          // }
           onPress={() => onPressChip(value, index)}
         >
           <Text key={index} style={styles.chip_text}>
