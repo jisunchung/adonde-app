@@ -22,24 +22,42 @@ function SearchMain() {
   const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef();
   const [administrativeDistrictList, setAdministrativeDistrictList] = useState([
-    "서울",
-    "부산",
-    "대구",
-    "인천",
-    "광주",
-    "대전",
-    "울산",
-    "세종",
-    "경기도",
-    "강원도",
-    "충청북도",
-    "충청남도",
-    "전라남도",
-    "전라북도",
-    "경상북도",
-    "경상남도",
-    "제주도",
+    { name: "서울", click: false },
+    { name: "부산", click: false },
+    { name: "대구", click: false },
+    { name: "인천", click: false },
+    { name: "광주", click: false },
+    { name: "대전", click: false },
+    { name: "울산", click: false },
+    { name: "세종", click: false },
+    { name: "경기도", click: false },
+    { name: "강원도", click: false },
+    { name: "충청북도", click: false },
+    { name: "충청남도", click: false },
+    { name: "전라남도", click: false },
+    { name: "전라북도", click: false },
+    { name: "경상남도", click: false },
+    { name: "경상북도", click: false },
+    { name: "제주도", click: false },
+    // "서울",
+    // "부산",
+    // "대구",
+    // "인천",
+    // "광주",
+    // "대전",
+    // "울산",
+    // "세종",
+    // "경기도",
+    // "강원도",
+    // "충청북도",
+    // "충청남도",
+    // "전라남도",
+    // "전라북도",
+    // "경상북도",
+    // "경상남도",
+    // "제주도",
   ]);
+  const [beforeIdx, setBeforeIdx] = useState(null);
 
   const filterCities = (cities, searchValue) => {
     return cities.filter((city) =>
@@ -50,19 +68,6 @@ function SearchMain() {
     () => filterCities(cities, searchValue),
     [searchValue]
   );
-  // const checkSearchValue = () => {
-  //   if (search.length == 0) Alert.alert("검색어를 다시 입력해주세요!");
-  //   else {
-  //     for (let i = 0; i < search.length; i++) {
-  //       if (search[i].sido_sgg == searchValue)
-  //         navigation.navigate("search_detail", { sido_sgg: searchValue });
-  //       else {
-  //         Alert.alert("검색어를 다시 입력해주세요!");
-  //         break;
-  //       }
-  //     }
-  //   }
-  // };
 
   const filterListClick = (sido_sgg) => {
     setSearchValue(sido_sgg);
@@ -81,23 +86,37 @@ function SearchMain() {
     findAllCities();
   }, []);
 
+  const onPressChip = (value, index) => {
+    value.click = true;
+    // console.log("before", administrativeDistrictList[beforeIdx]);
+    beforeIdx != null && beforeIdx != index
+      ? (administrativeDistrictList[beforeIdx].click = false)
+      : null;
+    setSearchValue(value.name);
+    // console.log("now", value);
+    setBeforeIdx(index);
+  };
   const administrativeDistrictChip = administrativeDistrictList.map(
     (value, index) => (
-      <View style={styles.chip} key={index}>
+      <View style={value.click ? styles.chip_click : styles.chip} key={index}>
         <TouchableOpacity
           key={index}
           style={styles.chip_touchable_block}
-          onPress={() => {
-            setSearchValue(value);
-          }}
+          onPress={() => onPressChip(value, index)}
         >
           <Text key={index} style={styles.chip_text}>
-            {value}
+            {value.name}
           </Text>
         </TouchableOpacity>
       </View>
     )
   );
+  const onPressDeleteIcon = () => {
+    setSearchValue("");
+    beforeIdx != null
+      ? (administrativeDistrictList[beforeIdx].click = false)
+      : null;
+  };
 
   return (
     <View style={styles.block}>
@@ -111,10 +130,7 @@ function SearchMain() {
           placeholder={"search!"}
           style={styles.input}
         />
-        {/* <TouchableOpacity onPress={() => checkSearchValue()}>
-          <Ionicons name="md-search" style={{ fontSize: 24 }} color="black" />
-        </TouchableOpacity> */}
-        <TouchableOpacity onPress={() => setSearchValue("")}>
+        <TouchableOpacity onPress={() => onPressDeleteIcon()}>
           <Feather name="delete" size={24} color="black" />
         </TouchableOpacity>
       </View>
@@ -130,7 +146,6 @@ function SearchMain() {
                 <Text style={styles.filterList_text} key={city.sido_sgg}>
                   {city.sido_sgg}
                 </Text>
-                {/* <Divider key={city.sido_code} /> */}
               </TouchableOpacity>
             ))
           : null}
@@ -152,6 +167,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   chip: {
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: "#00727C",
+  },
+  chip_click: {
     margin: 5,
     borderRadius: 10,
     backgroundColor: "#44AD5E",
