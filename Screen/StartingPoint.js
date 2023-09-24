@@ -159,7 +159,6 @@ function StartingPoint({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.box}>
         <Text style={styles.text}>
-          {" "}
           <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
           출발지 설정
         </Text>
@@ -243,8 +242,7 @@ function StartingPoint({ navigation }) {
             출발지 : {sido_sgg}
           </Text>
         ) : null}
-
-        <View style={{ marginTop: 20 }}>
+        {/* <View style={{ marginTop: 10 }}>
           <Button
             textColor="#FFFFFF"
             buttonColor="#44AD5E"
@@ -262,7 +260,25 @@ function StartingPoint({ navigation }) {
               <ActivityIndicator style={{ fontSize: 10 }} color={"black"} />
             )}
           </View>
-        </View>
+        </View> */}
+      </View>
+
+      <View style={styles.next_btn_view}>
+        <Button
+          textColor="#FFFFFF"
+          buttonColor="#44AD5E"
+          mode="contained-tonal"
+          onPress={() =>
+            sido_sgg == " "
+              ? Alert.alert("출발지를 선택하세요")
+              : changeAccItemStatus()
+          }
+        >
+          Next
+          {loading && (
+            <ActivityIndicator style={styles.loading} color={"black"} />
+          )}
+        </Button>
       </View>
     </SafeAreaView>
   );
@@ -283,10 +299,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    // alignItems: "center",
-  },
-  scrollView: {
-    // backgroundColor: "pink",
   },
   box: {
     paddingHorizontal: 20,
@@ -380,6 +392,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#E9EFFF",
   },
+  next_btn_view: {
+    position: "absolute",
+    left: 20,
+    right: 20,
+    bottom: 20,
+  },
+  loading: { fontSize: 10, marginLeft: 10 },
 });
 
 export default StartingPoint;
