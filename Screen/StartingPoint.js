@@ -185,7 +185,6 @@ function StartingPoint({ navigation }) {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          // style={{ backgroundColor: "#0086B3" }}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
@@ -207,7 +206,10 @@ function StartingPoint({ navigation }) {
                     <View style={styles.select_sgg_view}>
                       <SelectList
                         key={index}
-                        setSelected={(val) => setSido_sgg(val)}
+                        setSelected={(val) => {
+                          setSido_sgg(val);
+                          setModalVisible(!modalVisible);
+                        }}
                         data={name["options"]}
                         save="value"
                         boxStyles={styles.select_box_style}
