@@ -11,6 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
@@ -20,6 +21,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
@@ -187,31 +189,11 @@ function StartingPoint({ navigation }) {
             <Text style={styles.textStyle}>현위치를 출발지로</Text>
           </Pressable>
         ) : null}
-        {/* <SelectList
-            setSelected={(val) => setSido(val)}
-            data={data}
-            save="value"
-            // boxStyles={{ marginHorizontal: 80 }}
-            placeholder="시도"
-          />
-          {data.map((name, index) => {
-            if (name["key"] == sido) {
-              return (
-                <SelectList
-                  key={index}
-                  setSelected={(val) => setSido_sgg(val)}
-                  data={name["options"]}
-                  save="value"
-                  //   boxStyles={{ marginHorizontal: 80 }}
-                  placeholder="시군구"
-                />
-              );
-            }
-          })} */}
         <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
+          // style={{ backgroundColor: "#0086B3" }}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
@@ -224,26 +206,28 @@ function StartingPoint({ navigation }) {
                 setSelected={(val) => setSido(val)}
                 data={START_POINT_DATA}
                 save="value"
+                boxStyles={styles.select_box_style}
+                dropdownStyles={styles.select_box_style}
               />
               {START_POINT_DATA.map((name, index) => {
                 if (name["key"] == sido) {
                   return (
-                    <SelectList
-                      key={index}
-                      setSelected={(val) => setSido_sgg(val)}
-                      data={name["options"]}
-                      save="value"
-                    />
+                    <View style={styles.select_sgg_view}>
+                      <SelectList
+                        key={index}
+                        setSelected={(val) => setSido_sgg(val)}
+                        data={name["options"]}
+                        save="value"
+                        boxStyles={styles.select_box_style}
+                        dropdownStyles={styles.select_box_style}
+                      />
+                    </View>
                   );
                 }
               })}
-
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>선택완료</Text>
-              </Pressable>
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <AntDesign name="close" style={styles.modal_close_icon} />
+              </TouchableOpacity>
             </View>
           </View>
         </Modal>
@@ -259,14 +243,6 @@ function StartingPoint({ navigation }) {
             출발지 : {sido_sgg}
           </Text>
         ) : null}
-        {/* <Button
-          title="submit"
-          onPress={() =>
-            sido_sgg == " "
-              ? Alert.alert("출발지를 선택하세요")
-              : changeAccItemStatus()
-          }
-        ></Button> */}
 
         <View style={{ marginTop: 20 }}>
           <Button
@@ -293,6 +269,16 @@ function StartingPoint({ navigation }) {
 }
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+//green
+// const MODAL_BACK_COLOR = "#7C8257";
+// const MODAL_SELECT_BACK_COLOR = "#EBECE2";
+//blue
+const MODAL_BACK_COLOR = "#145D6F";
+const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
+
+// const MODAL_BACK_COLOR = "#F2FCF3";
+// const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -324,7 +310,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: MODAL_BACK_COLOR,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
@@ -369,6 +355,21 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: "#44AD5E",
   },
+  select_sgg_view: {
+    marginTop: 10,
+  },
+  select_box_style: {
+    backgroundColor: MODAL_SELECT_BACK_COLOR,
+    borderColor: MODAL_SELECT_BACK_COLOR,
+    width: screenWidth / 2,
+  },
+
+  modal_close_icon: {
+    color: "#E9EFFF",
+    fontSize: 20,
+    alignSelf: "center",
+    marginTop: 15,
+  },
   textStyle: {
     color: "white",
     fontWeight: "bold",
@@ -377,6 +378,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    color: "#E9EFFF",
   },
 });
 
