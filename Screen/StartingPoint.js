@@ -180,14 +180,7 @@ function StartingPoint({ navigation }) {
           </View>
           <Text style={styles.current_text}> {address}</Text>
         </View>
-        {region.latitude != 0 ? (
-          <Pressable
-            onPress={() => CurrentLocationAsStart()}
-            style={[styles.button, styles.buttonClose]}
-          >
-            <Text style={styles.textStyle}>현위치를 출발지로</Text>
-          </Pressable>
-        ) : null}
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -230,37 +223,38 @@ function StartingPoint({ navigation }) {
             </View>
           </View>
         </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => [setModalVisible(true), setSido(""), setSido_sgg("")]}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginBottom: 20,
+          }}
         >
-          <Text style={styles.textStyle}>출발지 선택하기</Text>
-        </Pressable>
-        {/* <Text>{sido}</Text> */}
+          {region.latitude != 0 ? (
+            <Pressable
+              onPress={() => CurrentLocationAsStart()}
+              style={styles.current_btn}
+            >
+              <Text style={styles.textStyle}>현위치를 출발지로</Text>
+            </Pressable>
+          ) : null}
+          <TouchableOpacity
+            style={styles.select_location_btn}
+            onPress={() => [
+              setModalVisible(true),
+              setSido(""),
+              setSido_sgg(""),
+            ]}
+          >
+            <Text style={styles.select_location_text}>출발지 선택</Text>
+          </TouchableOpacity>
+        </View>
+
         {sido_sgg != " " ? (
           <Text style={{ alignSelf: "center", fontSize: 17 }}>
             출발지 : {sido_sgg}
           </Text>
         ) : null}
-        {/* <View style={{ marginTop: 10 }}>
-          <Button
-            textColor="#FFFFFF"
-            buttonColor="#44AD5E"
-            mode="contained-tonal"
-            onPress={() =>
-              sido_sgg == " "
-                ? Alert.alert("출발지를 선택하세요")
-                : changeAccItemStatus()
-            }
-          >
-            Next
-          </Button>
-          <View style={{ marginTop: 10 }}>
-            {loading && (
-              <ActivityIndicator style={{ fontSize: 10 }} color={"black"} />
-            )}
-          </View>
-        </View> */}
       </View>
 
       <View style={styles.next_btn_view}>
@@ -339,7 +333,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    margin: 8,
+    margin: 20,
   },
   location_arrow_back: {
     backgroundColor: "#2E64FE",
@@ -353,20 +347,25 @@ const styles = StyleSheet.create({
     margin: 5,
     alignSelf: "center",
   },
-  button: {
+  current_btn: {
     borderRadius: 10,
-    padding: 10,
-    elevation: 2,
-    width: 200,
-    margin: 8,
-    alignSelf: "center",
-  },
-  buttonOpen: {
+    padding: 20,
     backgroundColor: "#44AD5E",
   },
-  buttonClose: {
+
+  select_location_btn: {
+    borderRadius: 10,
+    padding: 20,
+    marginLeft: 10,
+
     backgroundColor: "#44AD5E",
   },
+  select_location_text: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+
   select_sgg_view: {
     marginTop: 10,
   },
