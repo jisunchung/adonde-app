@@ -223,7 +223,7 @@ function Filter({ navigation }) {
           </View>
         </View>
       </ScrollView>
-      <View style={{ alignSelf: "center", width: 200, margin: 40 }}>
+      <View style={styles.submit_btn}>
         <Button
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
@@ -266,6 +266,15 @@ const styles = StyleSheet.create({
   },
   slider: {
     width: screenWidth - 80,
+  },
+  submit_btn: {
+    alignSelf: "center",
+    width: 200,
+    margin: 40,
+    // position: "absolute",
+    // left: 20,
+    // right: 20,
+    // bottom: 20,
   },
 });
 
