@@ -23,7 +23,6 @@ function Filter({ navigation }) {
   const [theme, setTheme] = useState([]);
   const [population, setPopulation] = useState(0);
   const [distance, setDistance] = useState(0);
-  const [access, setAccess] = useState([]);
 
   const themeItems = [
     { key: "1", value: "산" },
@@ -31,46 +30,6 @@ function Filter({ navigation }) {
     { key: "3", value: "바다" },
     { key: "4", value: "강" },
   ];
-  const accessItems = [
-    { key: "1", value: "직통 고속버스", disabled: false },
-    { key: "2", value: "직통 시외버스", disabled: false },
-    { key: "3", value: "직통 기차", disabled: false },
-  ];
-  const access_unify = {
-    "직통 고속버스": "express_direct",
-    "직통 시외버스": "suburbs_direct",
-    "직통 기차": "train_direct",
-  };
-
-  const setAccItemStatus = (express, suburbs, train) => {
-    if (express == null) {
-      accessItems[0].disabled = true;
-    }
-    if (suburbs == null) {
-      accessItems[1].disabled = true;
-    }
-    if (train == null) {
-      accessItems[2].disabled = true;
-    }
-    if (express == null && suburbs == null && train == null) {
-      Alert.alert("선택가능한 access 없음");
-    }
-  };
-  const clickSubmitBtn = () => {
-    //filter 데이터를 처리해준다
-    //테마 ? [] : ""
-    // if (theme.length == 0) {
-    //   setTheme("");
-    // }
-    // console.log("테마", theme);
-    //인구수 array[0,0]
-
-    //거리 == 0 ? "" : 거리값(int)
-
-    //접근성 array[]
-
-    navPush();
-  };
 
   const navPush = () => {
     //Result페이지로 result값을 넘겨준다
@@ -81,46 +40,12 @@ function Filter({ navigation }) {
         theme: theme,
         population: [0, population],
         distance: distance,
-        access: translateAccessKoToEn(),
+        access: [],
       },
     });
   };
-  const translateAccessKoToEn = () => {
-    let tempAccess = [...access];
-    tempAccess.map((item, index) => {
-      if (!isAlpha(item)) {
-        tempAccess[index] = access_unify[item];
-      }
-    });
-    return tempAccess;
-  };
-  const isAlpha = (str) => {
-    const pattern_eng = /[a-zA-Z]/;
-    if (pattern_eng.test(str)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  //   access.map((item, index) => {
-  //     if(!isAlpha(item)){
-  //         access[index] = access_unify[item]
-  //         }
-  //       }
-  //   })
 
   useEffect(() => {
-    // express: express_res.data,
-    // suburbs: suburbs_res.data,
-    // train: train_res.data,
-    // console.log("filter express", route.params.express);
-    // console.log("filter suburbs", route.params.suburbs);
-    // console.log("filter train", route.params.train);
-    setAccItemStatus(
-      route.params.express,
-      route.params.suburbs,
-      route.params.train
-    );
     //filter 데이터를 처리해준다
     //테마 ? [] : ""
     if (theme.length == 0) {
@@ -131,7 +56,7 @@ function Filter({ navigation }) {
     if (distance == 0) {
       setDistance("");
     }
-  }, [accessItems, theme, distance]);
+  }, [theme, distance]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -201,26 +126,6 @@ function Filter({ navigation }) {
             />
             {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
           </View>
-          <View
-            style={{
-              borderBottomColor: "grey",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-            }}
-          />
-          <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>
-              <FontAwesome5 name="train" size={24} color="black" /> 접근성
-            </Text>
-            <MultipleSelectList
-              placeholder="접근성을 골라주세요"
-              setSelected={(val) => setAccess(val)}
-              data={accessItems}
-              save="value"
-              // onSelect={() => alert(selected)}
-              label="접근성"
-            />
-            {/* <Text>{access}</Text> */}
-          </View>
         </View>
       </ScrollView>
       <View style={styles.submit_btn}>
@@ -228,7 +133,7 @@ function Filter({ navigation }) {
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
           mode="contained-tonal"
-          onPress={() => clickSubmitBtn()}
+          onPress={() => navPush()}
         >
           Subtmit
         </Button>

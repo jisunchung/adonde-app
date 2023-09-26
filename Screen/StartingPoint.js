@@ -10,20 +10,16 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
-  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { useState } from "react";
 import { SelectList } from "react-native-dropdown-select-list";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import axios from "axios";
-import { BASE_URL } from "../api";
 
 //출발지 data 불러오기
 import { START_POINT_DATA, current_location_formatting } from "../utils/cities";
@@ -41,7 +37,6 @@ function StartingPoint({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [sido, setSido] = useState("");
   const [sido_sgg, setSido_sgg] = useState("");
-  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState(null);
 
   //지도, 현재위치, 주소
@@ -83,40 +78,6 @@ function StartingPoint({ navigation }) {
       //특별시
       const tempCity = sidoSigg + " " + sidoSigg;
       setSido_sgg(tempCity);
-    }
-  };
-  // 출발지에 따른 접근성 필터 상태 확인
-  const changeAccItemStatus = async () => {
-    console.log("sido_sigg", sido_sgg);
-
-    setLoading(true);
-    console.log("loading", loading);
-    try {
-      const express_res = await axios.post(`${BASE_URL}/express/findAny`, {
-        sido_sgg,
-      });
-      const suburbs_res = await axios.post(`${BASE_URL}/suburbs/findAny`, {
-        sido_sgg,
-      });
-      const train_res = await axios.post(`${BASE_URL}/train/findOne`, {
-        sido_sgg,
-      });
-
-      //   console.log("express.data: ", express_res.data);
-      //   console.log("sub.data: ", suburbs_res.data);
-      //   console.log("train.data: ", train_res.data);
-
-      //네비게이션 파라미터에 실어서 filter페이지로 보내기...
-      await navigation.push("Filter", {
-        origin: sido_sgg,
-        express: express_res.data,
-        suburbs: suburbs_res.data,
-        train: train_res.data,
-      });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -267,13 +228,10 @@ function StartingPoint({ navigation }) {
           onPress={() =>
             sido_sgg == " "
               ? Alert.alert("출발지를 선택하세요")
-              : changeAccItemStatus()
+              : navigation.push("Filter", { origin: sido_sgg })
           }
         >
           Next
-          {loading && (
-            <ActivityIndicator style={styles.loading} color={"black"} />
-          )}
         </Button>
       </View>
     </SafeAreaView>
