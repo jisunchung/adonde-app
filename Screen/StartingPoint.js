@@ -203,7 +203,7 @@ function StartingPoint({ navigation }) {
               {START_POINT_DATA.map((name, index) => {
                 if (name["key"] == sido) {
                   return (
-                    <View style={styles.select_sgg_view}>
+                    <View style={styles.select_sgg_view} key={index}>
                       <SelectList
                         key={index}
                         setSelected={(val) => {
