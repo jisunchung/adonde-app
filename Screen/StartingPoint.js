@@ -10,6 +10,7 @@ import {
   StatusBar,
   ScrollView,
   SafeAreaView,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -20,6 +21,8 @@ import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
+import { BASE_URL } from "../api";
 
 //출발지 data 불러오기
 import { START_POINT_DATA, current_location_formatting } from "../utils/cities";
@@ -27,6 +30,7 @@ function StartingPoint({ navigation }) {
   //지도 state
   const [ok, setOk] = useState(true);
   const [address, SetAddress] = useState("loading...");
+
   const [region, setRegion] = useState({
     latitude: 0,
     longitude: 0,
@@ -38,7 +42,7 @@ function StartingPoint({ navigation }) {
   const [sido, setSido] = useState("");
   const [sido_sgg, setSido_sgg] = useState("");
   const [location, setLocation] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   //지도, 현재위치, 주소
   const getAddress = async () => {
     //허가 요청
@@ -108,6 +112,27 @@ function StartingPoint({ navigation }) {
       { useGoogleMaps: false }
     );
     // console.log("주소 test", add);
+  };
+
+  const nextButtonClick = async () => {
+    setLoading(true);
+    console.log("loading", loading);
+    try {
+      const res = await axios.post(`${BASE_URL}/city/findOne`, {
+        sido_sgg,
+      });
+      console.log("origin region : ", res.data.latitude, res.data.longitude);
+      //네비게이션 파라미터에 실어서 filter페이지로 보내기...
+      await navigation.push("Filter", {
+        origin: sido_sgg,
+        lat: res.data.latitude,
+        long: res.data.longitude,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -228,10 +253,13 @@ function StartingPoint({ navigation }) {
           onPress={() =>
             sido_sgg == " "
               ? Alert.alert("출발지를 선택하세요")
-              : navigation.push("Filter", { origin: sido_sgg })
+              : nextButtonClick()
           }
         >
           Next
+          {loading && (
+            <ActivityIndicator style={styles.loading} color={"black"} />
+          )}
         </Button>
       </View>
     </SafeAreaView>

@@ -9,10 +9,13 @@ import {
   SafeAreaView,
   Alert,
   TurboModuleRegistry,
+  Image,
 } from "react-native";
+import MapView, { Marker, Circle } from "react-native-maps";
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
+// import { Slider } from "@react-native-assets/slider";
 import { useRoute } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -23,6 +26,21 @@ function Filter({ navigation }) {
   const [theme, setTheme] = useState([]);
   const [population, setPopulation] = useState(0);
   const [distance, setDistance] = useState(0);
+
+  const { width, height } = Dimensions.get("window");
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = 0.0922;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+  const [region, setRegion] = useState({
+    latitude: route.params.lat,
+    longitude: route.params.long,
+  });
+  const [mapViewRegion, setMapViewRegion] = useState({
+    latitude: 35.9894573,
+    longitude: 128.6607805,
+    latitudeDelta: 7,
+    longitudeDelta: LONGITUDE_DELTA,
+  });
 
   const themeItems = [
     { key: "1", value: "산" },
@@ -84,7 +102,8 @@ function Filter({ navigation }) {
           />
           <View style={styles.filter_type_box}>
             <Text style={styles.filter_type_text}>
-              <FontAwesome5 name="users" size={24} color="black" /> 인구수
+              <FontAwesome5 name="users" size={24} color="black" /> 인구수{" "}
+              {population == 0 ? null : <Text>~ {population}(만명)</Text>}
             </Text>
 
             <Slider
@@ -96,8 +115,9 @@ function Filter({ navigation }) {
               minimumTrackTintColor="#44AD5E"
               maximumTrackTintColor="#FFFFFF"
               step={1}
+              // thumbStyle={{ width: 20, height: 20, borderRadius: 50 }}
+              // trackHeight={10}
             />
-            {population == 0 ? null : <Text>~ {population}(명)</Text>}
           </View>
           <View
             style={{
@@ -112,7 +132,7 @@ function Filter({ navigation }) {
                 size={24}
                 color="black"
               />{" "}
-              거리
+              거리 {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
             </Text>
             <Slider
               style={styles.slider}
@@ -124,20 +144,43 @@ function Filter({ navigation }) {
               maximumTrackTintColor="#FFFFFF"
               step={10}
             />
-            {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
+
+            <MapView style={styles.map} region={mapViewRegion}>
+              <Marker
+                // image={
+                //   "https://firebasestorage.googleapis.com/v0/b/adonde-app.appspot.com/o/images%2Feat.png?alt=media&token=6e954ae7-5fb9-4192-83ad-15cd021c85cd"
+                // }
+                coordinate={{
+                  latitude: region.latitude,
+                  longitude: region.longitude,
+                }}
+              />
+
+              <Circle
+                strokeWidth={3}
+                strokeColor="#0086B3"
+                fillColor="rgba(223, 241, 247, 0.47)"
+                radius={distance * 1000}
+                center={{
+                  latitude: region.latitude,
+                  longitude: region.longitude,
+                }}
+              />
+            </MapView>
           </View>
         </View>
+
+        <View style={styles.submit_btn}>
+          <Button
+            textColor="#FFFFFF"
+            buttonColor="#44AD5E"
+            mode="contained-tonal"
+            onPress={() => navPush()}
+          >
+            Subtmit
+          </Button>
+        </View>
       </ScrollView>
-      <View style={styles.submit_btn}>
-        <Button
-          textColor="#FFFFFF"
-          buttonColor="#44AD5E"
-          mode="contained-tonal"
-          onPress={() => navPush()}
-        >
-          Subtmit
-        </Button>
-      </View>
     </SafeAreaView>
   );
 }
@@ -172,10 +215,16 @@ const styles = StyleSheet.create({
   slider: {
     width: screenWidth - 80,
   },
+  map: {
+    borderRadius: 10,
+    width: screenWidth - 80,
+    height: 300,
+  },
   submit_btn: {
     alignSelf: "center",
     width: 200,
     margin: 40,
+
     // position: "absolute",
     // left: 20,
     // right: 20,
