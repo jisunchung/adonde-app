@@ -78,21 +78,23 @@ function Filter({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.origin_view}>
+        <FontAwesome5
+          name="location-arrow"
+          style={styles.arrow_icon}
+          // color="white"
+        />
+        <Text style={styles.origin_text}>{route.params.origin}</Text>
+      </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.origin_view}>
-          <FontAwesome5
-            name="location-arrow"
-            style={styles.arrow_icon}
-            // color="white"
-          />
-          <Text style={styles.origin_text}>{route.params.origin}</Text>
-        </View>
         <View style={styles.box}>
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>
-              <FontAwesome5 name="map" size={24} color="black" /> 테마
-            </Text>
+            <View style={styles.filter_icon_and_text_view}>
+              <FontAwesome5 name="map" style={styles.filter_type_icon} />
+              <Text style={styles.filter_type_text}>테마</Text>
+            </View>
             <MultipleSelectList
+              boxStyles={{ marginTop: 10 }}
               placeholder="테마를 골라주세요"
               setSelected={(val) => setTheme(val)}
               data={themeItems}
@@ -109,10 +111,13 @@ function Filter({ navigation }) {
             }}
           />
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>
-              <FontAwesome5 name="users" size={24} color="black" /> 인구수{" "}
-              {population == 0 ? null : <Text>~ {population}(만명)</Text>}
-            </Text>
+            <View style={styles.filter_icon_and_text_view}>
+              <FontAwesome5 name="users" style={styles.filter_type_icon} />
+              <Text style={styles.filter_type_text}>
+                인구수
+                {population == 0 ? null : <Text>~ {population}(만명)</Text>}
+              </Text>
+            </View>
 
             <Slider
               style={styles.slider}
@@ -134,14 +139,15 @@ function Filter({ navigation }) {
             }}
           />
           <View style={styles.filter_type_box}>
-            <Text style={styles.filter_type_text}>
+            <View style={styles.filter_icon_and_text_view}>
               <MaterialCommunityIcons
                 name="map-marker-distance"
-                size={24}
-                color="black"
-              />{" "}
-              거리 {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
-            </Text>
+                style={styles.filter_type_icon}
+              />
+              <Text style={styles.filter_type_text}>
+                거리 {distance == 0 ? null : <Text>~ {distance}(km)</Text>}
+              </Text>
+            </View>
             <Slider
               style={styles.slider}
               value={distance}
@@ -198,49 +204,56 @@ const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: StatusBar.currentHeight,
     // backgroundColor: "white",
   },
   scrollView: {
-    // backgroundColor: "pink",
+    paddingVertical: 60,
+    zIndex: 1,
+    height: screenHeight,
   },
 
   origin_view: {
-    // backgroundColor: "#CEF6CE",
-    // borderBottomLeftRadius: 10,
-    // borderBottomRightRadius: 10,
     marginLeft: 20,
     marginRight: 20,
     paddingTop: 20,
     paddingBottom: 20,
-
+    zIndex: 0,
+    position: "absolute",
     flexDirection: "row",
   },
   arrow_icon: { fontSize: 20, marginRight: 10 },
   origin_text: { fontSize: 20 },
-  filter_type_text: {
-    // alignSelf: "center",
-    fontSize: 15,
-    marginBottom: 10,
-  },
   filter_type_box: {
     borderRadius: 10,
-    padding: 10,
+    padding: 20,
   },
+  filter_icon_and_text_view: {
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
+  filter_type_text: {
+    fontSize: 17,
+    // marginBottom: 10,
+    alignSelf: "center",
+  },
+  filter_type_icon: { fontSize: 24, marginRight: 7 },
+
   box: {
     paddingHorizontal: 10,
     paddingVertical: 10,
+    paddingBottom: 60,
     backgroundColor: "#CEF6CE",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     // margin: 20,
   },
   slider: {
-    width: screenWidth - 40,
+    width: screenWidth - 60,
   },
   map: {
+    marginTop: 10,
     borderRadius: 10,
-    width: screenWidth - 40,
+    width: screenWidth - 60,
     height: 300,
   },
   submit_btn: {
