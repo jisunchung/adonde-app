@@ -154,10 +154,12 @@ function Filter({ navigation }) {
                   latitude: region.latitude,
                   longitude: region.longitude,
                 }}
+                title={route.params.origin}
+                // pinColor=""
               />
 
               <Circle
-                strokeWidth={3}
+                strokeWidth={1}
                 strokeColor="#0086B3"
                 fillColor="rgba(223, 241, 247, 0.47)"
                 radius={distance * 1000}
@@ -203,7 +205,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     margin: 5,
-    // backgroundColor: "yellow",
   },
   box: {
     paddingHorizontal: 10,
@@ -222,13 +223,8 @@ const styles = StyleSheet.create({
   },
   submit_btn: {
     alignSelf: "center",
-    width: 200,
-    margin: 40,
-
-    // position: "absolute",
-    // left: 20,
-    // right: 20,
-    // bottom: 20,
+    width: screenWidth - 40,
+    marginBottom: 20,
   },
 });
 
