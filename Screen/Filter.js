@@ -139,7 +139,7 @@ function Filter({ navigation }) {
               value={distance}
               onValueChange={(val) => setDistance(val)}
               minimumValue={0}
-              maximumValue={500}
+              maximumValue={630}
               minimumTrackTintColor="#44AD5E"
               maximumTrackTintColor="#FFFFFF"
               step={10}
