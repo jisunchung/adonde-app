@@ -79,6 +79,14 @@ function Filter({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
+        <View style={styles.origin_view}>
+          <FontAwesome5
+            name="location-arrow"
+            style={styles.arrow_icon}
+            // color="white"
+          />
+          <Text style={styles.origin_text}>{route.params.origin}</Text>
+        </View>
         <View style={styles.box}>
           <View style={styles.filter_type_box}>
             <Text style={styles.filter_type_text}>
@@ -170,17 +178,16 @@ function Filter({ navigation }) {
               />
             </MapView>
           </View>
-        </View>
-
-        <View style={styles.submit_btn}>
-          <Button
-            textColor="#FFFFFF"
-            buttonColor="#44AD5E"
-            mode="contained-tonal"
-            onPress={() => navPush()}
-          >
-            Subtmit
-          </Button>
+          <View style={styles.submit_btn}>
+            <Button
+              textColor="#FFFFFF"
+              buttonColor="#44AD5E"
+              mode="contained-tonal"
+              onPress={() => navPush()}
+            >
+              Subtmit
+            </Button>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -191,11 +198,26 @@ const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
+    // backgroundColor: "white",
   },
   scrollView: {
     // backgroundColor: "pink",
   },
+
+  origin_view: {
+    // backgroundColor: "#CEF6CE",
+    // borderBottomLeftRadius: 10,
+    // borderBottomRightRadius: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+
+    flexDirection: "row",
+  },
+  arrow_icon: { fontSize: 20, marginRight: 10 },
+  origin_text: { fontSize: 20 },
   filter_type_text: {
     // alignSelf: "center",
     fontSize: 15,
@@ -204,21 +226,21 @@ const styles = StyleSheet.create({
   filter_type_box: {
     borderRadius: 10,
     padding: 10,
-    margin: 5,
   },
   box: {
     paddingHorizontal: 10,
     paddingVertical: 10,
     backgroundColor: "#CEF6CE",
-    borderRadius: 20,
-    margin: 20,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    // margin: 20,
   },
   slider: {
-    width: screenWidth - 80,
+    width: screenWidth - 40,
   },
   map: {
     borderRadius: 10,
-    width: screenWidth - 80,
+    width: screenWidth - 40,
     height: 300,
   },
   submit_btn: {
