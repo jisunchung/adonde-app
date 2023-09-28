@@ -86,7 +86,10 @@ function Filter({ navigation }) {
         />
         <Text style={styles.origin_text}>{route.params.origin}</Text>
       </View>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.box}>
           <View style={styles.filter_type_box}>
             <View style={styles.filter_icon_and_text_view}>
