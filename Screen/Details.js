@@ -121,13 +121,16 @@ function Detail() {
               인구수 : {cityDetailResult["population"]} (명)
             </Text>
 
-            <Text
-              style={styles.link}
-              onPress={() => Linking.openURL(cityDetailResult["tourism_link"])}
-            >
-              {cityDetailResult["tourism_link"]}
-            </Text>
-
+            <View style={styles.link_view}>
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(cityDetailResult["tourism_link"])
+                }
+              >
+                {cityDetailResult["tourism_link"]}
+              </Text>
+            </View>
             <Image
               style={styles.image}
               source={{
@@ -197,12 +200,11 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 10,
   },
-
+  link_view: { backgroundColor: "#FFDD82", borderRadius: 10 },
   link: {
-    fontSize: 16,
+    fontSize: 15,
     textDecorationLine: "underline",
-    // color: "#FFBE59",
-    color: "#5882FA",
+    color: "#92731A",
     alignSelf: "center",
   },
   map: {
