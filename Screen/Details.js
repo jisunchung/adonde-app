@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: screenWidth - 80,
     height: 300,
+    marginBottom: 10,
   },
   horizontal_view: {
     flexDirection: "row",
@@ -225,30 +226,30 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   place_block: {
-    backgroundColor: "#FFDD82",
+    backgroundColor: "#FFEACF",
     marginTop: 10,
     marginBottom: 10,
     position: "relative",
     borderRadius: 10,
   },
   place_type_view: {
-    backgroundColor: "#4D4637",
+    backgroundColor: "#F6953E",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   place_type_text: {
     fontSize: 16,
-    color: "#FFDD82",
+    color: "white",
     fontWeight: "bold",
     margin: 8,
     alignSelf: "center",
   },
   TouchableOpacity_place_block: {
     padding: 5,
-    backgroundColor: "#F6EDD9",
+    backgroundColor: "#CFC2B1",
     borderRadius: 5,
   },
-  place_name_text: { color: "#003300", fontSize: 14 },
+  place_name_text: { color: "#4F4538", fontSize: 14 },
 });
 
 export default Detail;
