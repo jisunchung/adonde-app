@@ -83,11 +83,18 @@ function Detail() {
   const returnPlaces = Object.keys(place).map((place_type, index) => (
     <View style={styles.place_block} key={place_type}>
       {place[`${place_type}`].length != 0 ? (
-        <Text style={styles.place_type_text} key={place_type}>
-          {place_type}
-        </Text>
+        <View style={styles.place_type_view}>
+          <Text style={styles.place_type_text} key={place_type}>
+            {place_type}
+          </Text>
+        </View>
       ) : null}
-      <ScrollView horizontal={true} nestedScrollEnabled={true} key={index}>
+      <ScrollView
+        horizontal={true}
+        nestedScrollEnabled={true}
+        key={index}
+        indicatorStyle={"white"}
+      >
         {place[`${place_type}`].map((place_result, index) => (
           <View style={styles.horizontal_view} key={index}>
             <TouchableOpacity
@@ -218,25 +225,30 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   place_block: {
-    backgroundColor: "powderblue",
-    margin: 10,
+    backgroundColor: "#FFDD82",
+    marginTop: 10,
+    marginBottom: 10,
     position: "relative",
-    alignItems: "flex-start",
     borderRadius: 10,
+  },
+  place_type_view: {
+    backgroundColor: "#4D4637",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   place_type_text: {
     fontSize: 16,
-    color: "steelblue",
+    color: "#FFDD82",
     fontWeight: "bold",
     margin: 8,
     alignSelf: "center",
   },
   TouchableOpacity_place_block: {
     padding: 5,
-    backgroundColor: "#F4FA58",
+    backgroundColor: "#F6EDD9",
     borderRadius: 5,
   },
-  place_name_text: { color: "grey", fontSize: 14 },
+  place_name_text: { color: "#003300", fontSize: 14 },
 });
 
 export default Detail;
