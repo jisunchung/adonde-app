@@ -48,18 +48,13 @@ function SimpleCard({ name, USER_DATA, SET_STORED_CITIES }) {
         style={styles.card_template}
         onPress={() => navigation.navigate("mypage_detail", { sido_sgg: name })}
       >
-        <Text style={styles.card_title}>
-          <Entypo
-            name="location-pin"
-            style={styles.card_title_icon}
-            color="black"
-          />
-          {name}
-        </Text>
+        <View style={styles.card_title_view}>
+          <Entypo name="location-pin" style={styles.card_title_icon} />
+          <Text style={styles.card_title}>{name}</Text>
+        </View>
         <Entypo
           style={styles.heart_icon}
           name={heart ? "heart" : "heart-outlined"}
-          color="black"
           onPress={clickHeart}
         />
       </TouchableOpacity>
@@ -78,7 +73,7 @@ const styles = StyleSheet.create({
   card_template: {
     width: screenWidth - 40,
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: "#44AD5E",
     // shadowColor: "#000",
     // shadowOffset: {
     //   width: 0,
@@ -95,15 +90,19 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingEnd: 20,
   },
-  card_title: {
-    color: "black",
-    padding: 10,
-    fontSize: 20,
-    marginStart: 10,
+  card_title_view: {
+    flexDirection: "row",
+    marginLeft: 20,
   },
-  card_title_icon: { fontSize: 20 },
+  card_title: {
+    color: "white",
+    fontSize: 20,
+    marginLeft: 20,
+  },
+  card_title_icon: { fontSize: 23, color: "#D7F9DB" },
   heart_icon: {
     fontSize: 20,
+    color: "#D7F9DB",
   },
 });
 
