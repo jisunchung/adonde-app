@@ -42,7 +42,7 @@ function MypageMain({
       <View style={styles.block}>
         <View style={styles.user_block}>
           {user.profile_image == "" ? (
-            <FontAwesome name="user-circle-o" size={90} color="black" />
+            <FontAwesome name="user-circle-o" size={60} color="black" />
           ) : (
             <Image
               style={styles.profile_img}
@@ -69,7 +69,7 @@ function MypageMain({
       <View style={styles.user_block}>
         <FontAwesome
           name="user-circle-o"
-          style={{ fontSize: 90 }}
+          style={{ fontSize: 60 }}
           color="black"
         />
         <Text style={{ margin: 20 }}>로그인 후 사용해주세요!</Text>
