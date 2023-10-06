@@ -144,10 +144,10 @@ function StartingPoint({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.text}>
+        {/* <Text style={styles.text}>
           <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
           출발지 설정
-        </Text>
+        </Text> */}
         <MapView style={styles.map} region={region}>
           <Marker
             coordinate={{
@@ -281,9 +281,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
+    backgroundColor: "white",
   },
   box: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     // paddingVertical: 20,
   },
   text: {
@@ -292,9 +293,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   map: {
-    width: screenWidth - 40,
-    height: 300,
-    borderRadius: 10,
+    width: screenWidth,
+    height: 400,
+    // borderRadius: 10,
+    // marginTop: 30,
   },
   centeredView: {
     flex: 1,

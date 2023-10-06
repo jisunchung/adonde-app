@@ -210,6 +210,7 @@ const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: "white",
   },
   loading_text: {
     marginTop: 100,

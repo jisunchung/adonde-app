@@ -207,7 +207,7 @@ const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "white",
+    backgroundColor: "white",
   },
   scrollView: {
     paddingVertical: 60,
