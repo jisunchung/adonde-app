@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: screenWidth,
-    height: 400,
+    height: 350,
     // borderRadius: 10,
     // marginTop: 30,
   },
