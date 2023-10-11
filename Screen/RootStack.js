@@ -26,7 +26,13 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
         component={MainTab}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Start"
         component={StartingPoint}

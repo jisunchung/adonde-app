@@ -8,7 +8,13 @@ function Settings() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator>
-      <Stack.Screen name="설정" component={SettingMain} />
+      <Stack.Screen
+        name="설정"
+        component={SettingMain}
+        options={{
+          headerLargeTitleShadowVisible: false,
+        }}
+      />
       <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );

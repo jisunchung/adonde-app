@@ -28,7 +28,7 @@ function MainTab() {
         component={Search}
         options={{
           headerTitle: "검색",
-          headerLargeTitleShadowVisible: false,
+          headerShadowVisible: false,
           tabBarIcon: (props) => TabIcon({ ...props, name: "md-search" }),
         }}
       />
@@ -37,7 +37,8 @@ function MainTab() {
         component={Mypage}
         options={{
           headerTitle: "마이페이지",
-          headerLargeTitleShadowVisible: false,
+          headerStyle: { backgroundColor: "#CEF6CE" },
+          headerShadowVisible: false,
           tabBarIcon: (props) => TabIcon({ ...props, name: "md-person" }),
         }}
       />
@@ -46,7 +47,6 @@ function MainTab() {
         component={Settings}
         options={{
           headerShown: false,
-          headerLargeTitleShadowVisible: false,
           tabBarIcon: (props) =>
             TabIcon({ ...props, name: "md-settings-sharp" }),
         }}
