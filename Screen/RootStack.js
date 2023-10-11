@@ -6,10 +6,12 @@ import StartingPoint from "./StartingPoint";
 import Filter from "./Filter";
 import Result from "./Result";
 import Details from "./Details";
+//icon
 import { Entypo } from "@expo/vector-icons";
 //redux
 import { connect } from "react-redux";
 import { SET_MAP_ICON } from "../redux/userSlice";
+import { View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +32,6 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
         component={StartingPoint}
         options={{
           headerTitle: "출발지 설정",
-          // headerBackTitle: "home",
           headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
         }}
@@ -39,10 +40,9 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
         name="Filter"
         component={Filter}
         options={{
-          // headerShown: false,
           headerTitle: "",
           headerBackTitle: "start",
-          // headerBackTitleVisible: false,
+          headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
         }}
       />
@@ -52,15 +52,23 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
         options={({ navigation }) => ({
           headerTitle: "",
           headerBackTitle: "filter",
-          // headerBackTitleVisible: false,
+          headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
           headerRight: () => (
-            <Entypo
-              name={MAP_ICON_DATA ? "map" : "list"}
-              style={{ fontSize: 23 }}
-              color="black"
-              onPress={clickMapIcon}
-            />
+            <View style={{ flexDirection: "row" }}>
+              <Entypo
+                name="home"
+                size={24}
+                color="black"
+                onPress={() => navigation.navigate("Home")}
+              />
+              <Entypo
+                name={MAP_ICON_DATA ? "map" : "list"}
+                style={{ fontSize: 23, marginLeft: 20 }}
+                color="black"
+                onPress={clickMapIcon}
+              />
+            </View>
           ),
         })}
       />
