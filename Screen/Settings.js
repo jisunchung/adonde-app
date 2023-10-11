@@ -15,7 +15,14 @@ function Settings() {
           headerLargeTitleShadowVisible: false,
         }}
       />
-      <Stack.Screen name="About" component={About} />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{
+          headerLargeTitleShadowVisible: false,
+          headerBackTitleVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

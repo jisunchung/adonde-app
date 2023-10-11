@@ -14,50 +14,58 @@ import { Fontisto } from "@expo/vector-icons";
 function About() {
   return (
     <View style={styles.block}>
-      <View style={styles.dev_title}>
-        <Fontisto name="persons" style={styles.dev_title_icon} color="black" />
-        <Text style={styles.dev_title_text}>developers</Text>
-      </View>
-
-      {/*  */}
-      <View style={styles.dev_part_block}>
-        <Text style={styles.dev_part_text}>Frontend</Text>
-        <View style={styles.dev_person_info}>
-          <Text style={styles.dev_person_info_text}>└─ jisun</Text>
-
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL("https://github.com/jisunchung");
-            }}
-          >
-            <Text style={styles.git_link}>https://github.com/jisunchung</Text>
-          </TouchableOpacity>
+      <View style={styles.about_view}>
+        <View style={styles.dev_title}>
+          <Fontisto
+            name="persons"
+            style={styles.dev_title_icon}
+            color="black"
+          />
+          <Text style={styles.dev_title_text}>developers</Text>
         </View>
-      </View>
-      {/*  */}
 
-      <View style={styles.dev_part_block}>
-        <Text style={styles.dev_part_text}>Backend</Text>
-        <View style={styles.dev_person_info}>
-          <Text style={styles.dev_person_info_text}>└─ dokyung</Text>
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL("https://github.com/dokker19");
-            }}
-          >
-            <Text style={styles.git_link}>https://github.com/dokker19</Text>
-          </TouchableOpacity>
+        {/*  */}
+        <View style={styles.dev_part_block}>
+          <Text style={styles.dev_part_text}>Frontend</Text>
+          <View style={styles.dev_person_info}>
+            <Text style={styles.dev_person_info_text}>└─ jisun</Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://github.com/jisunchung");
+              }}
+            >
+              <Text style={styles.git_link}>https://github.com/jisunchung</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.dev_person_info}>
-          <Text style={styles.dev_person_info_text}>└─ jangwoo</Text>
+        {/*  */}
 
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL("https://github.com/forrestpark");
-            }}
-          >
-            <Text style={styles.git_link}>https://github.com/forrestpark</Text>
-          </TouchableOpacity>
+        <View style={styles.dev_part_block}>
+          <Text style={styles.dev_part_text}>Backend</Text>
+          <View style={styles.dev_person_info}>
+            <Text style={styles.dev_person_info_text}>└─ jangwoo</Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://github.com/forrestpark");
+              }}
+            >
+              <Text style={styles.git_link}>
+                https://github.com/forrestpark
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.dev_person_info}>
+            <Text style={styles.dev_person_info_text}>└─ dokyung</Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://github.com/dokker19");
+              }}
+            >
+              <Text style={styles.git_link}>https://github.com/dokker19</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -69,8 +77,12 @@ const screenHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    marginHorizontal: 40,
+
+    backgroundColor: "white",
+  },
+  about_view: {
     marginTop: 30,
+    marginHorizontal: 40,
   },
   dev_title: {
     flexDirection: "row",
