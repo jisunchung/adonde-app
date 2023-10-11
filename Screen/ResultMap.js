@@ -17,8 +17,8 @@ export default function ResultMap({ result }) {
   const [long, setLong] = useState(128.3222456);
   const [cnt, setCnt] = useState(0);
   const [region, setRegion] = useState({
-    latitude: 35.3866,
-    longitude: 127.9095155,
+    latitude: 35.4966,
+    longitude: 127.8095155,
     latitudeDelta: 7,
     longitudeDelta: LONGITUDE_DELTA,
   });
