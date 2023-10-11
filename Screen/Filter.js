@@ -77,7 +77,7 @@ function Filter({ navigation }) {
   }, [theme, distance]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.origin_view}>
         <FontAwesome5
           name="location-arrow"
@@ -199,7 +199,7 @@ function Filter({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 const screenWidth = Dimensions.get("window").width;
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
   submit_btn: {
     alignSelf: "center",
     width: screenWidth - 40,
-    marginBottom: 20,
+    marginBottom: 40,
   },
 });
 

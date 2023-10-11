@@ -143,7 +143,7 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
   //cardlist 형식으로 보여줌
   if (MAP_ICON_DATA) {
     return (
-      <SafeAreaView style={styles.block}>
+      <View style={styles.block}>
         <ScrollView>
           {adAndResultList.length == 0 ? (
             <Text style={styles.loading_text}>{loadingText}</Text>
@@ -193,7 +193,7 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
             </View>
           )}
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
   //map에 마커로 표시해서 보여줌

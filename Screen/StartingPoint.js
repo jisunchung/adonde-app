@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 20,
     right: 20,
-    bottom: 20,
+    bottom: 40,
   },
   loading: { fontSize: 10, marginLeft: 10 },
 });
