@@ -32,7 +32,7 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
   const [visible, setVisible] = useState(true);
   const [adList, setAdList] = useState([]);
   const [adAndResultList, setAdAndResultList] = useState([]);
-  const [loadingText, setLoadingText] = useState("로딩중...");
+  const [loadingText, setLoadingText] = useState("loading...");
 
   const returnSnackBox = () => {
     if (!shake) {
@@ -139,19 +139,21 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
     Shake.addListener(() => {
       setShake(true);
     });
+
+    //해당 스크린의 초첨을 벗어난 경우 modal창 꺼버림
+    navigation.addListener("blur", () => setShake(false));
   }, []);
   //cardlist 형식으로 보여줌
   if (MAP_ICON_DATA) {
     return (
       <View style={styles.block}>
-        <ScrollView>
+        <View>
           {adAndResultList.length == 0 ? (
             <Text style={styles.loading_text}>{loadingText}</Text>
           ) : (
             <View>
               {/* shake! */}
               {returnSnackBox()}
-              {/* <Button title="shake" onPress={() => setShake(true)}></Button> */}
 
               <Modal animationType="slide" transparent={true} visible={shake}>
                 <View style={styles.centeredView}>
@@ -168,7 +170,7 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
                 </View>
               </Modal>
 
-              <View>
+              <ScrollView>
                 {adAndResultList.map((data, index) =>
                   data != undefined ? (
                     Object.keys(data).includes("id") ? (
@@ -189,10 +191,10 @@ function Result({ navigation, MAP_ICON_DATA, SET_MAP_ICON }) {
                     <Text key={index}>undefined</Text>
                   )
                 )}
-              </View>
+              </ScrollView>
             </View>
           )}
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -220,7 +222,8 @@ const styles = StyleSheet.create({
   //snackBox
   snackBox_block: {
     margin: 10,
-    marginBottom: 5,
+    marginTop: 2,
+    marginBottom: 2,
     width: screenWidth - 20,
     backgroundColor: "grey",
     height: 45,
