@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   chip_touchable_block: {
     padding: 5,
   },
-  chip_text: { color: "white" },
+  chip_text: { color: "white", fontWeight: "500" },
   search_block: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: screenWidth - 80,
+    fontWeight: "500",
     height: 45,
     padding: 10,
     marginTop: 15,
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
   filterList_text: {
     fontSize: 15,
     margin: 7,
+    fontWeight: "600",
   },
 });
 
