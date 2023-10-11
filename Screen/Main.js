@@ -32,7 +32,7 @@ function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
           headerShown: false,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Start"
         component={StartingPoint}
         options={{
@@ -41,8 +41,8 @@ function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
           headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
         }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="Filter"
         component={Filter}
         options={{
@@ -52,8 +52,8 @@ function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
           // headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
         }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="Result"
         component={Result}
         options={({ navigation }) => ({
@@ -70,7 +70,7 @@ function Main({ MAP_ICON_DATA, SET_MAP_ICON }) {
             />
           ),
         })}
-      />
+      /> */}
       <Stack.Screen name="Detail" component={Details} />
     </Stack.Navigator>
   );
