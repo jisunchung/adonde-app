@@ -77,7 +77,9 @@ function Mypage({
           style={{ fontSize: 60 }}
           color="black"
         />
-        <Text style={{ margin: 20 }}>로그인 후 사용해주세요!</Text>
+        <Text style={{ margin: 20, fontWeight: "500" }}>
+          로그인 후 사용해주세요!
+        </Text>
         <Button
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
