@@ -46,7 +46,7 @@ function SimpleCard({ name, USER_DATA, SET_STORED_CITIES }) {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.card_template}
-        onPress={() => navigation.navigate("mypage_detail", { sido_sgg: name })}
+        onPress={() => navigation.navigate("Detail", { sido_sgg: name })}
       >
         <View style={styles.card_title_view}>
           <Entypo name="location-pin" style={styles.card_title_icon} />

@@ -72,7 +72,15 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
           ),
         })}
       />
-      <Stack.Screen name="Detail" component={Details} />
+      <Stack.Screen
+        name="Detail"
+        component={Details}
+        options={{
+          // headerTitle: "",
+          headerBackTitleVisible: false,
+          headerLargeTitleShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

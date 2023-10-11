@@ -3,7 +3,6 @@ import { View, Alert, Text } from "react-native";
 import WebView from "react-native-webview";
 import axios from "axios";
 // import * as AuthSession from "expo-auth-session";
-import MypageMain from "./MypageMain";
 import { BASE_URL } from "../api";
 
 //redux
