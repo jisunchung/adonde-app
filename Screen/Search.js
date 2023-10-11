@@ -17,7 +17,7 @@ import { BASE_URL } from "../api";
 import { useNavigation } from "@react-navigation/native";
 import { administrativeDistrictList } from "../utils/cities";
 
-function SearchMain() {
+function Search() {
   const navigation = useNavigation();
   const [cities, setCities] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 20,
     paddingHorizontal: 20,
+    backgroundColor: "white",
   },
   chip_block: {
     flexDirection: "row",
@@ -188,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchMain;
+export default Search;

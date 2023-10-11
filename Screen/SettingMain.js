@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 5,
     paddingHorizontal: 20,
+    backgroundColor: "white",
   },
   settingList_block: {
     margin: 20,

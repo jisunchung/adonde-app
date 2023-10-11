@@ -90,8 +90,9 @@ function Mypage({
 
 const styles = StyleSheet.create({
   block: {
-    // flex: 1,
+    flex: 1,
     paddingVertical: 20,
+    backgroundColor: "white",
   },
   user_block: {
     alignItems: "center",
