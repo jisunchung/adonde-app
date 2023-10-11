@@ -76,7 +76,7 @@ function RootStack({ MAP_ICON_DATA, SET_MAP_ICON }) {
         name="Detail"
         component={Details}
         options={{
-          // headerTitle: "",
+          headerTitle: "",
           headerBackTitleVisible: false,
           headerLargeTitleShadowVisible: false,
         }}
