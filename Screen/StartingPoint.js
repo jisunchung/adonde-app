@@ -239,7 +239,9 @@ function StartingPoint({ navigation }) {
         </View>
 
         {sido_sgg != " " ? (
-          <Text style={{ alignSelf: "center", fontSize: 17 }}>
+          <Text
+            style={{ alignSelf: "center", fontSize: 17, fontWeight: "600" }}
+          >
             출발지 : {sido_sgg}
           </Text>
         ) : null}
@@ -268,11 +270,11 @@ function StartingPoint({ navigation }) {
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 //green
-// const MODAL_BACK_COLOR = "#7C8257";
-// const MODAL_SELECT_BACK_COLOR = "#EBECE2";
+const MODAL_BACK_COLOR = "#CEF6CE";
+const MODAL_SELECT_BACK_COLOR = "#F1FCF2";
 //blue
-const MODAL_BACK_COLOR = "#145D6F";
-const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
+// const MODAL_BACK_COLOR = "#0086B3";
+// const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
 
 // const MODAL_BACK_COLOR = "#F2FCF3";
 // const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
@@ -294,7 +296,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: screenWidth,
-    height: 350,
+    height: screenHeight - 360,
     // borderRadius: 10,
     // marginTop: 30,
   },
@@ -336,6 +338,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     margin: 5,
     alignSelf: "center",
+    fontWeight: "bold",
   },
   current_btn: {
     borderRadius: 10,
@@ -354,6 +357,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    fontWeight: "bold",
   },
 
   select_sgg_view: {
@@ -366,20 +370,20 @@ const styles = StyleSheet.create({
   },
 
   modal_close_icon: {
-    color: "#E9EFFF",
+    color: "#022005",
     fontSize: 20,
     alignSelf: "center",
     marginTop: 15,
   },
   textStyle: {
     color: "white",
-    fontWeight: "bold",
     textAlign: "center",
+    fontWeight: "bold",
   },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
-    color: "#E9EFFF",
+    color: "#022005",
   },
   next_btn_view: {
     position: "absolute",
