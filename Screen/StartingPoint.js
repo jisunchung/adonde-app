@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: screenWidth,
-    height: screenHeight - 360,
+    height: screenHeight - 400,
     // borderRadius: 10,
     // marginTop: 30,
   },
