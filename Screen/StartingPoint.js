@@ -157,6 +157,9 @@ function StartingPoint({ navigation }) {
             }}
           />
         </MapView>
+      </View>
+
+      <DraggableBottomSheet>
         <View style={styles.current_location_box}>
           <View style={styles.location_arrow_back}>
             <FontAwesome5
@@ -212,7 +215,8 @@ function StartingPoint({ navigation }) {
             </View>
           </View>
         </Modal>
-        <View
+
+        {/* <View
           style={{
             flexDirection: "row",
             justifyContent: "center",
@@ -237,35 +241,89 @@ function StartingPoint({ navigation }) {
           >
             <Text style={styles.select_location_text}>출발지 선택</Text>
           </TouchableOpacity>
+        </View> */}
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ flexDirection: "row" }}>
+            {region.latitude != 0 ? (
+              <Pressable
+                onPress={() => CurrentLocationAsStart()}
+                style={styles.current_btn}
+              >
+                <Text style={styles.textStyle}>현위치를 출발지로</Text>
+              </Pressable>
+            ) : null}
+            <TouchableOpacity
+              style={styles.select_location_btn}
+              onPress={() => [
+                setModalVisible(true),
+                setSido(""),
+                setSido_sgg(""),
+              ]}
+            >
+              <Text style={styles.select_location_text}>출발지 선택</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* <View style={styles.modalView}>
+            <Text style={styles.modalText}>출발지를 선택하세요!</Text>
+            <SelectList
+              setSelected={(val) => setSido(val)}
+              data={START_POINT_DATA}
+              save="value"
+              boxStyles={styles.select_box_style}
+              dropdownStyles={styles.select_box_style}
+            />
+            {START_POINT_DATA.map((name, index) => {
+              if (name["key"] == sido) {
+                return (
+                  <View style={styles.select_sgg_view} key={index}>
+                    <SelectList
+                      key={index}
+                      setSelected={(val) => {
+                        setSido_sgg(val);
+                      }}
+                      data={name["options"]}
+                      save="value"
+                      boxStyles={styles.select_box_style}
+                      dropdownStyles={styles.select_box_style}
+                    />
+                  </View>
+                );
+              }
+            })}
+          </View> */}
         </View>
 
-        {sido_sgg != " " ? (
-          <Text
-            style={{ alignSelf: "center", fontSize: 17, fontWeight: "600" }}
+        <View style={styles.next_btn_view}>
+          {sido_sgg != " " ? (
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 16,
+                fontWeight: "600",
+                marginBottom: 10,
+              }}
+            >
+              출발지 : {sido_sgg}
+            </Text>
+          ) : null}
+          <Button
+            textColor="#FFFFFF"
+            buttonColor="#44AD5E"
+            mode="contained-tonal"
+            onPress={() =>
+              sido_sgg == " "
+                ? Alert.alert("출발지를 선택하세요")
+                : nextButtonClick()
+            }
           >
-            출발지 : {sido_sgg}
-          </Text>
-        ) : null}
-      </View>
-
-      <View style={styles.next_btn_view}>
-        <Button
-          textColor="#FFFFFF"
-          buttonColor="#44AD5E"
-          mode="contained-tonal"
-          onPress={() =>
-            sido_sgg == " "
-              ? Alert.alert("출발지를 선택하세요")
-              : nextButtonClick()
-          }
-        >
-          Next
-          {loading && (
-            <ActivityIndicator style={styles.loading} color={"black"} />
-          )}
-        </Button>
-      </View>
-      <DraggableBottomSheet />
+            Next
+            {loading && (
+              <ActivityIndicator style={styles.loading} color={"black"} />
+            )}
+          </Button>
+        </View>
+      </DraggableBottomSheet>
     </View>
   );
 }
@@ -298,7 +356,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: screenWidth,
-    height: screenHeight - 400,
+    height: screenHeight - 100,
     // borderRadius: 10,
     // marginTop: 30,
   },
@@ -343,6 +401,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   current_btn: {
+    // marginLeft: 10,
     borderRadius: 10,
     padding: 20,
     backgroundColor: "#44AD5E",

@@ -5,17 +5,18 @@ import {
   Platform,
   StyleSheet,
   View,
+  Text,
 } from "react-native";
 import { WINDOW_HEIGHT } from "../utils/windows";
 
-const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.7;
-const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.2;
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.4;
+const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.15;
 const MAX_UPWARD_TRANSLATE_Y =
   BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT; // negative number;
 const MAX_DOWNWARD_TRANSLATE_Y = 0;
 const DRAG_THRESHOLD = 50;
 
-const DraggableBottomSheet = () => {
+const DraggableBottomSheet = ({ children }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const lastGestureDy = useRef(0);
   const panResponder = useRef(
@@ -83,6 +84,7 @@ const DraggableBottomSheet = () => {
         <View style={styles.draggableArea} {...panResponder.panHandlers}>
           <View style={styles.dragHandle} />
         </View>
+        {children}
       </Animated.View>
     </View>
   );
