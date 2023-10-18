@@ -23,6 +23,7 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
+import DraggableBottomSheet from "../component/DraggableBottomSheet";
 
 //출발지 data 불러오기
 import { START_POINT_DATA, current_location_formatting } from "../utils/cities";
@@ -142,7 +143,7 @@ function StartingPoint({ navigation }) {
     checkMetropolitanCity(sido_sgg);
   }, [sido_sgg]);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.box}>
         {/* <Text style={styles.text}>
           <Entypo name="location-pin" style={{ fontSize: 20 }} color="black" />
@@ -264,7 +265,8 @@ function StartingPoint({ navigation }) {
           )}
         </Button>
       </View>
-    </SafeAreaView>
+      <DraggableBottomSheet />
+    </View>
   );
 }
 const screenWidth = Dimensions.get("window").width;
