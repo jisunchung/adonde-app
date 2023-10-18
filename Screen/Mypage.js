@@ -45,7 +45,7 @@ function Mypage({
     getUserStoredCities();
   }, [USER_DATA]);
   return user ? (
-    <ScrollView style={styles.block}>
+    <View style={styles.block}>
       <View style={styles.user_block}>
         {user.profile_image == "" ? (
           <FontAwesome name="user-circle-o" size={60} color="black" />
@@ -60,15 +60,12 @@ function Mypage({
         <Text style={styles.user_name_text}>{user.nickname}님</Text>
         <Text style={styles.user_email_text}>{user.email}</Text>
       </View>
-
-      {USER_SOTRED_CITIES.map((city_name) => (
-        <SimpleCard
-          name={city_name}
-          key={city_name}
-          // storedCitiesChange={storedCitiesChange}
-        />
-      ))}
-    </ScrollView>
+      <ScrollView>
+        {USER_SOTRED_CITIES.map((city_name) => (
+          <SimpleCard name={city_name} key={city_name} />
+        ))}
+      </ScrollView>
+    </View>
   ) : (
     <View style={styles.block}>
       <View style={styles.user_block}>
