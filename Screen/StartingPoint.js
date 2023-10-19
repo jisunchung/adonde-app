@@ -267,7 +267,7 @@ function StartingPoint({ navigation }) {
 
         <View
           style={{
-            backgroundColor: "lightgrey",
+            backgroundColor: "#E6E6E6",
             height: screenHeight * 0.43,
             marginVertical: 20,
           }}
@@ -288,8 +288,16 @@ function StartingPoint({ navigation }) {
                   setSelected={(val) => setSido(val)}
                   data={START_POINT_DATA}
                   save="value"
-                  boxStyles={{ width: screenWidth / 2.5 }}
-                  dropdownStyles={{ height: screenHeight * 0.3 }}
+                  boxStyles={{
+                    width: screenWidth / 2.5,
+                    backgroundColor: MODAL_SELECT_BACK_COLOR,
+                    borderColor: MODAL_SELECT_BACK_COLOR,
+                  }}
+                  dropdownStyles={{
+                    height: screenHeight * 0.3,
+                    backgroundColor: MODAL_SELECT_BACK_COLOR,
+                    borderColor: MODAL_SELECT_BACK_COLOR,
+                  }}
                   // boxStyles={}
                   // dropdownStyles={styles.select_box_style}
                 />
@@ -306,8 +314,16 @@ function StartingPoint({ navigation }) {
                         }}
                         data={name["options"]}
                         save="value"
-                        boxStyles={{ width: screenWidth / 2.5 }}
-                        dropdownStyles={{ height: screenHeight * 0.3 }}
+                        boxStyles={{
+                          width: screenWidth / 2.5,
+                          backgroundColor: MODAL_SELECT_BACK_COLOR,
+                          borderColor: MODAL_SELECT_BACK_COLOR,
+                        }}
+                        dropdownStyles={{
+                          height: screenHeight * 0.3,
+                          backgroundColor: MODAL_SELECT_BACK_COLOR,
+                          borderColor: MODAL_SELECT_BACK_COLOR,
+                        }}
                         // boxStyles={styles.select_box_style}
                         // dropdownStyles={styles.select_box_style}
                       />
@@ -348,7 +364,7 @@ function StartingPoint({ navigation }) {
                 style={{
                   alignSelf: "center",
                   // fontSize: 16,
-                  // fontWeight: "600",
+                  fontWeight: "500",
                   // marginBottom: 10,
                 }}
               >
