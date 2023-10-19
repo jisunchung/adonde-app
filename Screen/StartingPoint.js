@@ -273,8 +273,12 @@ function StartingPoint({ navigation }) {
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 //green
-const MODAL_BACK_COLOR = "#CEF6CE";
-const MODAL_SELECT_BACK_COLOR = "#F1FCF2";
+// const MODAL_BACK_COLOR = "#CEF6CE";
+// const MODAL_SELECT_BACK_COLOR = "#F1FCF2";
+//grey
+const MODAL_BACK_COLOR = "#E6E6E6";
+const MODAL_SELECT_BACK_COLOR = "#E0F2F7";
+
 //blue
 // const MODAL_BACK_COLOR = "#0086B3";
 // const MODAL_SELECT_BACK_COLOR = "#E9EFFF";
@@ -369,8 +373,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   select_box_style: {
-    backgroundColor: MODAL_SELECT_BACK_COLOR,
-    borderColor: MODAL_SELECT_BACK_COLOR,
+    // backgroundColor: MODAL_SELECT_BACK_COLOR,
+    // borderColor: MODAL_SELECT_BACK_COLOR,
     width: screenWidth / 2,
   },
 
