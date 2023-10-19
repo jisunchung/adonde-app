@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { WINDOW_HEIGHT } from "../utils/windows";
 
-const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.4;
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.8;
 const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.15;
 const MAX_UPWARD_TRANSLATE_Y =
   BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT; // negative number;

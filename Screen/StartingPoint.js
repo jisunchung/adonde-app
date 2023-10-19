@@ -252,7 +252,7 @@ function StartingPoint({ navigation }) {
                 <Text style={styles.textStyle}>현위치를 출발지로</Text>
               </Pressable>
             ) : null}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.select_location_btn}
               onPress={() => [
                 setModalVisible(true),
@@ -261,52 +261,77 @@ function StartingPoint({ navigation }) {
               ]}
             >
               <Text style={styles.select_location_text}>출발지 선택</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
+        </View>
 
-          {/* <View style={styles.modalView}>
-            <Text style={styles.modalText}>출발지를 선택하세요!</Text>
-            <SelectList
-              setSelected={(val) => setSido(val)}
-              data={START_POINT_DATA}
-              save="value"
-              boxStyles={styles.select_box_style}
-              dropdownStyles={styles.select_box_style}
-            />
-            {START_POINT_DATA.map((name, index) => {
-              if (name["key"] == sido) {
-                return (
-                  <View style={styles.select_sgg_view} key={index}>
-                    <SelectList
-                      key={index}
-                      setSelected={(val) => {
-                        setSido_sgg(val);
-                      }}
-                      data={name["options"]}
-                      save="value"
-                      boxStyles={styles.select_box_style}
-                      dropdownStyles={styles.select_box_style}
-                    />
-                  </View>
-                );
-              }
-            })}
-          </View> */}
+        <View
+          style={{
+            backgroundColor: "lightgrey",
+            height: screenHeight * 0.43,
+            marginVertical: 20,
+          }}
+        >
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ fontWeight: "500", margin: 20 }}>
+              출발지를 직접 선택하세요!
+            </Text>
+
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              <View>
+                {/* <Text>시/도</Text> */}
+                <SelectList
+                  setSelected={(val) => setSido(val)}
+                  data={START_POINT_DATA}
+                  save="value"
+                  boxStyles={{ width: screenWidth / 2.5 }}
+                  dropdownStyles={{ height: screenHeight * 0.3 }}
+                  // boxStyles={}
+                  // dropdownStyles={styles.select_box_style}
+                />
+              </View>
+              {START_POINT_DATA.map((name, index) => {
+                if (name["key"] == sido) {
+                  return (
+                    <View key={index} style={{ marginLeft: 20 }}>
+                      {/* <Text>시/군/구</Text> */}
+                      <SelectList
+                        key={index}
+                        setSelected={(val) => {
+                          setSido_sgg(val);
+                        }}
+                        data={name["options"]}
+                        save="value"
+                        boxStyles={{ width: screenWidth / 2.5 }}
+                        dropdownStyles={{ height: screenHeight * 0.3 }}
+                        // boxStyles={styles.select_box_style}
+                        // dropdownStyles={styles.select_box_style}
+                      />
+                    </View>
+                  );
+                }
+              })}
+            </View>
+          </View>
         </View>
 
         <View style={styles.next_btn_view}>
-          {sido_sgg != " " ? (
+          {/* {sido_sgg != " " ? (
             <Text
               style={{
                 alignSelf: "center",
                 fontSize: 16,
                 fontWeight: "600",
-                marginBottom: 10,
+                // marginBottom: 10,
               }}
             >
               출발지 : {sido_sgg}
             </Text>
-          ) : null}
+          ) : null} */}
           <Button
             textColor="#FFFFFF"
             buttonColor="#44AD5E"
@@ -316,8 +341,22 @@ function StartingPoint({ navigation }) {
                 ? Alert.alert("출발지를 선택하세요")
                 : nextButtonClick()
             }
+            style={styles.next_btn}
           >
-            Next
+            {sido_sgg != " " ? (
+              <Text
+                style={{
+                  alignSelf: "center",
+                  // fontSize: 16,
+                  // fontWeight: "600",
+                  // marginBottom: 10,
+                }}
+              >
+                출발지 : {sido_sgg}
+              </Text>
+            ) : (
+              <Text>Next</Text>
+            )}
             {loading && (
               <ActivityIndicator style={styles.loading} color={"black"} />
             )}
@@ -451,7 +490,12 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     bottom: 40,
+    // marginBottom: 20,
+    // marginTop: 10,
+    // justifyContent: "center",
+    // alignItems: "center",
   },
+  next_btn: { width: screenWidth - 40 },
   loading: { fontSize: 10, marginLeft: 10 },
 });
 
