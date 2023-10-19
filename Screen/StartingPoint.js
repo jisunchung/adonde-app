@@ -144,7 +144,7 @@ function StartingPoint({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.box}>
-        <MapView style={styles.map} region={region}>
+        <MapView style={[styles.map]} region={region}>
           <Marker
             coordinate={{
               latitude: region.latitude,
@@ -277,7 +277,7 @@ const screenHeight = Dimensions.get("window").height;
 // const MODAL_SELECT_BACK_COLOR = "#F1FCF2";
 //grey
 const MODAL_BACK_COLOR = "#E6E6E6";
-const MODAL_SELECT_BACK_COLOR = "#E0F2F7";
+const MODAL_SELECT_BACK_COLOR = "#FFFFFF";
 
 //blue
 // const MODAL_BACK_COLOR = "#0086B3";
@@ -373,8 +373,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   select_box_style: {
-    // backgroundColor: MODAL_SELECT_BACK_COLOR,
-    // borderColor: MODAL_SELECT_BACK_COLOR,
+    backgroundColor: MODAL_SELECT_BACK_COLOR,
+    borderColor: MODAL_SELECT_BACK_COLOR,
     width: screenWidth / 2,
   },
 
