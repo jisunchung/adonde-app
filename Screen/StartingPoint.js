@@ -21,6 +21,7 @@ import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../api";
 
@@ -225,12 +226,15 @@ function StartingPoint({ navigation }) {
             }}
           >
             {region.latitude != 0 ? (
-              <Pressable
+              <TouchableOpacity
                 onPress={() => CurrentLocationAsStart()}
                 style={styles.current_btn}
               >
-                <Text style={styles.textStyle}>현위치를 출발지로</Text>
-              </Pressable>
+                <Text style={styles.textStyle}>
+                  <FontAwesome5 name="location-arrow" color="white" /> 현위치를
+                  출발지로
+                </Text>
+              </TouchableOpacity>
             ) : null}
             <TouchableOpacity
               style={styles.select_location_btn}
@@ -240,7 +244,7 @@ function StartingPoint({ navigation }) {
                 setSido_sgg(""),
               ]}
             >
-              <Text style={styles.select_location_text}>출발지 선택</Text>
+              <Text style={styles.select_location_text}>출발지 선택하기</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -355,18 +359,17 @@ const styles = StyleSheet.create({
   },
   current_btn: {
     borderRadius: 10,
-    padding: 20,
-    height: screenHeight * 0.072,
-    backgroundColor: "#44AD5E",
+    padding: 15,
+    height: screenHeight * 0.055,
+    backgroundColor: "black",
   },
 
   select_location_btn: {
     borderRadius: 10,
-    padding: 20,
-    height: screenHeight * 0.072,
+    padding: 15,
+    height: screenHeight * 0.055,
     marginLeft: 10,
-
-    backgroundColor: "#44AD5E",
+    backgroundColor: "black",
   },
   select_location_text: {
     color: "white",
