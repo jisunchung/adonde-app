@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   StyleSheet,
   Text,
@@ -115,6 +115,21 @@ function StartingPoint({ navigation }) {
     // console.log("주소 test", add);
   };
 
+  //지도 위치 변경!!!!!
+  // const search = useMemo(() => changeMap(), [sido_sgg]);
+
+  const changeMapPin = async (val) => {
+    try {
+      const res = await axios.post(`${BASE_URL}/city/findOne`, {
+        sido_sgg: val,
+      });
+      console.log("origin region : ", res.data.latitude, res.data.longitude);
+      updateRegion(res.data.latitude, res.data.longitude);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const nextButtonClick = async () => {
     setLoading(true);
     console.log("loading", loading);
@@ -155,60 +170,51 @@ function StartingPoint({ navigation }) {
         </MapView>
         <View
           style={{
+            position: "absolute",
+            alignSelf: "center",
+            top: 20,
+          }}
+        >
+          <View
+            style={[
+              styles.current_location_box,
+              { backgroundColor: "white", padding: 10, borderRadius: 30 },
+            ]}
+          >
+            <View style={styles.location_arrow_back}>
+              <FontAwesome5
+                name="location-arrow"
+                style={{ fontSize: 10 }}
+                color="white"
+              />
+            </View>
+            <Text style={[styles.current_text, { fontSize: 15 }]}>
+              {sido_sgg != " " ? (
+                <Text
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 15,
+                    marginBottom: 10,
+                  }}
+                >
+                  {sido_sgg}
+                </Text>
+              ) : (
+                address
+              )}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
             // backgroundColor: "red",
             // borderRadius: 20,
-            height: screenHeight * 0.2,
+            // height: screenHeight * 0.2,
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>출발지를 선택하세요!</Text>
-                <SelectList
-                  setSelected={(val) => setSido(val)}
-                  data={START_POINT_DATA}
-                  save="value"
-                  boxStyles={styles.select_box_style}
-                  dropdownStyles={styles.select_box_style}
-                />
-                {START_POINT_DATA.map((name, index) => {
-                  if (name["key"] == sido) {
-                    return (
-                      <View style={styles.select_sgg_view} key={index}>
-                        <SelectList
-                          key={index}
-                          setSelected={(val) => {
-                            setSido_sgg(val);
-                            setModalVisible(!modalVisible);
-                          }}
-                          data={name["options"]}
-                          save="value"
-                          boxStyles={styles.select_box_style}
-                          dropdownStyles={styles.select_box_style}
-                        />
-                      </View>
-                    );
-                  }
-                })}
-                <TouchableOpacity
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <AntDesign name="close" style={styles.modal_close_icon} />
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-          <View style={styles.current_location_box}>
+          {/* <View style={styles.current_location_box}>
             <View style={styles.location_arrow_back}>
               <FontAwesome5
                 name="location-arrow"
@@ -217,12 +223,13 @@ function StartingPoint({ navigation }) {
               />
             </View>
             <Text style={styles.current_text}> {address}</Text>
-          </View>
+          </View> */}
 
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
+              paddingVertical: 20,
             }}
           >
             {region.latitude != 0 ? (
@@ -236,6 +243,53 @@ function StartingPoint({ navigation }) {
                 </Text>
               </TouchableOpacity>
             ) : null}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>출발지를 선택하세요!</Text>
+                  <SelectList
+                    setSelected={(val) => setSido(val)}
+                    data={START_POINT_DATA}
+                    save="value"
+                    boxStyles={styles.select_box_style}
+                    dropdownStyles={styles.select_box_style}
+                  />
+                  {START_POINT_DATA.map((name, index) => {
+                    if (name["key"] == sido) {
+                      return (
+                        <View style={styles.select_sgg_view} key={index}>
+                          <SelectList
+                            key={index}
+                            setSelected={(val) => {
+                              setSido_sgg(val);
+                              changeMapPin(val);
+                              setModalVisible(!modalVisible);
+                            }}
+                            data={name["options"]}
+                            save="value"
+                            boxStyles={styles.select_box_style}
+                            dropdownStyles={styles.select_box_style}
+                          />
+                        </View>
+                      );
+                    }
+                  })}
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+                    <AntDesign name="close" style={styles.modal_close_icon} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
             <TouchableOpacity
               style={styles.select_location_btn}
               onPress={() => [
@@ -251,11 +305,11 @@ function StartingPoint({ navigation }) {
       </View>
 
       <View style={styles.next_btn_view}>
-        {sido_sgg != " " ? (
+        {/* {sido_sgg != " " ? (
           <Text style={{ alignSelf: "center", fontSize: 15, marginBottom: 10 }}>
             출발지 : {sido_sgg}
           </Text>
-        ) : null}
+        ) : null} */}
         <Button
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
@@ -313,7 +367,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: screenWidth,
-    height: screenHeight * 0.58,
+    height: screenHeight * 0.7,
     // borderRadius: 10,
     // marginTop: 30,
   },
