@@ -247,6 +247,11 @@ function StartingPoint({ navigation }) {
       </View>
 
       <View style={styles.next_btn_view}>
+        {sido_sgg != " " ? (
+          <Text style={{ alignSelf: "center", fontSize: 15, marginBottom: 10 }}>
+            출발지 : {sido_sgg}
+          </Text>
+        ) : null}
         <Button
           textColor="#FFFFFF"
           buttonColor="#44AD5E"
@@ -257,11 +262,12 @@ function StartingPoint({ navigation }) {
               : nextButtonClick()
           }
         >
-          {sido_sgg != " " ? (
+          {/* {sido_sgg != " " ? (
             <Text style={{ fontWeight: "500" }}>출발지 : {sido_sgg}</Text>
           ) : (
             <Text>Next</Text>
-          )}
+          )} */}
+          Next
           {loading && (
             <ActivityIndicator style={styles.loading} color={"black"} />
           )}
