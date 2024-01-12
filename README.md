@@ -59,14 +59,10 @@
 [리팩토링 과정](https://stop-line-world.tistory.com/category/%EC%96%B4%EB%94%94%EB%93%A0%20%EC%95%B1%20%EA%B0%9C%EB%B0%9C%EA%B8%B0/2%EC%B0%A8%20%EA%B5%AC%ED%98%84)
 
 예시 : 거리 선택 필터를 사용자가 이해하기 쉽도록 지도를 첨부해서 시각화함
-<img width="385" alt="스크린샷 2023-10-16 오전 9 16 27" src="https://github.com/adonde-app/Frontend/assets/65282581/647f5eda-6bc3-4ab6-917d-52fb07be208e">
-<img width="349" alt="스크린샷 2023-10-16 오전 9 16 14" src="https://github.com/adonde-app/Frontend/assets/65282581/1f07374f-4cb8-46dc-82a0-02a8bbc8aad5">
 
 #### 시연 영상
 
 [개발 시연 영상](https://www.youtube.com/watch?v=CnPyl5-3AvI)
-
-#### 직접 실행 해보기
 
 ##### 실행 방법 : expo 앱 다운로드 → 아래 qr코드를 찍어 앱을 열어준다
 
@@ -75,7 +71,7 @@
 
 ---
 
-#### navigation 구조
+## navigation 구조
 
 ```bash
 RootStack
@@ -103,7 +99,7 @@ RootStack
 
 ---
 
-#### 커밋 컨벤션
+## 커밋 컨벤션
 
 ```
 feat : 새로운 기능 추가
