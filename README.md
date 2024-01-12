@@ -1,19 +1,21 @@
 # 어디든 앱 개발
 
+#### 기술 스택 : RN, Expo, Javascript, Node.js, css
+
+#### 본인의 역할 : PM, 프론트엔드, 디자인
+
+#### 팀원 : 백엔드(1명), 프론트엔드(본인)
+
 기존 [어디든 웹 프로젝트](https://github.com/forrestpark/adonde.kr?tab=readme-ov-file) 를 앱으로 만든 프로젝트
-
-기술 스택 : RN, Expo, Javascript, Node.js, css
-
-본인의 역할 : PM, 프론트엔드, 디자인
-
-팀원 : 백엔드(1명), 프론트엔드(본인)
+[어디든 제안서](https://docs.google.com/presentation/d/19gSrCl9YeawCUYTopGqQa_BG0nx8cyeBBjjZqAnwBTw/edit?usp=sharing)
+웹으로 구현한 기본 기능들을 바탕으로 앱만의 차별화를 두기 위해 새로운 기능들을 추가
 
 ### + 앱에서 새로 추가되는 기능
 
     - 수익성을 고려한 광고기능
     - 지역의 날씨데이터
     - 지역 검색기능
-    - shake모션을 이용한 랜덤추천기능
+    - shake모션을 이용한 랜덤추천기능x
 
 #### 유저플로우
 
