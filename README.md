@@ -6,9 +6,15 @@
 
 #### 팀원 : 백엔드(1명), 프론트엔드(본인)
 
+<<<<<<< HEAD
 기존 [어디든 웹 프로젝트](https://github.com/forrestpark/adonde.kr?tab=readme-ov-file) 를 앱으로 만든 프로젝트
 [어디든 제안서](https://docs.google.com/presentation/d/19gSrCl9YeawCUYTopGqQa_BG0nx8cyeBBjjZqAnwBTw/edit?usp=sharing)
 웹으로 구현한 기본 기능들을 바탕으로 앱만의 차별화를 두기 위해 새로운 기능들을 추가
+=======
+기존 [어디든 웹 프로젝트](https://github.com/forrestpark/adonde.kr?tab=readme-ov-file) 를 앱으로 만든 프로젝트 
+
+[웹으로 구현한 기본 기능들](https://docs.google.com/presentation/d/19gSrCl9YeawCUYTopGqQa_BG0nx8cyeBBjjZqAnwBTw/edit?usp=sharing)을 바탕으로 앱만의 차별화를 두기 위해 새로운 기능들을 추가
+>>>>>>> 21d3041 (Update README.md)
 
 ### + 앱에서 새로 추가되는 기능
 
