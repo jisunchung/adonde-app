@@ -1,5 +1,7 @@
 # 어디든 앱 개발
 
+기존 [어디든 웹 프로젝트](https://github.com/forrestpark/adonde.kr?tab=readme-ov-file) 를 앱으로 만든 프로젝트
+
 기술 스택 : RN, Expo, Javascript, Node.js, css
 
 본인의 역할 : PM, 프론트엔드, 디자인
