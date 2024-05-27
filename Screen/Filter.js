@@ -15,7 +15,6 @@ import MapView, { Marker, Circle } from "react-native-maps";
 import { useState } from "react";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import Slider from "@react-native-community/slider";
-// import { Slider } from "@react-native-assets/slider";
 import { useRoute } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 import { FontAwesome5 } from "@expo/vector-icons";
