@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import RootStack from "./Screen/RootStack";
+import RootStack from "./src/Screen/RootStack";
 
 // redux
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import rootReducer from "./redux/reducer";
+import rootReducer from "./src/redux/reducer";
 
 const store = configureStore({
   reducer: rootReducer,
